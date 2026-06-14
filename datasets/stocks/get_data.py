@@ -46,7 +46,7 @@ def get_dataloader(stocks, input_stocks, output_stocks, batch_size=16, train_shu
     except ImportError as exc:
         msg = (
             "The Stocks dataloader requires pandas. Install the finance "
-            "dependencies with `pip install pandas yfinance`."
+            "dependencies with `uv sync --extra finance`."
         )
         raise ImportError(msg) from exc
 
@@ -58,7 +58,7 @@ def get_dataloader(stocks, input_stocks, output_stocks, batch_size=16, train_shu
         except ImportError as exc:
             msg = (
                 "The Stocks dataloader requires yfinance. Install the finance "
-                "dependencies with `pip install pandas yfinance`."
+                "dependencies with `uv sync --extra finance`."
             )
             raise ImportError(msg) from exc
         ticker = yf.Ticker(symbol)
