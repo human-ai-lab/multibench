@@ -23,6 +23,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+finance = [
+    "pandas",
+    "pmdarima",
+    "yfinance",
+]
 test = [
     "pytest",
     "pytest-cov",
