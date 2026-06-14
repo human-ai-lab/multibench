@@ -1,17 +1,24 @@
-"""Implements dataloaders for the robotics datasets."""
+"""Implements dataloaders for the stock datasets."""
 
 from robustness.timeseries_robust import add_timeseries_noise
 import copy
 import datetime
-from posixpath import split
-import io
 import numpy as np
-import pandas as pd
-import requests
 import torch
-from torch.utils.data import DataLoader
 from torch import nn
 from utils.device import get_device
+
+
+def _quantize_timeseries(x, bins=25):
+    """Quantize a time-series window without creating NaNs for constant inputs."""
+    hi = torch.max(x)
+    lo = torch.min(x)
+    span = hi - lo
+    if torch.isclose(span, torch.zeros_like(span)):
+        return x.clone()
+    quantized = (x - lo) * bins / span
+    quantized = torch.round(quantized)
+    return quantized * span / bins + lo
 
 
 def get_dataloader(stocks, input_stocks, output_stocks, batch_size=16, train_shuffle=True, start_date=datetime.datetime(2000, 6, 1), end_date=datetime.datetime(2021, 2, 28), window_size=500, val_split=3200, test_split=3700, modality_first=True, cuda=True):
@@ -34,10 +41,26 @@ def get_dataloader(stocks, input_stocks, output_stocks, batch_size=16, train_shu
     Returns:
         tuple: Tuple of training data-loader, test data-loader, and validation data-loader.
     """
+    try:
+        import pandas as pd
+    except ImportError as exc:
+        msg = (
+            "The Stocks dataloader requires pandas. Install the finance "
+            "dependencies with `pip install pandas yfinance`."
+        )
+        raise ImportError(msg) from exc
+
     stocks = np.array(stocks)
 
     def _fetch_finance_data(symbol, start, end):
-        import yfinance as yf
+        try:
+            import yfinance as yf
+        except ImportError as exc:
+            msg = (
+                "The Stocks dataloader requires yfinance. Install the finance "
+                "dependencies with `pip install pandas yfinance`."
+            )
+            raise ImportError(msg) from exc
         ticker = yf.Ticker(symbol)
         df = ticker.history(start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d'))
         if isinstance(df.index, pd.DatetimeIndex) and df.index.tz is not None:
@@ -89,15 +112,8 @@ def get_dataloader(stocks, input_stocks, output_stocks, batch_size=16, train_shu
         def __getitem__(self, index):
             """Get item from dataset."""
             # Data augmentation
-            def _quantize(x, y):
-                hi = torch.max(x)
-                lo = torch.min(x)
-                x = (x - lo) * 25 / (hi - lo)
-                x = torch.round(x)
-                x = x * (hi - lo) / 25 + lo
-                return x, y
-
-            x, y = _quantize(self.X[index], self.Y[index])
+            x = _quantize_timeseries(self.X[index])
+            y = self.Y[index]
 
             if not modality_first:
                 return x, y
