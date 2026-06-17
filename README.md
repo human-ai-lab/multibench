@@ -71,11 +71,14 @@ uv pip install torch torchvision --index-url https://download.pytorch.org/whl/cp
 uv pip install memory-profiler scikit-learn scipy matplotlib h5py tqdm
 ```
 
-The quickstart examples below also use a few dataset-specific packages:
+The finance examples below also use the optional `finance` dependency group:
 
 ```bash
-uv pip install gdown yfinance pandas pmdarima fannypack "numpy<2"
+uv sync --extra finance
 ```
+
+Other dataset-specific examples may require packages such as `gdown`,
+`fannypack`, or `numpy<2`.
 
 ### Quick example
 
@@ -143,7 +146,7 @@ python examples/robotics/LRTF.py
 python examples/gentle_push/LF.py
 
 # Finance (specify input and target stocks)
-python examples/finance/stocks_late_fusion.py --input-stocks 'AAPL MSFT AMZN INTC AMD MSI' --target-stock 'MSFT'
+uv run --extra finance python examples/finance/stocks_late_fusion.py --input-stocks 'AAPL MSFT AMZN INTC AMD MSI' --target-stock 'MSFT'
 
 # HCI
 python examples/hci/enrico_simple_late_fusion.py

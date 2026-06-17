@@ -23,6 +23,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+finance = [
+    "numpy<2",
+    "pandas",
+    "pmdarima",
+    "yfinance",
+]
 test = [
     "pytest",
     "pytest-cov",
