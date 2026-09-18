@@ -1,0 +1,52 @@
+# Example config for `run_experiment.py --config configs/affect_mosi_late_fusion.yaml`.
+#
+# Reproduces the architecture in examples/affect/affect_late_fusion.py (GRU encoders per
+# modality -> Concat fusion -> MLP head), but trained for binary sentiment classification
+# so the requested evaluation metrics (UA/WA/F1) apply directly.
+#
+# Requires data/affect/mosi_raw.pkl - see README.md "Quick example" for how to fetch it.
+
+dataset:
+  name: affect
+  path: data/affect/mosi_raw.pkl
+  kwargs:
+    data_type: mosi
+    task: classification
+    robust_test: false
+    num_workers: 0
+
+model:
+  features:
+    - type: gru
+      args: [35, 70]
+      kwargs: {dropout: true, has_padding: true, batch_first: true}
+    - type: gru
+      args: [74, 200]
+      kwargs: {dropout: true, has_padding: true, batch_first: true}
+    - type: gru
+      args: [300, 600]
+      kwargs: {dropout: true, has_padding: true, batch_first: true}
+  fusion:
+    type: concat
+  classifier:
+    type: mlp
+    args: [870, 870, 2]
+
+training:
+  task: classification
+  epochs: 20
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  is_packed: true
+  early_stop: true
+  save: results/models/mosi_lf_from_config.pt
+
+evaluation:
+  - UA   # unweighted accuracy: mean of per-class recall, each class weighted equally
+  - WA   # weighted accuracy: standard overall accuracy (== "Accuracy" reported above it)
+  - F1   # macro-averaged F1
+  # UAR (unweighted average recall) is intentionally omitted here: it's the same
+  # computation as UA, just a different name used in some papers - see
+  # eval_scripts/performance.py's compute_metrics for both.

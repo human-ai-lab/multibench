@@ -156,6 +156,80 @@ python examples/multimedia/avmnist_simple_late_fusion.py
 python examples/multimedia/mmimdb_simple_late_fusion.py
 ```
 
+### Running experiments from a YAML config
+
+Instead of writing a Python script, you can describe an experiment - dataset,
+per-modality encoders, fusion, classifier head, training hyperparameters, and
+evaluation metrics - in a YAML file and run it with `run_experiment.py`:
+
+```bash
+python run_experiment.py --config configs/affect_mosi_late_fusion.yaml
+```
+
+See [`configs/affect_mosi_late_fusion.yaml`](configs/affect_mosi_late_fusion.yaml)
+for a full example (it reproduces the architecture in
+`examples/affect/affect_late_fusion.py`). The config has four sections:
+
+```yaml
+dataset:
+  name: affect                       # or `loader: <dotted.path.to.get_dataloader>` for others
+  path: data/affect/mosi_raw.pkl
+  kwargs: {data_type: mosi, task: classification}
+
+model:
+  features:                          # per-modality encoders; from unimodals/common_models.py
+    - {type: gru, args: [35, 70], kwargs: {has_padding: true, batch_first: true}}
+    - {type: gru, args: [74, 200], kwargs: {has_padding: true, batch_first: true}}
+  fusion: {type: concat}             # from fusions/common_fusions.py
+  classifier: {type: mlp, args: [270, 270, 2]}
+
+training:
+  task: classification
+  epochs: 20
+  optimizer: adamw
+  objective: cross_entropy
+  save: results/models/from_config.pt
+
+evaluation: [UA, WA, F1]              # computed on the held-out test set after training
+```
+
+Supported `type`/`optimizer`/`objective` names are listed in the registries at
+the top of `utils/config.py`; unsupported ones raise a clear error listing the
+valid choices. `evaluation` metrics (case-insensitive) are computed via
+`eval_scripts.performance.compute_metrics`: `UA` (unweighted accuracy, i.e.
+macro-averaged per-class recall - each class weighted equally regardless of
+size), `WA` (weighted/standard accuracy, i.e. overall correct/total), and `F1`
+(macro F1) - only applied when `training.task` is `classification`. `UAR`
+(unweighted average recall) is also accepted and is intentionally the *same*
+computation as `UA` - the two names are used interchangeably in the emotion
+recognition literature (Schuller et al., INTERSPEECH 2009 Emotion Challenge),
+so a config only needs one of them.
+
+`name: affect|avmnist` covers the datasets whose `get_dataloader` already returns
+a plain `(train, valid, test)` tuple; every other dataset (`mimic`, `imdb`, `enrico`,
+`stocks`, `robotics`, `gentle_push`, `kinetics`, ...) has a different call signature
+- or, for `enrico`, always builds its test split as a dict of per-noise-level
+dataloaders with no way to opt out - and needs the `loader: <dotted.path>` +
+`args`/`kwargs` form instead (`enrico` specifically isn't usable this way at all
+without an upstream change to `datasets/enrico/get_data.py`). Likewise, any
+encoder/fusion/classifier `type` can be a dotted path (e.g.
+`type: unimodals.MVAE.LeNetEncoder`) instead of one of the short names in
+`ENCODER_REGISTRY`/`FUSION_REGISTRY`, and `args`/`kwargs` entries can themselves be
+nested `{type, args, kwargs}` specs - this is what lets `type: sequential` compose
+child modules (`Sequential(Transpose(...), GRU(...), ...)`), matching patterns used
+throughout `examples/`.
+
+**Limitations:** this only wraps `training_structures.Supervised_Learning`'s
+train/test loop - `gradient_blend`, `architecture_search` (MFAS), `MCTN_Level2` and
+`unimodal` are separate training loops with different call shapes and aren't
+wired in, so scripts built on them (roughly half of `examples/`) can't be expressed
+as YAML yet. There's also no config hook for `additional_optimizing_modules` or
+`objective_args_dict`, so anything needing `objective_functions/` (CCA, contrastive,
+reconstruction losses - used by MVAE/MFM-style scripts) is out of scope, and
+`dataset.kwargs.robust_test: true` is rejected with a clear error rather than
+supported (the noisy-modality robustness sweep needs a different evaluation path
+than this config's single train+test run).
+
 ### Quickest experiments to get started
 
 If you just want to confirm your install works and see the full
