@@ -7,7 +7,7 @@ import torch
 from torch import nn
 from torch.utils.data import DataLoader
 import time
-from eval_scripts.performance import AUPRC, f1_score, accuracy, eval_affect
+from eval_scripts.performance import AUPRC, f1_score, accuracy, eval_affect, compute_metrics
 from eval_scripts.complexity import all_in_one_train, all_in_one_test
 from eval_scripts.robustness import relative_robustness, effective_robustness, single_plot
 from utils.device import get_device
@@ -286,7 +286,8 @@ def single_test(
         criterion: nn.Module = nn.CrossEntropyLoss(),
         task: str = "classification",
         auprc: bool = False,
-        input_to_float: bool = True) -> Dict[str, float]:
+        input_to_float: bool = True,
+        metrics: Optional[List[str]] = None) -> Dict[str, float]:
     """Run single test for model.
 
     Args:
@@ -297,7 +298,14 @@ def single_test(
         task (str, optional): Task to evaluate. Choose between "classification", "multiclass", "regression", "posneg-classification". Defaults to "classification".
         auprc (bool, optional): Whether to get AUPRC scores or not. Defaults to False.
         input_to_float (bool, optional): Whether to convert inputs to float before processing. Defaults to True.
+        metrics (List[str], optional): Extra named classification metrics to compute and merge into the
+            returned dict (see eval_scripts.performance.compute_metrics for supported names). Only
+            applied when task == "classification". Defaults to None.
     """
+    if metrics and task != "classification":
+        raise ValueError(
+            f"metrics={metrics!r} requires task='classification', got task={task!r}")
+
     def _processinput(inp):
         if input_to_float:
             return inp.float()
@@ -359,7 +367,10 @@ def single_test(
             print("AUPRC: "+str(AUPRC(pts)))
         if task == "classification":
             print("acc: "+str(accuracy(true, pred)))
-            return {'Accuracy': accuracy(true, pred)}
+            result = {'Accuracy': accuracy(true, pred)}
+            if metrics:
+                result.update(compute_metrics(true, pred, metrics))
+            return result
         elif task == "multilabel":
             print(" f1_micro: "+str(f1_score(true, pred, average="micro")) +
                   " f1_macro: "+str(f1_score(true, pred, average="macro")))
@@ -386,21 +397,23 @@ def test(
         task: str = "classification",
         auprc: bool = False,
         input_to_float: bool = True,
-        no_robust: bool = False) -> None:
+        no_robust: bool = False,
+        metrics: Optional[List[str]] = None) -> Optional[Dict[str, float]]:
     """
     Handle getting test results for a simple supervised training loop.
-    
+
     :param model: saved checkpoint filename from train
     :param test_dataloaders_all: test data
     :param dataset: the name of dataset, need to be set for testing effective robustness
-    :param criterion: only needed for regression, put MSELoss there   
+    :param criterion: only needed for regression, put MSELoss there
+    :param metrics: extra named classification metrics to compute (see single_test). Only used
+        when no_robust=True; ignored (and None returned) when running the robustness sweep.
     """
     if no_robust:
         def _testprocess():
-            single_test(model, test_dataloaders_all, is_packed,
-                        criterion, task, auprc, input_to_float)
-        all_in_one_test(_testprocess, [model])
-        return
+            return single_test(model, test_dataloaders_all, is_packed,
+                                criterion, task, auprc, input_to_float, metrics)
+        return all_in_one_test(_testprocess, [model])
 
     def _testprocess():
         single_test(model, test_dataloaders_all[list(test_dataloaders_all.keys())[
