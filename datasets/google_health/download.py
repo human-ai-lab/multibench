@@ -13,6 +13,13 @@ already-materialized local arrays rather than downloading at train time.
 Requires the `google_health` extra (`pip install -e .[google_health]`) and a Kaggle API
 token at `~/.kaggle/kaggle.json` (see https://www.kaggle.com/docs/api#authentication).
 
+Note on runtime: resolving each chest X-ray's participant requires one request per
+candidate image (see `build_image_index`'s docstring), and Kaggle's per-file download
+endpoint 404s nondeterministically on the large majority of attempts - empirically, getting
+`max_samples` matches can mean scanning several hundred candidates at ~1 request/second.
+Expect minutes, not seconds, even for a small `--max-samples`; `image_index.csv` caches
+progress so a second run resumes rather than rescanning.
+
 Usage:
     python -m datasets.google_health.download --output data/google_health/tb_dataset.pkl \
         --max-samples 80
@@ -87,7 +94,7 @@ def list_dataset_files() -> List[str]:
     return names
 
 
-def _fetch_patient_id(image_relative_path: str, creds: dict, retries: int = 3) -> Optional[str]:
+def _fetch_patient_id(image_relative_path: str, creds: dict, retries: int = 1, timeout: float = 12.0) -> Optional[str]:
     import requests
 
     pydicom = _require("pydicom")
@@ -99,16 +106,17 @@ def _fetch_patient_id(image_relative_path: str, creds: dict, retries: int = 3) -
                 auth=(creds["username"], creds["key"]),
                 headers={"Range": f"bytes=0-{_HEADER_RANGE_BYTES - 1}"},
                 allow_redirects=True,
-                timeout=30,
+                timeout=timeout,
             )
             if r.status_code not in (200, 206):
                 raise RuntimeError(f"HTTP {r.status_code}")
             ds = pydicom.dcmread(io.BytesIO(r.content), stop_before_pixels=True, force=True)
             return str(ds.PatientID)
-        except Exception:
+        except Exception as e:
             if attempt == retries - 1:
+                print(f"    WARN: giving up on {image_relative_path}: {e}")
                 return None
-            time.sleep(2.0 * (attempt + 1))
+            time.sleep(1.0)
 
 
 def build_image_index(
@@ -116,16 +124,20 @@ def build_image_index(
     target_anon_ids: Optional[set] = None,
     stop_after: Optional[int] = None,
     seed: int = 42,
-    request_delay: float = 1.0,
+    request_delay: float = 0.5,
+    max_scan: int = 1000,
     cache_path: str = IMAGE_INDEX_CACHE,
 ) -> Dict[str, str]:
     """Map `anon_id -> image relative path` by reading each DICOM's PatientID header tag.
 
-    One request at a time (a small delay between each) rather than concurrent - Kaggle's
-    per-file download endpoint appears to rate-limit/temporarily block bursts of parallel
-    requests. If `target_anon_ids` is given, stops as soon as matches for all of them (or
-    `stop_after` of them) are found, since only ~36% of images belong to a participant with
-    audio - scanning a random subset finds them well before scanning all ~1828 files.
+    One request at a time (a small delay between each) rather than concurrent - bursts of
+    parallel requests against Kaggle's per-file download endpoint triggered a temporary
+    block earlier. Separately, and unrelated to concurrency: individual per-file downloads
+    against this endpoint 404 nondeterministically (~90% of the time, empirically - not a
+    permissions or rate-limit issue, since the *same* file succeeds on a later attempt) -
+    so this scans more candidates than the naive "36% of images belong to an audio-having
+    participant" estimate would suggest, and always stops after `max_scan` attempts so a
+    bad run terminates rather than scanning indefinitely.
     Progress is appended to `cache_path` as it goes, so an interrupted run can be resumed
     (already-cached filenames are skipped).
     """
@@ -154,15 +166,22 @@ def build_image_index(
         for n_scanned, idx in enumerate(order, start=1):
             if target_anon_ids is not None and _matched_targets() >= (stop_after or len(target_anon_ids)):
                 break
+            if n_scanned > max_scan:
+                print(f"  reached max_scan={max_scan} without finding all requested matches; "
+                      f"continuing with {_matched_targets()} found.")
+                break
             path = remaining[idx]
+            t0 = time.monotonic()
             patient_id = _fetch_patient_id(path, creds)
+            elapsed = time.monotonic() - t0
             if patient_id is not None:
                 anon_id_to_path[patient_id] = path
                 writer.writerow([path, patient_id])
                 f.flush()
-            if n_scanned % 25 == 0:
-                print(f"  scanned {n_scanned}/{len(remaining)} images, "
-                      f"{_matched_targets()} target matches so far...")
+            if n_scanned % 5 == 0 or elapsed > 5.0:
+                print(f"  scanned {n_scanned}/{len(remaining)} images "
+                      f"(last took {elapsed:.1f}s), {_matched_targets()} target matches so far...",
+                      flush=True)
             time.sleep(request_delay)
     return anon_id_to_path
 
@@ -252,9 +271,14 @@ def build_dataset(
 
     print("Resolving participant <-> chest X-ray mapping (image_index.csv)...")
     target_anon_ids = set(df["anon_id"].astype(str))
-    # Only need a pool a bit larger than max_samples to stratify by label from - not every
-    # audio-having participant, which would mean scanning most/all of the 1828 images.
-    pool_size = min(len(target_anon_ids), max(max_samples * 3, 60))
+    # In principle only ~36% of images belong to an audio-having participant, so a modest
+    # oversampling margin would be enough to stratify by label from - but Kaggle's per-file
+    # download endpoint 404s nondeterministically on ~90% of attempts (empirically; the same
+    # file often succeeds on a later attempt), so getting even `max_samples` matches already
+    # means scanning several hundred candidates. Don't inflate the target further - accept
+    # whatever label balance results (build_dataset's stratified split falls back gracefully
+    # if one class ends up tiny).
+    pool_size = min(len(target_anon_ids), max_samples)
     anon_id_to_image = load_or_build_image_index(
         image_paths, target_anon_ids=target_anon_ids, stop_after=pool_size,
     )
