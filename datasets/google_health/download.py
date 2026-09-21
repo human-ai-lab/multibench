@@ -124,8 +124,9 @@ def build_image_index(
     target_anon_ids: Optional[set] = None,
     stop_after: Optional[int] = None,
     seed: int = 42,
-    request_delay: float = 0.5,
-    max_scan: int = 1000,
+    request_delay: float = 0.3,
+    max_scan: int = 100_000,
+    max_wall_seconds: float = 2 * 3600,
     cache_path: str = IMAGE_INDEX_CACHE,
 ) -> Dict[str, str]:
     """Map `anon_id -> image relative path` by reading each DICOM's PatientID header tag.
@@ -134,12 +135,16 @@ def build_image_index(
     parallel requests against Kaggle's per-file download endpoint triggered a temporary
     block earlier. Separately, and unrelated to concurrency: individual per-file downloads
     against this endpoint 404 nondeterministically (~90% of the time, empirically - not a
-    permissions or rate-limit issue, since the *same* file succeeds on a later attempt) -
-    so this scans more candidates than the naive "36% of images belong to an audio-having
-    participant" estimate would suggest, and always stops after `max_scan` attempts so a
-    bad run terminates rather than scanning indefinitely.
+    permissions or rate-limit issue, since the *same* file succeeds on a later, independent
+    attempt). Because of that, this makes repeated passes over whatever's still unresolved
+    (every successful decode - target-matching or not - is cached and excluded from later
+    passes) rather than a single sweep, since one pass only resolves ~10% of files. Stops
+    when `stop_after` matches are found, or `max_scan` total attempts or `max_wall_seconds`
+    elapse, whichever comes first - `max_scan`/`max_wall_seconds` exist so a run asking for
+    (near-)complete coverage still terminates, not to speed up a small-sample run.
     Progress is appended to `cache_path` as it goes, so an interrupted run can be resumed
-    (already-cached filenames are skipped).
+    (already-cached filenames are skipped) - including by a fresh invocation of this
+    function, which is exactly what looping passes here does internally.
     """
     import json as json_lib
 
@@ -147,42 +152,59 @@ def build_image_index(
         creds = json_lib.load(f)
 
     anon_id_to_path = load_cached_image_index(cache_path)
-    already_scanned = set(anon_id_to_path.values())
-    remaining = [p for p in image_paths if p not in already_scanned]
-    rng = np.random.default_rng(seed)
-    order = rng.permutation(len(remaining))
 
     def _matched_targets():
         if target_anon_ids is None:
             return 0
         return len(target_anon_ids & set(anon_id_to_path))
 
+    def _goal_met():
+        return target_anon_ids is not None and _matched_targets() >= (stop_after or len(target_anon_ids))
+
     file_exists = os.path.exists(cache_path)
     os.makedirs(os.path.dirname(cache_path) or ".", exist_ok=True)
+    start_time = time.monotonic()
+    total_scanned = 0
+    n_pass = 0
     with open(cache_path, "a", newline="") as f:
         writer = csv.writer(f)
         if not file_exists:
             writer.writerow(["filename", "patient_id"])
-        for n_scanned, idx in enumerate(order, start=1):
-            if target_anon_ids is not None and _matched_targets() >= (stop_after or len(target_anon_ids)):
+        while not _goal_met():
+            already_scanned = set(anon_id_to_path.values())
+            remaining = [p for p in image_paths if p not in already_scanned]
+            if not remaining:
+                print("  every image has been resolved; nothing left to scan.")
                 break
-            if n_scanned > max_scan:
-                print(f"  reached max_scan={max_scan} without finding all requested matches; "
-                      f"continuing with {_matched_targets()} found.")
-                break
-            path = remaining[idx]
-            t0 = time.monotonic()
-            patient_id = _fetch_patient_id(path, creds)
-            elapsed = time.monotonic() - t0
-            if patient_id is not None:
-                anon_id_to_path[patient_id] = path
-                writer.writerow([path, patient_id])
-                f.flush()
-            if n_scanned % 5 == 0 or elapsed > 5.0:
-                print(f"  scanned {n_scanned}/{len(remaining)} images "
-                      f"(last took {elapsed:.1f}s), {_matched_targets()} target matches so far...",
-                      flush=True)
-            time.sleep(request_delay)
+            n_pass += 1
+            rng = np.random.default_rng(seed + n_pass)
+            order = rng.permutation(len(remaining))
+            print(f"  pass {n_pass}: {len(remaining)} unresolved images left to try...", flush=True)
+            for idx in order:
+                if _goal_met():
+                    break
+                total_scanned += 1
+                if total_scanned > max_scan:
+                    print(f"  reached max_scan={max_scan} total attempts; "
+                          f"continuing with {_matched_targets()} matches found.")
+                    return anon_id_to_path
+                if time.monotonic() - start_time > max_wall_seconds:
+                    print(f"  reached max_wall_seconds={max_wall_seconds:.0f}; "
+                          f"continuing with {_matched_targets()} matches found.")
+                    return anon_id_to_path
+                path = remaining[idx]
+                t0 = time.monotonic()
+                patient_id = _fetch_patient_id(path, creds)
+                elapsed = time.monotonic() - t0
+                if patient_id is not None:
+                    anon_id_to_path[patient_id] = path
+                    writer.writerow([path, patient_id])
+                    f.flush()
+                if total_scanned % 25 == 0 or elapsed > 5.0:
+                    print(f"  scanned {total_scanned} images total ({len(anon_id_to_path)} resolved, "
+                          f"last took {elapsed:.1f}s), {_matched_targets()} target matches so far...",
+                          flush=True)
+                time.sleep(request_delay)
     return anon_id_to_path
 
 
@@ -197,6 +219,7 @@ def load_or_build_image_index(
     image_paths: List[str],
     target_anon_ids: Optional[set] = None,
     stop_after: Optional[int] = None,
+    max_wall_seconds: float = 2 * 3600,
     cache_path: str = IMAGE_INDEX_CACHE,
 ) -> Dict[str, str]:
     cached = load_cached_image_index(cache_path)
@@ -207,7 +230,8 @@ def load_or_build_image_index(
     print(f"Resolving chest X-ray filenames for {len(target_anon_ids) if target_anon_ids else 'all'} "
           f"participants ({n_cached_matches} already cached at {cache_path})...")
     return build_image_index(
-        image_paths, target_anon_ids=target_anon_ids, stop_after=stop_after, cache_path=cache_path,
+        image_paths, target_anon_ids=target_anon_ids, stop_after=stop_after,
+        max_wall_seconds=max_wall_seconds, cache_path=cache_path,
     )
 
 
@@ -246,6 +270,7 @@ def build_dataset(
     test_frac: float = 0.15,
     image_size: int = 64,
     audio_bins: int = 64,
+    max_wall_seconds: float = 2 * 3600,
 ):
     """Download a stratified sample and write the preprocessed pickle `get_data.py` reads."""
     pd = _require("pandas")
@@ -281,6 +306,7 @@ def build_dataset(
     pool_size = min(len(target_anon_ids), max_samples)
     anon_id_to_image = load_or_build_image_index(
         image_paths, target_anon_ids=target_anon_ids, stop_after=pool_size,
+        max_wall_seconds=max_wall_seconds,
     )
     df = df[df["anon_id"].astype(str).isin(anon_id_to_image)]
 
@@ -328,10 +354,15 @@ def build_dataset(
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", default="data/google_health/tb_dataset.pkl")
-    parser.add_argument("--max-samples", type=int, default=80)
+    parser.add_argument("--max-samples", type=int, default=80,
+                         help="Pass a number >= the audio-having cohort size (664) for 'all of them'.")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--max-wall-seconds", type=float, default=2 * 3600,
+                         help="Wall-clock budget for resolving chest X-ray filenames before giving up "
+                              "and continuing with whatever was found.")
     args = parser.parse_args()
-    build_dataset(args.output, max_samples=args.max_samples, seed=args.seed)
+    build_dataset(args.output, max_samples=args.max_samples, seed=args.seed,
+                  max_wall_seconds=args.max_wall_seconds)
 
 
 if __name__ == "__main__":
