@@ -22,8 +22,12 @@ model:
       args: [16, 32, 16]
     - type: mlp                  # cough audio, log-spectral summary
       args: [64, 64, 32]
-    - type: lenet                # chest X-ray, 1x64x64 -> [B, 128]
+    - type: lenet                # chest X-ray, 1x64x64 -> [B, 128, 1, 1]
       args: [1, 4, 5]
+      kwargs: {squeeze_output: false}  # LeNet's default squeeze() also drops the batch
+                                        # dim on a size-1 batch (e.g. an uneven last batch);
+                                        # Concat's flatten(start_dim=1) handles [B,128,1,1]
+                                        # correctly at any batch size, so keep it unsqueezed.
   fusion:
     type: concat
   classifier:
