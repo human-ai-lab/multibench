@@ -171,6 +171,7 @@ AGENTS.md
 
 # Local cache built by datasets/google_health/download.py - not a repo asset
 datasets/google_health/image_index.csv
+datasets/google_health/file_list_cache.txt
 
 # Virtual environments
 .venv/

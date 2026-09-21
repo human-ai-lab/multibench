@@ -76,8 +76,20 @@ def _download_file(kagglehub, relative_path: str) -> str:
     return kagglehub.dataset_download(DATASET_REF, path=relative_path)
 
 
-def list_dataset_files() -> List[str]:
-    """List every file in the dataset (paginated; a few thousand entries, no downloads)."""
+FILE_LIST_CACHE = os.path.join(os.path.dirname(__file__), "file_list_cache.txt")
+
+
+def list_dataset_files(cache_path: str = FILE_LIST_CACHE) -> List[str]:
+    """List every file in the dataset (paginated; a few thousand entries, no downloads).
+
+    The file listing is static, so it's cached to disk - re-running this every restart of
+    `build_dataset` was hitting Kaggle's rate limit on the listing endpoint (a separate
+    quota from the per-file download endpoint).
+    """
+    if os.path.exists(cache_path):
+        with open(cache_path) as f:
+            return [line.rstrip("\n") for line in f]
+
     kaggle_api_mod = _require("kaggle.api.kaggle_api_extended", "google_health")
     api = kaggle_api_mod.KaggleApi()
     api.authenticate()
@@ -91,6 +103,8 @@ def list_dataset_files() -> List[str]:
         page_token = getattr(resp, "next_page_token", None)
         if not page_token:
             break
+    with open(cache_path, "w") as f:
+        f.write("\n".join(names) + "\n")
     return names
 
 
