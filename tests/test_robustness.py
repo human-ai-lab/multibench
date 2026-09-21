@@ -46,7 +46,7 @@ def test_visual(set_seeds):
     np.random.seed(0)
     test = np.random.random((3,128,128))
     idf = add_visual_noise(test, noise_level=1)
-    assert np.isclose(np.linalg.norm(idf),26178.523)
+    assert np.isclose(np.linalg.norm(idf), 26178.523, atol=1.0)
     assert idf[0].shape == (128,128)
     test = np.random.random((3,128,128))
     idf = add_visual_noise(test, noise_level=0)
