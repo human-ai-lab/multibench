@@ -324,34 +324,56 @@ def build_dataset(
     ]).sample(frac=1, random_state=seed).reset_index(drop=True)
     print(f"Sampled {len(sampled)} participants ({n_pos} pos / {n_neg} neg).")
 
-    text_feats, audio_feats, image_feats, labels = [], [], [], []
+    checkpoint_path = output + ".checkpoint.pkl"
+    done: Dict[str, dict] = {}
+    if os.path.exists(checkpoint_path):
+        with open(checkpoint_path, "rb") as f:
+            done = pickle.load(f)
+        print(f"Resuming from checkpoint: {len(done)}/{len(sampled)} samples already done.")
+
+    def _save_checkpoint():
+        with open(checkpoint_path, "wb") as f:
+            pickle.dump(done, f)
+
     n_skipped = 0
     for i, (_, row) in enumerate(sampled.iterrows(), start=1):
+        barcode = row["barcode"]
+        if barcode in done:
+            continue
         for attempt in range(3):
             try:
-                audio_path = _download_file(kagglehub, audio_by_barcode[row["barcode"]])
+                audio_path = _download_file(kagglehub, audio_by_barcode[barcode])
                 sr, waveform = wavfile.read(audio_path)
                 image_path = _download_file(kagglehub, anon_id_to_image[str(row["anon_id"])])
                 ds = pydicom.dcmread(image_path)
 
-                text_feats.append(extract_text_features(row.to_dict()))
-                audio_feats.append(extract_audio_features(waveform, n_bins=audio_bins))
-                image_feats.append(extract_image_features(ds.pixel_array, size=image_size))
-                labels.append(encode_label(row["ground_truth_tb"]))
+                done[barcode] = {
+                    "text": extract_text_features(row.to_dict()),
+                    "audio": extract_audio_features(waveform, n_bins=audio_bins),
+                    "image": extract_image_features(ds.pixel_array, size=image_size),
+                    "label": encode_label(row["ground_truth_tb"]),
+                }
                 break
             except Exception as e:
                 if attempt == 2:
-                    print(f"  WARN: skipping {row['barcode']} after 3 failed attempts: {e}")
+                    print(f"  WARN: skipping {barcode} after 3 failed attempts: {e}")
+                    done[barcode] = None  # remembered as permanently skipped, not retried
                     n_skipped += 1
                 else:
                     time.sleep(5.0 * (attempt + 1))
-        if i % 20 == 0:
-            print(f"  downloaded {i}/{len(sampled)} samples ({n_skipped} skipped)...", flush=True)
+        if i % 10 == 0:
+            _save_checkpoint()
+            print(f"  downloaded {i}/{len(sampled)} samples ({n_skipped} skipped this run)...", flush=True)
         time.sleep(0.3)
-    if n_skipped:
-        print(f"Skipped {n_skipped}/{len(sampled)} samples after repeated download failures.")
+    _save_checkpoint()
+    n_skipped_total = sum(1 for v in done.values() if v is None)
+    if n_skipped_total:
+        print(f"Skipped {n_skipped_total}/{len(sampled)} samples total after repeated download failures.")
 
-    text_feats, audio_feats, image_feats, labels = map(np.stack, (text_feats, audio_feats, image_feats, labels))
+    usable = [v for v in done.values() if v is not None]
+    text_feats, audio_feats, image_feats, labels = map(
+        np.stack, zip(*[(d["text"], d["audio"], d["image"], d["label"]) for d in usable])
+    )
     labels = np.asarray(labels, dtype=np.int64)
 
     train_idx, val_idx, test_idx = _stratified_split(labels, val_frac, test_frac, seed)
