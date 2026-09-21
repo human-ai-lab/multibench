@@ -205,7 +205,7 @@ computation as `UA` - the two names are used interchangeably in the emotion
 recognition literature (Schuller et al., INTERSPEECH 2009 Emotion Challenge),
 so a config only needs one of them.
 
-`name: affect|avmnist` covers the datasets whose `get_dataloader` already returns
+`name: affect|avmnist|google_health` covers the datasets whose `get_dataloader` already returns
 a plain `(train, valid, test)` tuple; every other dataset (`mimic`, `imdb`, `enrico`,
 `stocks`, `robotics`, `gentle_push`, `kinetics`, ...) has a different call signature
 - or, for `enrico`, always builds its test split as a dict of per-noise-level
@@ -229,6 +229,30 @@ reconstruction losses - used by MVAE/MFM-style scripts) is out of scope, and
 `dataset.kwargs.robust_test: true` is rejected with a clear error rather than
 supported (the noisy-modality robustness sweep needs a different evaluation path
 than this config's single train+test run).
+
+### Google + CIDRZ Health AI (TB screening, audio + image + text)
+
+[`configs/google_health_tb.yaml`](configs/google_health_tb.yaml) runs TB classification
+on the [Google + CIDRZ Health AI Evaluation Zambia](https://www.kaggle.com/datasets/googlehealthai/google-health-ai)
+dataset, fusing three modalities per participant: clinical/demographic fields (text),
+a cough recording (audio), and a chest X-ray (image). The label is the study's own
+culture/Xpert-confirmed TB reference standard (`ground_truth_tb`), not Google's AI
+predictions - those columns are dropped as features to avoid leaking the target.
+
+```bash
+uv sync --extra google_health
+# Requires a Kaggle API token at ~/.kaggle/kaggle.json (kaggle.com -> Account -> Create New API Token)
+python -m datasets.google_health.download --output data/google_health/tb_dataset.pkl --max-samples 80
+python run_experiment.py --config configs/google_health_tb.yaml
+```
+
+`download.py` downloads only a small stratified sample (not the full 83.9GB dataset):
+it matches participants who have audio, an image, and a valid label via the barcode
+(audio) and the DICOM `PatientID` tag (image, read via a byte-range request so full
+pixel data isn't downloaded just to resolve the filename), then extracts fixed-size
+features per modality (`datasets/google_health/features.py`) into a single pickle that
+`get_data.get_dataloader` loads directly - see its module docstring for the on-disk
+format if you want to build your own preprocessing instead.
 
 ### Quickest experiments to get started
 

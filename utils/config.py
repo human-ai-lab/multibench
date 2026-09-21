@@ -129,6 +129,7 @@ OBJECTIVE_REGISTRY = {
 DATASET_REGISTRY = {
     "affect": "datasets.affect.get_data.get_dataloader",
     "avmnist": "datasets.avmnist.get_data.get_dataloader",
+    "google_health": "datasets.google_health.get_data.get_dataloader",
 }
 # Not registered: datasets.enrico.get_data.get_dataloader always builds its test split as
 # an unconditional dict of per-noise-level dataloaders (see its `dl_test = dict()` /

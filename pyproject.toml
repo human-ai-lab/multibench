@@ -30,6 +30,12 @@ finance = [
     "pmdarima",
     "yfinance",
 ]
+google_health = [
+    "pandas",
+    "pydicom",
+    "kaggle",
+    "kagglehub",
+]
 test = [
     "pytest",
     "pytest-cov",

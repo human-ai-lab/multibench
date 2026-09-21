@@ -1,0 +1,47 @@
+# Example config for `run_experiment.py --config configs/google_health_tb.yaml`.
+#
+# TB screening on the Google + CIDRZ Health AI Evaluation Zambia dataset
+# (https://www.kaggle.com/datasets/googlehealthai/google-health-ai), combining three
+# modalities per participant: clinical/demographic fields (text), a cough recording
+# (audio) and a chest X-ray (image). Ground truth is `ground_truth_tb` (culture/Xpert
+# confirmed TB), not Google's own AI predictions - those columns are excluded as features.
+#
+# Requires data/google_health/tb_dataset.pkl - build it first with:
+#   pip install -e '.[google_health]'
+#   python -m datasets.google_health.download --output data/google_health/tb_dataset.pkl
+
+dataset:
+  name: google_health
+  path: data/google_health/tb_dataset.pkl
+  kwargs:
+    batch_size: 8
+
+model:
+  features:
+    - type: mlp                  # clinical/demographic fields
+      args: [16, 32, 16]
+    - type: mlp                  # cough audio, log-spectral summary
+      args: [64, 64, 32]
+    - type: lenet                # chest X-ray, 1x64x64 -> [B, 128]
+      args: [1, 4, 5]
+  fusion:
+    type: concat
+  classifier:
+    type: mlp
+    args: [176, 128, 2]
+
+training:
+  task: classification
+  epochs: 15
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  is_packed: false
+  early_stop: true
+  save: results/models/google_health_tb_from_config.pt
+
+evaluation:
+  - UA
+  - WA
+  - F1

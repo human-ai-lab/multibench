@@ -169,6 +169,9 @@ dmypy.json
 CLAUDE.md
 AGENTS.md
 
+# Local cache built by datasets/google_health/download.py - not a repo asset
+datasets/google_health/image_index.csv
+
 # Virtual environments
 .venv/
 venv/
