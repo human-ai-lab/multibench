@@ -325,16 +325,31 @@ def build_dataset(
     print(f"Sampled {len(sampled)} participants ({n_pos} pos / {n_neg} neg).")
 
     text_feats, audio_feats, image_feats, labels = [], [], [], []
-    for _, row in sampled.iterrows():
-        audio_path = _download_file(kagglehub, audio_by_barcode[row["barcode"]])
-        sr, waveform = wavfile.read(audio_path)
-        image_path = _download_file(kagglehub, anon_id_to_image[str(row["anon_id"])])
-        ds = pydicom.dcmread(image_path)
+    n_skipped = 0
+    for i, (_, row) in enumerate(sampled.iterrows(), start=1):
+        for attempt in range(3):
+            try:
+                audio_path = _download_file(kagglehub, audio_by_barcode[row["barcode"]])
+                sr, waveform = wavfile.read(audio_path)
+                image_path = _download_file(kagglehub, anon_id_to_image[str(row["anon_id"])])
+                ds = pydicom.dcmread(image_path)
 
-        text_feats.append(extract_text_features(row.to_dict()))
-        audio_feats.append(extract_audio_features(waveform, n_bins=audio_bins))
-        image_feats.append(extract_image_features(ds.pixel_array, size=image_size))
-        labels.append(encode_label(row["ground_truth_tb"]))
+                text_feats.append(extract_text_features(row.to_dict()))
+                audio_feats.append(extract_audio_features(waveform, n_bins=audio_bins))
+                image_feats.append(extract_image_features(ds.pixel_array, size=image_size))
+                labels.append(encode_label(row["ground_truth_tb"]))
+                break
+            except Exception as e:
+                if attempt == 2:
+                    print(f"  WARN: skipping {row['barcode']} after 3 failed attempts: {e}")
+                    n_skipped += 1
+                else:
+                    time.sleep(5.0 * (attempt + 1))
+        if i % 20 == 0:
+            print(f"  downloaded {i}/{len(sampled)} samples ({n_skipped} skipped)...", flush=True)
+        time.sleep(0.3)
+    if n_skipped:
+        print(f"Skipped {n_skipped}/{len(sampled)} samples after repeated download failures.")
 
     text_feats, audio_feats, image_feats, labels = map(np.stack, (text_feats, audio_feats, image_feats, labels))
     labels = np.asarray(labels, dtype=np.int64)
