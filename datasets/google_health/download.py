@@ -37,6 +37,11 @@ import numpy as np
 from .features import encode_label, extract_audio_features, extract_image_features, extract_text_features
 
 DATASET_REF = "googlehealthai/google-health-ai"
+# Pinning the version means kagglehub's dataset_download skips an extra "get current
+# version" API call per file (a separate quota from the download endpoint itself, and one
+# that got rate-limited on its own after repeated calls - one per file downloaded).
+DATASET_VERSION = 18
+DATASET_REF_VERSIONED = f"{DATASET_REF}/versions/{DATASET_VERSION}"
 METADATA_PATH = "Metadata and Codebook/Metadata and Codebook/GHAI_Final_Data_2023.csv"
 IMAGE_DIR = "Google_AI_Anonymized_images/Google_AI_Anonymized_images"
 FACILITY_TO_AUDIO_DIR = {
@@ -73,7 +78,7 @@ def _kaggle_auth():
 
 def _download_file(kagglehub, relative_path: str) -> str:
     """Download one file from the dataset and return its local path."""
-    return kagglehub.dataset_download(DATASET_REF, path=relative_path)
+    return kagglehub.dataset_download(DATASET_REF_VERSIONED, path=relative_path)
 
 
 FILE_LIST_CACHE = os.path.join(os.path.dirname(__file__), "file_list_cache.txt")
