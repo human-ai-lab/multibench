@@ -1,7 +1,8 @@
-torch  
-torchvision  
+torch
+torchvision
 memory-profiler
 scikit-learn
 matplotlib
 h5py
 tqdm
+pyyaml
