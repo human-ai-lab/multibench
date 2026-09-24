@@ -36,6 +36,11 @@ google_health = [
     "kaggle",
     "kagglehub",
 ]
+google_health_hear = [
+    "multibench[google_health]",
+    "transformers",
+    "huggingface_hub",
+]
 test = [
     "pytest",
     "pytest-cov",

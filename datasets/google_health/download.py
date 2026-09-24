@@ -34,7 +34,13 @@ from typing import Dict, List, Optional
 
 import numpy as np
 
-from .features import encode_label, extract_audio_features, extract_image_features, extract_text_features
+from .features import (
+    encode_label,
+    extract_audio_features,
+    extract_image_features,
+    extract_image_features_pretrained,
+    extract_text_features,
+)
 
 DATASET_REF = "googlehealthai/google-health-ai"
 # Pinning the version means kagglehub's dataset_download skips an extra "get current
@@ -48,6 +54,17 @@ FACILITY_TO_AUDIO_DIR = {
     "Kan": "Audio-Recorder-Kanyama",
     "Cha": "Audio-Recorder-Chawama",
     "Chai": "Audio-Recorder-Chainda-South",
+}
+# The study recorded each participant on up to 4 devices simultaneously (see the dataset's
+# own description: "664 participants... via 4 devices"): the professional recorder above
+# (~281 files total) plus 3 phone tiers (~940 more files) - using only the recorder caps the
+# usable cohort at ~245 (audio + valid label). Listed in quality-preference order per
+# facility; `build_dataset(include_phone_audio=True)` picks the first available per
+# participant, which is how a participant recorded on, say, Phone B only still gets included.
+FACILITY_TO_AUDIO_DIRS_ALL_DEVICES = {
+    "Kan": ["Audio-Recorder-Kanyama", "Kanyama Phone A", "Kanyama Phone B", "Kanyama Phone C"],
+    "Cha": ["Audio-Recorder-Chawama", "Chawama Phone A", "Chawama Phone B", "Chawama Phone C"],
+    "Chai": ["Audio-Recorder-Chainda-South", "Chainda South Phone A", "Chainda South Phone B", "Chainda South Phone C"],
 }
 
 # The image files' names carry no relation to the participant they belong to - the only
@@ -287,25 +304,69 @@ def build_dataset(
     seed: int = 42,
     val_frac: float = 0.15,
     test_frac: float = 0.15,
-    image_size: int = 64,
+    image_size: Optional[int] = None,
     audio_bins: int = 64,
+    audio_encoder: str = "mel",
+    image_encoder: str = "vgg11_slim",
+    include_phone_audio: bool = False,
     max_wall_seconds: float = 2 * 3600,
 ):
-    """Download a stratified sample and write the preprocessed pickle `get_data.py` reads."""
+    """Download a stratified sample and write the preprocessed pickle `get_data.py` reads.
+
+    `image_encoder` selects the image feature style: "vgg11_slim" (default) produces
+    3-channel, ImageNet-normalized, `image_size`x`image_size` (224 by default) tensors for
+    an ImageNet-pretrained encoder; "lenet" produces single-channel, min-max-normalized
+    tensors (64x64 by default) for a from-scratch CNN. Must match `configs/*.yaml`'s
+    `model.features` image encoder `type`.
+
+    `audio_encoder` selects the audio feature style: "mel" (default) is the dependency-light
+    hand-rolled log-mel filterbank in `features.py`; "hear" uses Google's pretrained HeAR
+    model (`hear_features.py`) for a 512-dim embedding - requires the `google_health_hear`
+    extra and a Hugging Face account that has accepted HeAR's gated license (see
+    `hear_features.py`'s module docstring). Must match `configs/*.yaml`'s `model.features`
+    audio encoder `args` (512 for "hear", `audio_bins` for "mel").
+
+    `include_phone_audio` widens the usable cohort from ~245 (professional-recorder audio
+    only) to up to ~664 (recorder + 3 phone tiers, first available per participant in
+    quality order) - substantially more scanning cost (many more candidate images need
+    resolving), so it defaults to False. See `FACILITY_TO_AUDIO_DIRS_ALL_DEVICES`.
+    """
     pd = _require("pandas")
     pydicom = _require("pydicom")
     kagglehub = _kaggle_auth()
     from scipy.io import wavfile
 
+    if audio_encoder == "hear":
+        from .hear_features import extract_hear_features
+        audio_feature_fn = lambda waveform, sr: extract_hear_features(waveform, sr)
+    else:
+        audio_feature_fn = lambda waveform, sr: extract_audio_features(waveform, sr, n_bins=audio_bins)
+
+    if image_size is None:
+        image_size = 224 if image_encoder == "vgg11_slim" else 64
+    image_feature_fn = extract_image_features_pretrained if image_encoder == "vgg11_slim" else extract_image_features
+
     print("Listing dataset files...")
     all_files = list_dataset_files()
     audio_by_barcode: Dict[str, str] = {}
-    for facility_dir in FACILITY_TO_AUDIO_DIR.values():
-        prefix = f"{facility_dir}/"
-        for name in all_files:
-            if name.startswith(prefix) and name.lower().endswith(".wav"):
-                barcode = os.path.splitext(os.path.basename(name))[0]
-                audio_by_barcode.setdefault(barcode, name)
+    if include_phone_audio:
+        # Priority order per facility: recorder first, then phone tiers - a barcode already
+        # found (setdefault) keeps its highest-priority device even if it also appears under
+        # a lower-priority one.
+        for dirs in FACILITY_TO_AUDIO_DIRS_ALL_DEVICES.values():
+            for facility_dir in dirs:
+                prefix = f"{facility_dir}/"
+                for name in all_files:
+                    if name.startswith(prefix) and name.lower().endswith(".wav"):
+                        barcode = os.path.splitext(os.path.basename(name))[0]
+                        audio_by_barcode.setdefault(barcode, name)
+    else:
+        for facility_dir in FACILITY_TO_AUDIO_DIR.values():
+            prefix = f"{facility_dir}/"
+            for name in all_files:
+                if name.startswith(prefix) and name.lower().endswith(".wav"):
+                    barcode = os.path.splitext(os.path.basename(name))[0]
+                    audio_by_barcode.setdefault(barcode, name)
     image_paths = [n for n in all_files if n.startswith(IMAGE_DIR) and n.endswith(".dcm")]
 
     print("Downloading metadata table...")
@@ -368,8 +429,8 @@ def build_dataset(
 
                 done[barcode] = {
                     "text": extract_text_features(row.to_dict()),
-                    "audio": extract_audio_features(waveform, n_bins=audio_bins),
-                    "image": extract_image_features(ds.pixel_array, size=image_size),
+                    "audio": audio_feature_fn(waveform, sr),
+                    "image": image_feature_fn(ds.pixel_array, size=image_size),
                     "label": encode_label(row["ground_truth_tb"]),
                 }
                 break
@@ -413,11 +474,21 @@ def main():
     parser.add_argument("--max-samples", type=int, default=80,
                          help="Pass a number >= the audio-having cohort size (664) for 'all of them'.")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--image-encoder", choices=["vgg11_slim", "lenet"], default="vgg11_slim",
+                         help="Must match the image encoder `type` in the YAML config that will read this pickle.")
+    parser.add_argument("--audio-encoder", choices=["mel", "hear"], default="mel",
+                         help="'hear' requires the google_health_hear extra and a Hugging Face account that "
+                              "has accepted google/hear-pytorch's gated license.")
+    parser.add_argument("--include-phone-audio", action="store_true",
+                         help="Widen the cohort from ~245 to up to ~664 by also using the 3 phone-tier "
+                              "audio folders, not just the professional recorder. Much more scanning cost.")
     parser.add_argument("--max-wall-seconds", type=float, default=2 * 3600,
                          help="Wall-clock budget for resolving chest X-ray filenames before giving up "
                               "and continuing with whatever was found.")
     args = parser.parse_args()
     build_dataset(args.output, max_samples=args.max_samples, seed=args.seed,
+                  image_encoder=args.image_encoder, audio_encoder=args.audio_encoder,
+                  include_phone_audio=args.include_phone_audio,
                   max_wall_seconds=args.max_wall_seconds)
 
 
