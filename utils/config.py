@@ -250,11 +250,21 @@ def build_optimizer_type(training_cfg: Dict[str, Any]) -> type:
     return OPTIMIZER_REGISTRY[name]
 
 
-def build_objective(training_cfg: Dict[str, Any]) -> nn.Module:
+def build_objective(training_cfg: Dict[str, Any], device: Optional[torch.device] = None) -> nn.Module:
+    """Build the training objective from `training.objective` (+ optional `objective_kwargs`).
+
+    `objective_kwargs.weight` (a list of per-class weights, e.g. inverse class frequency for
+    an imbalanced dataset) is converted to a tensor and moved to `device` automatically -
+    `nn.CrossEntropyLoss`/`nn.BCEWithLogitsLoss` otherwise reject a plain list.
+    """
     name = str(training_cfg.get("objective", "cross_entropy")).lower()
     if name not in OBJECTIVE_REGISTRY:
         raise ValueError(f"Unknown objective '{name}'. Supported: {sorted(OBJECTIVE_REGISTRY)}")
-    return OBJECTIVE_REGISTRY[name]()
+    kwargs = dict(training_cfg.get("objective_kwargs", {}))
+    if "weight" in kwargs:
+        weight = torch.tensor(kwargs["weight"], dtype=torch.float32)
+        kwargs["weight"] = weight.to(device) if device is not None else weight
+    return OBJECTIVE_REGISTRY[name](**kwargs)
 
 
 def run(config: Dict[str, Any]) -> Optional[Dict[str, float]]:
@@ -276,7 +286,7 @@ def run(config: Dict[str, Any]) -> Optional[Dict[str, float]]:
     is_packed = training_cfg.get("is_packed", False)
     save_path = training_cfg.get("save", "results/models/from_config.pt")
     optimizer_type = build_optimizer_type(training_cfg)
-    objective = build_objective(training_cfg)
+    objective = build_objective(training_cfg, device)
 
     model_cfg = config["model"]
     encoders = build_encoders(model_cfg, device)

@@ -79,6 +79,22 @@ def test_build_objective_unknown_raises():
         build_objective({"objective": "not_an_objective"})
 
 
+def test_build_objective_with_class_weight():
+    objective = build_objective({"objective": "cross_entropy", "objective_kwargs": {"weight": [0.5, 2.0]}})
+
+    assert isinstance(objective, torch.nn.CrossEntropyLoss)
+    assert torch.allclose(objective.weight, torch.tensor([0.5, 2.0]))
+
+
+def test_build_objective_with_class_weight_moves_to_device():
+    objective = build_objective(
+        {"objective": "cross_entropy", "objective_kwargs": {"weight": [0.5, 2.0]}},
+        device=torch.device("cpu"),
+    )
+
+    assert objective.weight.device == torch.device("cpu")
+
+
 def test_build_dataloaders_unknown_dataset_raises():
     with pytest.raises(ValueError, match="Unknown dataset"):
         build_dataloaders({"name": "not_a_dataset"})

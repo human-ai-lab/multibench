@@ -41,6 +41,12 @@ training:
   lr: 0.001
   weight_decay: 0.01
   objective: cross_entropy
+  # Inverse-frequency class weights on the train split (130 neg / 24 pos out of 154):
+  # 154/(2*130)=0.59, 154/(2*24)=3.21. Without this, plain cross-entropy's easiest
+  # low-loss solution at ~15.5% positive rate is "always predict negative" - which is
+  # exactly the majority-class collapse the unweighted baseline hit (UA=0.5, F1=0.459).
+  objective_kwargs:
+    weight: [0.59, 3.21]
   is_packed: false
   early_stop: true
   save: results/models/google_health_tb_from_config.pt
