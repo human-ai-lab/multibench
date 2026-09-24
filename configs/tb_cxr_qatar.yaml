@@ -1,0 +1,50 @@
+# Example config for `run_experiment.py --config configs/tb_cxr_qatar.yaml`.
+#
+# Single-modality (chest X-ray only) TB classification on the Qatar University TB Chest
+# X-ray Database (https://www.kaggle.com/datasets/tawsifurrahman/tuberculosis-tb-chest-xray-dataset,
+# 4,200 images: 3,500 normal / 700 tuberculosis-positive). Built as a larger-scale
+# counterpart to configs/google_health_tb.yaml: that dataset's real bottleneck for TB
+# classification was sample size (364 participants, only 42 TB-positive in training) - this
+# one has 16x more positive examples at a similar ~17% positive rate, testing whether the
+# same encoder/training choices clear a materially higher accuracy once data isn't the
+# constraint.
+#
+# Requires data/tb_cxr_qatar/tb_cxr_qatar.pkl - build it first with:
+#   pip install -e '.[google_health]'
+#   python -m datasets.tb_cxr_qatar.download --output data/tb_cxr_qatar/tb_cxr_qatar.pkl
+
+dataset:
+  name: tb_cxr_qatar
+  path: data/tb_cxr_qatar/tb_cxr_qatar.pkl
+  kwargs:
+    batch_size: 16
+
+model:
+  features:
+    - type: vgg11_slim           # chest X-ray, 3x224x224 (ImageNet-pretrained, frozen
+      args: [128]                # backbone, small trainable head) -> [B, 128]
+  fusion:
+    type: concat                 # single modality - Concat just flattens/passes it through
+  classifier:
+    type: mlp
+    args: [128, 64, 2]
+
+training:
+  task: classification
+  epochs: 15
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  # Inverse-frequency class weights - recompute (n/(2*n_neg), n/(2*n_pos)) from the actual
+  # train split's printed class counts if you rebuild the dataset with a different seed.
+  objective_kwargs:
+    weight: [0.6, 3.0]   # placeholder - updated after the first real build's train counts
+  is_packed: false
+  early_stop: true
+  save: results/models/tb_cxr_qatar_from_config.pt
+
+evaluation:
+  - UA
+  - WA
+  - F1
