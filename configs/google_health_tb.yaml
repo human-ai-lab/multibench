@@ -39,15 +39,16 @@ training:
   lr: 0.001
   weight_decay: 0.01
   objective: cross_entropy
-  # Inverse-frequency class weights on the train split (191 neg / 39 pos out of 230):
-  # 230/(2*191)=0.60, 230/(2*39)=2.95. Without this, plain cross-entropy's easiest
-  # low-loss solution at ~17% positive rate is "always predict negative" - which is
-  # exactly the majority-class collapse the unweighted baseline hit (UA=0.5, F1=0.459).
+  # Inverse-frequency class weights on the train split (212 neg / 42 pos out of 254 -
+  # the full resolvable cohort: 364 participants with audio (any of the 4 devices) and a
+  # valid label). 254/(2*212)=0.60, 254/(2*42)=3.02. Without this, plain cross-entropy's
+  # easiest low-loss solution at ~16.5% positive rate is "always predict negative" - which
+  # is exactly the majority-class collapse the unweighted baseline hit (UA=0.5, F1=0.459).
   # Recompute these two numbers (n/(2*n_neg), n/(2*n_pos)) if you rebuild the dataset
   # with a different --max-samples/--include-phone-audio - they're specific to this
   # dataset's train split size and class balance, not a general-purpose constant.
   objective_kwargs:
-    weight: [0.602, 2.949]
+    weight: [0.599, 3.024]
   is_packed: false
   early_stop: true
   save: results/models/google_health_tb_from_config.pt
