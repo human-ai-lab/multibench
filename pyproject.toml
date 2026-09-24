@@ -41,6 +41,10 @@ google_health_hear = [
     "transformers",
     "huggingface_hub",
 ]
+google_health_xrv = [
+    "multibench[google_health]",
+    "torchxrayvision",
+]
 test = [
     "pytest",
     "pytest-cov",

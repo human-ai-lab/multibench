@@ -8,7 +8,8 @@
 #
 # Requires data/google_health/tb_dataset.pkl - build it first with:
 #   pip install -e '.[google_health]'
-#   python -m datasets.google_health.download --output data/google_health/tb_dataset.pkl
+#   python -m datasets.google_health.download --output data/google_health/tb_dataset.pkl \
+#       --include-phone-audio --max-samples 364
 
 dataset:
   name: google_health
@@ -26,6 +27,17 @@ model:
       args: [128]                # backbone, small trainable head) -> [B, 128]. Requires
                                   # data/google_health/tb_dataset.pkl built with
                                   # --image-encoder vgg11_slim (the default).
+                                  #
+                                  # Tried datasets.google_health.xrv_encoder.XRVDenseNetEncoder
+                                  # (torchxrayvision's DenseNet121, pretrained on real chest
+                                  # X-rays rather than generic ImageNet) expecting a domain-
+                                  # match win - measured worse instead: UA 0.560+-0.038 vs
+                                  # vgg11_slim's 0.632+-0.052 (5 seeds each, matched
+                                  # regularization). Kept as an available, non-default
+                                  # encoder (datasets/google_health/xrv_encoder.py) since
+                                  # the result may not generalize to other configurations,
+                                  # but don't assume domain-specific pretraining beats
+                                  # generic ImageNet transfer without measuring it here.
   fusion:
     type: concat
   classifier:

@@ -48,20 +48,46 @@ def _select_loudest_window(mono16k: np.ndarray, window: int = _CLIP_SAMPLES, hop
     return mono16k[best_start:best_start + window]
 
 
-def extract_hear_features(waveform: np.ndarray, sr: float, model: Optional[object] = None) -> np.ndarray:
-    """Embed a cough recording with HeAR: resample to 16kHz mono, take the loudest 2-second
-    window, run through the pretrained encoder, and return its 512-dim pooled embedding.
+def _segment_into_windows(mono16k: np.ndarray, window: int = _CLIP_SAMPLES) -> np.ndarray:
+    """Split the whole clip into non-overlapping `window`-sample segments (zero-padding the
+    last one), rather than picking a single window - uses the full recording instead of
+    discarding everything outside one 2-second slice. Returns (n_windows, window)."""
+    n_windows = max(1, int(np.ceil(len(mono16k) / window)))
+    padded_len = n_windows * window
+    if len(mono16k) < padded_len:
+        mono16k = np.pad(mono16k, (0, padded_len - len(mono16k)))
+    return mono16k[:padded_len].reshape(n_windows, window)
+
+
+def extract_hear_features(
+    waveform: np.ndarray, sr: float, model: Optional[object] = None, pooling: str = "loudest",
+) -> np.ndarray:
+    """Embed a cough recording with HeAR and return its 512-dim embedding.
+
+    `pooling`:
+    - "loudest" (default, cheap: 1 forward pass): pick the single loudest 2-second window.
+    - "mean_windows" (more thorough: ceil(duration/2s) forward passes): split the whole
+      clip into non-overlapping 2-second windows, embed each, and mean-pool - uses the full
+      recording rather than a 2-second slice of a clip that can run up to ~13s.
     """
     import torch
 
     if waveform.ndim > 1:
         waveform = waveform.mean(axis=-1)
     mono16k = resample_audio_and_convert_to_mono(waveform.astype(np.float32), sr, HEAR_SAMPLE_RATE)
+    model = model or _load_model()
+
+    if pooling == "mean_windows":
+        windows = _segment_into_windows(mono16k)
+        audio_t = torch.from_numpy(windows.astype(np.float32))
+        spectrogram = preprocess_audio(audio_t)
+        with torch.no_grad():
+            out = model(spectrogram, return_dict=True)
+        return out.pooler_output.mean(dim=0).numpy().astype(np.float32)
+
     clip = _select_loudest_window(mono16k)
     audio_t = torch.from_numpy(clip.astype(np.float32)).unsqueeze(0)
     spectrogram = preprocess_audio(audio_t)
-
-    model = model or _load_model()
     with torch.no_grad():
         out = model(spectrogram, return_dict=True)
     return out.pooler_output[0].numpy().astype(np.float32)

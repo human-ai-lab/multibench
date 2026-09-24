@@ -134,11 +134,33 @@ def extract_image_features_pretrained(pixel_array: np.ndarray, size: int = 224) 
     return ((rgb - IMAGENET_MEAN[:, None, None]) / IMAGENET_STD[:, None, None]).astype(np.float32)
 
 
+def extract_image_features_xrv(pixel_array: np.ndarray, size: int = 224) -> np.ndarray:
+    """Prepare a chest X-ray for `xrv_encoder.XRVDenseNetEncoder` (torchxrayvision's
+    DenseNet121, pretrained on real chest X-rays - NIH/CheXpert/MIMIC-CXR/PadChest - not
+    generic ImageNet like `extract_image_features_pretrained`'s `vgg11_slim` path).
+
+    Resizes to `size`, single channel, and scales to ~[-1024, 1024] per torchxrayvision's
+    own `xrv.utils.normalize` convention, which its pretrained weights expect.
+    """
+    from PIL import Image
+
+    arr = pixel_array.astype(np.float32)
+    arr -= arr.min()
+    peak = arr.max()
+    if peak > 0:
+        arr /= peak
+    img = Image.fromarray((arr * 255).astype(np.uint8)).resize((size, size), Image.BILINEAR)
+    gray = np.asarray(img, dtype=np.float32)  # 0-255
+    normalized = (2 * (gray / 255.0) - 1.0) * 1024
+    return normalized[None, :, :].astype(np.float32)  # (1, size, size)
+
+
 def extract_image_features(pixel_array: np.ndarray, size: int = 64) -> np.ndarray:
     """Normalize and downsize a chest X-ray pixel array to a fixed (1, size, size) tensor.
 
     For the `lenet` (trained-from-scratch) image encoder; see `extract_image_features_pretrained`
-    for the `vgg11_slim` (ImageNet-pretrained) path.
+    for the `vgg11_slim` (ImageNet-pretrained) path, or `extract_image_features_xrv` for the
+    `xrv` (chest-X-ray-domain-pretrained) path.
     """
     from PIL import Image
 

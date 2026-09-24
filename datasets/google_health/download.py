@@ -39,6 +39,7 @@ from .features import (
     extract_audio_features,
     extract_image_features,
     extract_image_features_pretrained,
+    extract_image_features_xrv,
     extract_text_features,
 )
 
@@ -315,9 +316,12 @@ def build_dataset(
 
     `image_encoder` selects the image feature style: "vgg11_slim" (default) produces
     3-channel, ImageNet-normalized, `image_size`x`image_size` (224 by default) tensors for
-    an ImageNet-pretrained encoder; "lenet" produces single-channel, min-max-normalized
-    tensors (64x64 by default) for a from-scratch CNN. Must match `configs/*.yaml`'s
-    `model.features` image encoder `type`.
+    an ImageNet-pretrained encoder; "xrv" produces single-channel, [-1024,1024]-normalized
+    224x224 tensors for `xrv_encoder.XRVDenseNetEncoder` (torchxrayvision's DenseNet121,
+    pretrained on real chest X-rays - a better domain match than ImageNet, requires the
+    `google_health_xrv` extra); "lenet" produces single-channel, min-max-normalized tensors
+    (64x64 by default) for a from-scratch CNN. Must match `configs/*.yaml`'s `model.features`
+    image encoder `type`.
 
     `audio_encoder` selects the audio feature style: "mel" (default) is the dependency-light
     hand-rolled log-mel filterbank in `features.py`; "hear" uses Google's pretrained HeAR
@@ -338,13 +342,16 @@ def build_dataset(
 
     if audio_encoder == "hear":
         from .hear_features import extract_hear_features
-        audio_feature_fn = lambda waveform, sr: extract_hear_features(waveform, sr)
+        audio_feature_fn = lambda waveform, sr: extract_hear_features(waveform, sr, pooling="mean_windows")
     else:
         audio_feature_fn = lambda waveform, sr: extract_audio_features(waveform, sr, n_bins=audio_bins)
 
     if image_size is None:
-        image_size = 224 if image_encoder == "vgg11_slim" else 64
-    image_feature_fn = extract_image_features_pretrained if image_encoder == "vgg11_slim" else extract_image_features
+        image_size = 224 if image_encoder in ("vgg11_slim", "xrv") else 64
+    image_feature_fn = {
+        "vgg11_slim": extract_image_features_pretrained,
+        "xrv": extract_image_features_xrv,
+    }.get(image_encoder, extract_image_features)
 
     print("Listing dataset files...")
     all_files = list_dataset_files()
@@ -474,7 +481,7 @@ def main():
     parser.add_argument("--max-samples", type=int, default=80,
                          help="Pass a number >= the audio-having cohort size (664) for 'all of them'.")
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--image-encoder", choices=["vgg11_slim", "lenet"], default="vgg11_slim",
+    parser.add_argument("--image-encoder", choices=["vgg11_slim", "xrv", "lenet"], default="vgg11_slim",
                          help="Must match the image encoder `type` in the YAML config that will read this pickle.")
     parser.add_argument("--audio-encoder", choices=["mel", "hear"], default="mel",
                          help="'hear' requires the google_health_hear extra and a Hugging Face account that "
