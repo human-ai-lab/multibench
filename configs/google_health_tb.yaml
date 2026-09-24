@@ -22,12 +22,10 @@ model:
       args: [16, 32, 16]
     - type: mlp                  # cough audio, log-spectral summary
       args: [64, 64, 32]
-    - type: lenet                # chest X-ray, 1x64x64 -> [B, 128, 1, 1]
-      args: [1, 4, 5]
-      kwargs: {squeeze_output: false}  # LeNet's default squeeze() also drops the batch
-                                        # dim on a size-1 batch (e.g. an uneven last batch);
-                                        # Concat's flatten(start_dim=1) handles [B,128,1,1]
-                                        # correctly at any batch size, so keep it unsqueezed.
+    - type: vgg11_slim           # chest X-ray, 3x224x224 (ImageNet-pretrained, frozen
+      args: [128]                # backbone, small trainable head) -> [B, 128]. Requires
+                                  # data/google_health/tb_dataset.pkl built with
+                                  # --image-encoder vgg11_slim (the default).
   fusion:
     type: concat
   classifier:
@@ -41,12 +39,15 @@ training:
   lr: 0.001
   weight_decay: 0.01
   objective: cross_entropy
-  # Inverse-frequency class weights on the train split (130 neg / 24 pos out of 154):
-  # 154/(2*130)=0.59, 154/(2*24)=3.21. Without this, plain cross-entropy's easiest
-  # low-loss solution at ~15.5% positive rate is "always predict negative" - which is
+  # Inverse-frequency class weights on the train split (191 neg / 39 pos out of 230):
+  # 230/(2*191)=0.60, 230/(2*39)=2.95. Without this, plain cross-entropy's easiest
+  # low-loss solution at ~17% positive rate is "always predict negative" - which is
   # exactly the majority-class collapse the unweighted baseline hit (UA=0.5, F1=0.459).
+  # Recompute these two numbers (n/(2*n_neg), n/(2*n_pos)) if you rebuild the dataset
+  # with a different --max-samples/--include-phone-audio - they're specific to this
+  # dataset's train split size and class balance, not a general-purpose constant.
   objective_kwargs:
-    weight: [0.59, 3.21]
+    weight: [0.602, 2.949]
   is_packed: false
   early_stop: true
   save: results/models/google_health_tb_from_config.pt
