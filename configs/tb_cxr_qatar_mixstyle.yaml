@@ -1,0 +1,48 @@
+# Example config for `run_experiment.py --config configs/tb_cxr_qatar_mixstyle.yaml`.
+#
+# Same as configs/tb_cxr_qatar.yaml, except the image encoder is
+# datasets.tb_cxr_qatar.mixstyle.VGG11SlimMixStyle instead of vgg11_slim: MixStyle (Zhou et
+# al., ICLR 2021) randomly mixes per-instance feature-map style statistics across the batch
+# during training, which a TB-specific domain-generalization paper reports closing large
+# cross-dataset gaps (66%->89% Shenzhen, 71%->78% Pakistan TB). Built to test whether it
+# helps this project's own cross-dataset gap: trained here on Qatar, evaluated zero-shot on
+# CIDRZ (see datasets/tb_cxr_qatar/cross_dataset_eval.py) collapsed from UA 0.973
+# in-distribution to UA 0.527 with the plain vgg11_slim encoder.
+#
+# Requires data/tb_cxr_qatar/tb_cxr_qatar.pkl - build it first with:
+#   pip install -e '.[google_health]'
+#   python -m datasets.tb_cxr_qatar.download --output data/tb_cxr_qatar/tb_cxr_qatar.pkl
+
+dataset:
+  name: tb_cxr_qatar
+  path: data/tb_cxr_qatar/tb_cxr_qatar.pkl
+  kwargs:
+    batch_size: 16
+
+model:
+  features:
+    - type: datasets.tb_cxr_qatar.mixstyle.VGG11SlimMixStyle
+      args: [128]
+  fusion:
+    type: concat
+  classifier:
+    type: mlp
+    args: [128, 64, 2]
+
+training:
+  task: classification
+  epochs: 15
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  objective_kwargs:
+    weight: [0.6, 3.0]
+  is_packed: false
+  early_stop: true
+  save: results/models/tb_cxr_qatar_mixstyle_from_config.pt
+
+evaluation:
+  - UA
+  - WA
+  - F1
