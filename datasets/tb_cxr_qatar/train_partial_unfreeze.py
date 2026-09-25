@@ -23,22 +23,9 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
 from datasets.tb_cxr_qatar.cross_dataset_analysis import evaluate, print_result
-from datasets.tb_cxr_qatar.partial_unfreeze import VGG11SlimPartialUnfreeze
+from datasets.tb_cxr_qatar.partial_unfreeze import VGG11SlimPartialUnfreeze, Wrapped
 from unimodals.common_models import MLP
 from utils.device import get_device
-
-
-class _Wrapped(nn.Module):
-    """`torch.save` pickles by reference to a module-level class - a class defined inside
-    `main()` fails with `AttributeError: Can't pickle local object 'main.<locals>._Wrapped'`."""
-
-    def __init__(self, encoder, head):
-        super().__init__()
-        self.encoder = encoder
-        self.head = head
-
-    def forward(self, inputs):
-        return self.head(self.encoder(inputs[0]))
 
 
 def _load_split(path: str, split: str) -> TensorDataset:
@@ -121,7 +108,7 @@ def main():
     encoder.load_state_dict(best_state["encoder"])
     head.load_state_dict(best_state["head"])
 
-    wrapped = _Wrapped(encoder, head).to(device)
+    wrapped = Wrapped(encoder, head).to(device)
     torch.save(wrapped, args.save)
     print(f"saved best checkpoint (valid_acc={best_valid_acc:.4f}) to {args.save}")
 

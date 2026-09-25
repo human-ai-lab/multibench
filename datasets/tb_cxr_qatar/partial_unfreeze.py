@@ -21,6 +21,25 @@ import torch.nn as nn
 from unimodals.common_models import VGG11Slim
 
 
+class Wrapped(nn.Module):
+    """Combines the (partially-unfrozen) encoder and head into one module for
+    `torch.save`. Lives here - a module never run as `__main__` - rather than in
+    `train_partial_unfreeze.py`, because a class defined in a script run via
+    `python -m ...` is pickled as belonging to `__main__`, which only resolves back to
+    that same class when the SAME script is the one doing the loading; any other script
+    (e.g. `tta_eval.py`) fails with `AttributeError: Can't get attribute '_Wrapped' on
+    module '<that other script>'`, since `__main__` refers to whichever script is
+    currently running."""
+
+    def __init__(self, encoder, head):
+        super().__init__()
+        self.encoder = encoder
+        self.head = head
+
+    def forward(self, inputs):
+        return self.head(self.encoder(inputs[0]))
+
+
 class VGG11SlimPartialUnfreeze(VGG11Slim):
     def __init__(self, hiddim: int, dropout: bool = True, dropoutp: float = 0.2,
                  pretrained: bool = True, unfreeze_last_n_stages: int = 1):
