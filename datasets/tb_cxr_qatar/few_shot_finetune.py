@@ -109,6 +109,11 @@ def _fresh_imagenet_encoder(device):
             self.avgpool = backbone.avgpool
 
         def forward(self, x):
+            # `adapt_batchnorm` (shared with the full MMDL model) calls `model([tensor])`,
+            # matching MMDL's list-of-modalities convention; `extract_features` here calls
+            # `encoder(tensor)` directly. Accept both.
+            if isinstance(x, (list, tuple)):
+                x = x[0]
             x = self.features(x)
             x = self.avgpool(x)
             return torch.flatten(x, 1)

@@ -28,6 +28,19 @@ from unimodals.common_models import MLP
 from utils.device import get_device
 
 
+class _Wrapped(nn.Module):
+    """`torch.save` pickles by reference to a module-level class - a class defined inside
+    `main()` fails with `AttributeError: Can't pickle local object 'main.<locals>._Wrapped'`."""
+
+    def __init__(self, encoder, head):
+        super().__init__()
+        self.encoder = encoder
+        self.head = head
+
+    def forward(self, inputs):
+        return self.head(self.encoder(inputs[0]))
+
+
 def _load_split(path: str, split: str) -> TensorDataset:
     with open(path, "rb") as f:
         data = pickle.load(f)
@@ -107,15 +120,6 @@ def main():
 
     encoder.load_state_dict(best_state["encoder"])
     head.load_state_dict(best_state["head"])
-
-    class _Wrapped(nn.Module):
-        def __init__(self, encoder, head):
-            super().__init__()
-            self.encoder = encoder
-            self.head = head
-
-        def forward(self, inputs):
-            return self.head(self.encoder(inputs[0]))
 
     wrapped = _Wrapped(encoder, head).to(device)
     torch.save(wrapped, args.save)
