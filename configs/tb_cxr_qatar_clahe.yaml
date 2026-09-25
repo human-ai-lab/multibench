@@ -1,0 +1,44 @@
+# Same as configs/tb_cxr_qatar.yaml, but trained on CLAHE-preprocessed images (see
+# datasets/tb_cxr_qatar/clahe_preprocess.py) - tests whether normalizing local contrast
+# (reducing cross-scanner exposure/windowing differences) narrows the Qatar->CIDRZ
+# cross-dataset gap (see cross_dataset_analysis.py for the evaluation harness; must be run
+# against data/google_health/tb_dataset_clahe.pkl for a fair, matched-preprocessing
+# comparison - evaluating a CLAHE-trained model on the un-CLAHE'd CIDRZ pickle would just
+# reintroduce a preprocessing mismatch).
+#
+# Requires data/tb_cxr_qatar/tb_cxr_qatar_clahe.pkl and data/google_health/tb_dataset_clahe.pkl:
+#   python -m datasets.tb_cxr_qatar.clahe_preprocess
+
+dataset:
+  name: tb_cxr_qatar
+  path: data/tb_cxr_qatar/tb_cxr_qatar_clahe.pkl
+  kwargs:
+    batch_size: 16
+
+model:
+  features:
+    - type: vgg11_slim
+      args: [128]
+  fusion:
+    type: concat
+  classifier:
+    type: mlp
+    args: [128, 64, 2]
+
+training:
+  task: classification
+  epochs: 15
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  objective_kwargs:
+    weight: [0.6, 3.0]
+  is_packed: false
+  early_stop: true
+  save: results/models/tb_cxr_qatar_clahe_from_config.pt
+
+evaluation:
+  - UA
+  - WA
+  - F1
