@@ -15,10 +15,19 @@ selection, same as normal), then evaluates the trained model on ALL 364 CIDRZ im
 (train+valid+test pooled, since none of them were used for training here - the whole CIDRZ
 dataset is legitimately held-out).
 
+`--augment` swaps the training loader for `augmented_dataset.AugmentedQatarTrainDataset`
+(random resized crop, flip, affine jitter, brightness/contrast jitter, Gaussian noise -
+applied fresh every epoch, pixel-level, before the frozen backbone). Motivated by
+`mixstyle.py`'s failure on this same task: that technique perturbs intermediate feature
+statistics, which only survives if something downstream can adapt to compensate - with a
+frozen backbone and a single trainable Linear layer, it collapsed training to chance-level.
+Pixel-level augmentation instead varies the input itself, requiring no backbone plasticity.
+
 Usage:
     python -m datasets.tb_cxr_qatar.cross_dataset_eval \
         --qatar-config configs/tb_cxr_qatar.yaml \
-        --cidrz-path data/google_health/tb_dataset.pkl
+        --cidrz-path data/google_health/tb_dataset.pkl \
+        [--augment]
 """
 import argparse
 import pickle
@@ -51,6 +60,9 @@ def main():
     parser.add_argument("--qatar-config", default="configs/tb_cxr_qatar.yaml")
     parser.add_argument("--cidrz-path", default="data/google_health/tb_dataset.pkl")
     parser.add_argument("--save", default="results/models/tb_cxr_qatar_to_cidrz.pt")
+    parser.add_argument("--augment", action="store_true",
+                         help="Use on-the-fly pixel-level augmentation for the training split "
+                              "(augmented_dataset.AugmentedQatarTrainDataset) instead of the static pickle.")
     args = parser.parse_args()
 
     config = load_config(args.qatar_config)
@@ -64,6 +76,11 @@ def main():
 
     print("Training on Qatar TB CXR (train split; valid split for checkpoint selection)...")
     traindata, validdata, _ = build_dataloaders(config["dataset"])
+    if args.augment:
+        from datasets.tb_cxr_qatar.augmented_dataset import AugmentedQatarTrainDataset
+        print("  using on-the-fly pixel-level augmentation for the training split")
+        batch_size = config["dataset"].get("kwargs", {}).get("batch_size", 16)
+        traindata = DataLoader(AugmentedQatarTrainDataset(), batch_size=batch_size, shuffle=True)
     _train(
         encoders, fusion, classifier, traindata, validdata,
         total_epochs=config["training"].get("epochs", 10), task="classification",
