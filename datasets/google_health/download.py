@@ -272,6 +272,17 @@ def load_or_build_image_index(
     )
 
 
+def dicom_pixels(ds) -> np.ndarray:
+    """Pixel array with display polarity fixed: MONOCHROME1 stores bright-as-low (air white,
+    bone dark), so invert it to the MONOCHROME2 convention every encoder expects. 320 of the
+    365 CIDRZ DICOMs (all FUJIFILM) are MONOCHROME1; using `ds.pixel_array` raw fed those to
+    the image models as negatives."""
+    arr = ds.pixel_array.astype(np.float32)
+    if str(getattr(ds, "PhotometricInterpretation", "")).upper() == "MONOCHROME1":
+        arr = arr.max() - arr
+    return arr
+
+
 def _stratified_split(labels: np.ndarray, val_frac: float, test_frac: float, seed: int):
     """Stratified train/valid/test split; falls back to a plain shuffle if a class is too
     small to stratify (train_test_split needs >=1 member per class per split)."""
@@ -437,7 +448,7 @@ def build_dataset(
                 done[barcode] = {
                     "text": extract_text_features(row.to_dict()),
                     "audio": audio_feature_fn(waveform, sr),
-                    "image": image_feature_fn(ds.pixel_array, size=image_size),
+                    "image": image_feature_fn(dicom_pixels(ds), size=image_size),
                     "label": encode_label(row["ground_truth_tb"]),
                 }
                 break
