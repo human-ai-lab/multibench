@@ -1,0 +1,42 @@
+# Same as configs/tb_cxr_qatar.yaml, but trained on lung-masked images (see
+# datasets/tb_cxr_qatar/lung_mask_preprocess.py): everything outside the segmented lungs and
+# hila is blacked out, removing non-lung shortcut cues (text/side markers, collimation,
+# borders) that differ between hospitals. Evaluate against
+# data/google_health/tb_dataset_lungmask.pkl for matched preprocessing.
+#
+# Requires data/tb_cxr_qatar/tb_cxr_qatar_lungmask.pkl and data/google_health/tb_dataset_lungmask.pkl:
+#   python -m datasets.tb_cxr_qatar.lung_mask_preprocess
+
+dataset:
+  name: tb_cxr_qatar
+  path: data/tb_cxr_qatar/tb_cxr_qatar_lungmask.pkl
+  kwargs:
+    batch_size: 16
+
+model:
+  features:
+    - type: vgg11_slim
+      args: [128]
+  fusion:
+    type: concat
+  classifier:
+    type: mlp
+    args: [128, 64, 2]
+
+training:
+  task: classification
+  epochs: 15
+  optimizer: adamw
+  lr: 0.001
+  weight_decay: 0.01
+  objective: cross_entropy
+  objective_kwargs:
+    weight: [0.6, 3.0]
+  is_packed: false
+  early_stop: true
+  save: results/models/tb_cxr_qatar_lungmask_from_config.pt
+
+evaluation:
+  - UA
+  - WA
+  - F1

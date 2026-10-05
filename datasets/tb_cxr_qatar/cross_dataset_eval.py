@@ -63,7 +63,15 @@ def main():
     parser.add_argument("--augment", action="store_true",
                          help="Use on-the-fly pixel-level augmentation for the training split "
                               "(augmented_dataset.AugmentedQatarTrainDataset) instead of the static pickle.")
+    parser.add_argument("--seed", type=int, default=None,
+                         help="Seed torch/numpy/random before building the model, for repeat runs.")
     args = parser.parse_args()
+
+    if args.seed is not None:
+        import random
+        random.seed(args.seed)
+        np.random.seed(args.seed)
+        torch.manual_seed(args.seed)
 
     config = load_config(args.qatar_config)
     device = get_device()

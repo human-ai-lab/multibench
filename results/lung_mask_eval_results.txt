@@ -1,0 +1,26 @@
+=== EVAL ===
+
+model                                                              qatar_auc         qatar_uar         cidrz_auc         cidrz_uar cidrz_adapted_auc
+results/models/tb_cxr_qatar_whole_s0.pt                                1.000             0.990             0.618             0.532             0.639
+results/models/tb_cxr_qatar_whole_s1.pt                                1.000             0.970             0.551             0.516             0.576
+results/models/tb_cxr_qatar_whole_s2.pt                                1.000             0.984             0.670             0.528             0.621
+whole mean +/- sd (n=3)                                         1.000+/-0.000      0.982+/-0.008      0.613+/-0.049      0.525+/-0.007      0.612+/-0.026
+results/models/tb_cxr_qatar_lungmask_s0.pt                             0.986             0.943             0.724             0.556             0.743
+results/models/tb_cxr_qatar_lungmask_s1.pt                             0.986             0.937             0.719             0.597             0.720
+results/models/tb_cxr_qatar_lungmask_s2.pt                             0.977             0.930             0.745             0.555             0.755
+lungmask mean +/- sd (n=3)                                      0.983+/-0.004      0.937+/-0.005      0.729+/-0.011      0.569+/-0.020      0.739+/-0.015
+
+Seed-averaged CIDRZ scores, lungmask minus whole (paired participant bootstrap, n=364):
+  zero-shot    AUROC whole=0.618  lungmask=0.743  diff=+0.125 [95% CI +0.030, +0.217]
+  AdaBN + TTA  AUROC whole=0.618  lungmask=0.748  diff=+0.129 [95% CI +0.037, +0.222]
+CHAIN_DONE
+
+--- Context checks (2026-10-05) ---
+CIDRZ DICOM polarity: 320/365 MONOCHROME1 (FUJIFILM), previously not inverted; 319/364 pickle rows affected.
+  Polarity as TB predictor: AUROC 0.534, Fisher p=0.197. TB rate FUJIFILM 56/319=17.6%, KONICA 1/34=2.9%, Rayence 3/11=27.3%.
+Qatar white anonymization boxes (whole images): TB vs normal = train 32.4% vs 0.8% (AUROC 0.658), valid 27.6% vs 0.6% (0.635), test 27.6% vs 2.1% (0.628).
+Silhouette confound: mask-area AUROC Qatar test 0.797 (TB 0.533 vs normal 0.415), CIDRZ 0.612.
+  Silhouette-only control (28x28 mask -> logistic, Qatar train): Qatar test AUROC 0.893, CIDRZ 0.654.
+  Masked CNN (seed-avg zero-shot) CIDRZ AUROC 0.743; residual after regressing out silhouette score (label-free) 0.693 [95% CI 0.623, 0.760]; after mask area 0.713.
+Late fusion with the seed-averaged lung-masked image expert (results/cidrz_image_scores_lungmask_zeroshot_seedavg.npy):
+  text 0.706 | image 0.703 | text+image 0.727 (dUAR +0.012 [-0.019,+0.039], NB p=0.300) | text+audio+image 0.724 (dUAR +0.040 [+0.011,+0.070], NB p=0.467)
