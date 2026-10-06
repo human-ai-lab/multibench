@@ -1,4 +1,8 @@
 import numpy as np
+import pytest
+
+# CLAHE uses scikit-image, which is not in requirements.txt (what CI installs).
+pytest.importorskip("skimage.exposure")
 
 from datasets.google_health.features import IMAGENET_MEAN, IMAGENET_STD
 from datasets.tb_cxr_qatar.clahe_preprocess import apply_clahe_to_normalized_batch

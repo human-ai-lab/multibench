@@ -1,5 +1,8 @@
 import numpy as np
-import pandas as pd
+import pytest
+
+# pandas is an optional extra (`.[google_health]`), not in requirements.txt, which CI installs.
+pd = pytest.importorskip("pandas")
 
 from datasets.tb_cxr_mont_shen.download import _load_pixel_array, _load_source
 
