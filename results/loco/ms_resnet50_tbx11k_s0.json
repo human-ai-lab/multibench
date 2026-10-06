@@ -1,0 +1,37 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "ms_resnet50",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9634779659080285,
+ "auc": 0.7932662217232713,
+ "auc_ci": [
+  0.776771417727743,
+  0.8109394542415641
+ ],
+ "sens_at_spec70": 0.7560606060606061,
+ "spec_at_sens90": 0.47984801194191884,
+ "transfer_sens": 0.7742424242424243,
+ "transfer_spec": 0.6886958881802144,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9204875892994705,
+ "auc_vs_sick": 0.6623669236417034
+}

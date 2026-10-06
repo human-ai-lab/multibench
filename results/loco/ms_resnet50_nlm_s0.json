@@ -1,0 +1,35 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "ms_resnet50",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.981202044185248,
+ "auc": 0.819038666415993,
+ "auc_ci": [
+  0.789101927308784,
+  0.8479478321117456
+ ],
+ "sens_at_spec70": 0.7639593908629442,
+ "spec_at_sens90": 0.454320987654321,
+ "transfer_sens": 0.5939086294416244,
+ "transfer_spec": 0.8740740740740741,
+ "n": 799,
+ "pos": 394
+}

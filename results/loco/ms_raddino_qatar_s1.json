@@ -1,0 +1,35 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "ms_raddino",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9884325065031586,
+ "auc": 0.9744220940202185,
+ "auc_ci": [
+  0.9670999142688442,
+  0.9810973018494972
+ ],
+ "sens_at_spec70": 0.9767441860465116,
+ "spec_at_sens90": 0.9434124035438697,
+ "transfer_sens": 0.7776162790697675,
+ "transfer_spec": 0.9959988568162332,
+ "n": 4187,
+ "pos": 688
+}

@@ -40,9 +40,26 @@ lesion score is sometimes higher (e.g. ViT cidrz 0.831 vs 0.792, RAD-DINO pakist
 CIDRZ fusion with the LOCO-selected RAD-DINO expert (fusion_study_raddino.md): relw text+image 0.842, text+audio+image vs
 text+audio +0.052 [+0.017,+0.087]; same picture as the ViT expert -- CIDRZ looks capped near 0.80-0.84 AUROC.
 
+## 5. MixStyle, calibration, final CIDRZ expert (`loco_summary_all.md`, `calibration.md`, `fusion_study_final.md`)
+MixStyle (p=0.5, alpha=0.1, on activations entering the trainable tail; 2 seeds): ViT 0.874 vs 0.846 LOCO mean without it
+(Pakistan +0.10, Qatar +0.011, NLM/TBX11K ~0, CIDRZ ~0); RAD-DINO 0.909 vs 0.906 (no real change: Pakistan +0.024, CIDRZ -0.026
+[-0.045,-0.008]); ResNet50 0.768 vs 0.786 (hurts). So MixStyle helps the weaker ImageNet ViT but not the CXR foundation model,
+and the ViT gain is mostly on Pakistan, the corpus with the strongest artefacts.
+Calibration (raw logit margins; training used source-balanced cells): every expert is over-confident on held-out corpora
+(logistic calibration slope 0.2-0.6; ECE 0.04-0.25, up to 0.49-0.59 on CIDRZ for RAD-DINO/ERM). Correcting the prior shift with
+the target's true prevalence (oracle) only removes part of it. On CIDRZ the raw-probability Brier (0.22-0.45) is worse than
+predicting the prevalence (0.138); the discriminative ranking transfers (AUROC 0.8), probabilities do not. Threshold transfer
+(90%-sensitivity threshold from held-in validation) gives target sensitivity 0.6-0.9 and specificity 0.55-0.98 depending on
+corpus, e.g. RAD-DINO on CIDRZ 0.73/0.77. => deployment needs per-site recalibration (a few labelled local cases); the
+fusion stacker already supplies it for CIDRZ.
+Final CIDRZ expert (trained on all four source corpora pooled, never CIDRZ): RAD-DINO 5 seeds AUROC 0.813, RAD-DINO+ViT
+ensemble (5 seeds each) 0.825. Fusion (fusion_study_final.md): relw text+image 0.845-0.848 (text 0.782); text+audio+image vs
+text+audio +0.055 [+0.011,+0.097] (stack), +0.057 [+0.019,+0.094] (relw), +0.048 [+0.020,+0.077] (MD-MLP).
+Note: the cidrz-target runs already pooled all four source corpora; "pooled final expert" here means more seeds + ensembling.
+
 ## Caveats
 - ViT config (6 unfrozen blocks, lr 5e-5) came from the earlier CIDRZ-informed sweep; method choice here used LOCO only.
 - 2 seeds per cell; CIDRZ has 60 positives (wide CIs). The UAR column in fusion_study.md thresholds raw scores at
   0 and is not meaningful for relw; use AUROC.
 - RAD-DINO is run at 224px although it was trained at 518px; backbones share one lr (5e-5) and unfreezing rule per family, untuned.
-- Not done: MixStyle, calibration analysis, pooled-all-corpora training for the final CIDRZ expert.
+- Calibration is evaluated on image-expert logits only (fused-probability calibration not analysed); MixStyle/ensemble have 2/5 seeds.

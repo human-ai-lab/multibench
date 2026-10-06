@@ -1,0 +1,45 @@
+
+### image expert: raddino5  (alone AUROC 0.813)
+
+| arm | AUROC | UAR@0.5 or sign | ΔAUROC vs same-method w/o image |
+|---|---|---|---|
+| text | 0.782±0.010 | 0.700 |  |
+| audio | 0.610±0.012 | 0.580 |  |
+| image | 0.812±0.001 | 0.714 |  |
+| stack|text+audio | 0.775±0.010 | 0.713 |  |
+| relw|text+audio | 0.782±0.008 | 0.695 |  |
+| concat|text+audio | 0.768±0.009 | 0.713 |  |
+| stack|text+image | 0.837±0.005 | 0.765 |  |
+| relw|text+image | 0.845±0.004 | 0.733 |  |
+| concat|text+image | 0.834±0.007 | 0.768 |  |
+| stack|text+audio+image | 0.832±0.005 | 0.763 | +0.054 [+0.009,+0.095] |
+| relw|text+audio+image | 0.841±0.004 | 0.734 | +0.055 [+0.017,+0.093] |
+| concat|text+audio+image | 0.808±0.010 | 0.746 | +0.040 [+0.013,+0.066] |
+| mdmlp|text+audio | 0.744±0.013 | 0.673 |  |
+| mdmlp|text+audio+image | 0.796±0.010 | 0.734 | +0.048 [+0.021,+0.077] |
+| mdmlp|full, audio missing at test | 0.819±0.006 | 0.757 |  |
+| mdmlp|full, text missing at test | 0.739±0.011 | 0.693 |  |
+| mdmlp|full, image missing at test | 0.742±0.011 | 0.673 |  |
+| mdmlp|full, image missing at test | 0.742±0.011 | 0.673 |  |
+
+### image expert: ens  (alone AUROC 0.825)
+
+| arm | AUROC | UAR@0.5 or sign | ΔAUROC vs same-method w/o image |
+|---|---|---|---|
+| text | 0.782±0.010 | 0.700 |  |
+| audio | 0.610±0.012 | 0.580 |  |
+| image | 0.823±0.001 | 0.720 |  |
+| stack|text+audio | 0.775±0.010 | 0.713 |  |
+| relw|text+audio | 0.782±0.008 | 0.695 |  |
+| concat|text+audio | 0.768±0.009 | 0.713 |  |
+| stack|text+image | 0.840±0.006 | 0.772 |  |
+| relw|text+image | 0.848±0.004 | 0.731 |  |
+| concat|text+image | 0.839±0.008 | 0.775 |  |
+| stack|text+audio+image | 0.835±0.006 | 0.772 | +0.055 [+0.011,+0.097] |
+| relw|text+audio+image | 0.843±0.004 | 0.728 | +0.057 [+0.019,+0.094] |
+| concat|text+audio+image | 0.812±0.010 | 0.755 | +0.041 [+0.014,+0.068] |
+| mdmlp|text+audio | 0.744±0.013 | 0.673 |  |
+| mdmlp|text+audio+image | 0.798±0.010 | 0.737 | +0.048 [+0.020,+0.077] |
+| mdmlp|full, audio missing at test | 0.821±0.007 | 0.757 |  |
+| mdmlp|full, text missing at test | 0.749±0.011 | 0.701 |  |
+| mdmlp|full, image missing at test | 0.738±0.011 | 0.671 |  |

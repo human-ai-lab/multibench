@@ -51,9 +51,10 @@ class Net(nn.Module):
     parts are kept in eval mode so BatchNorm statistics do not drift. `features` returns (B, dim); ViT-style
     backbones can also return patch tokens (for the lesion auxiliary head)."""
 
-    def __init__(self, backbone, unfreeze_blocks, n_dom):
+    def __init__(self, backbone, unfreeze_blocks, n_dom, mixstyle=0.0, mixstyle_alpha=0.1):
         super().__init__()
         self.kind = backbone
+        self.mix_p, self.mix_alpha = mixstyle, mixstyle_alpha
         self.backbone_params, self.train_mods = [], []
         if backbone == "vit":
             self.vit = vit_b_16(weights=ViT_B_16_Weights.IMAGENET1K_V1)
@@ -82,9 +83,32 @@ class Net(nn.Module):
                 p.requires_grad = True
                 self.backbone_params.append(p)
         self.tail_mods = tail
+        if mixstyle > 0:  # MixStyle on the activations that enter the trainable tail
+            host = {"vit": lambda: self.vit.encoder.layers, "raddino": lambda: self.vit.encoder.layer,
+                    "resnet50": lambda: [self.cnn.layer1, self.cnn.layer2, self.cnn.layer3],
+                    "xrv_densenet": lambda: [self.cnn.features.denseblock3]}[backbone]()
+            site = host[-(unfreeze_blocks + 1)] if backbone in ("vit", "raddino") else host[-1]
+            site.register_forward_hook(self._mix_hook)
         self.head = nn.Linear(self.dim, 2)
         self.dom_head = nn.Linear(self.dim, n_dom)
         self.patch_head = nn.Linear(self.dim, 1)  # lesion auxiliary head (ViT-style backbones only)
+
+    def _mix_hook(self, module, inp, out):
+        """MixStyle (Zhou et al., ICLR 2021): mix per-sample feature statistics between random pairs in the batch
+        (channel stats over tokens for ViT-style, over H x W for CNNs), with probability `mix_p` per batch."""
+        if not self.training or random.random() > self.mix_p:
+            return out
+        x = out[0] if isinstance(out, tuple) else out
+        dt = x.dtype
+        x = x.float()
+        dims = (1,) if x.dim() == 3 else (2, 3)
+        mu = x.mean(dims, keepdim=True)
+        sig = (x.var(dims, keepdim=True) + 1e-6).sqrt()
+        lam = torch.distributions.Beta(self.mix_alpha, self.mix_alpha).sample((x.shape[0],) + (1,) * (x.dim() - 1)).to(x.device)
+        perm = torch.randperm(x.shape[0], device=x.device)
+        x = (x - mu) / sig * (lam * sig + (1 - lam) * sig[perm]) + (lam * mu + (1 - lam) * mu[perm])
+        x = x.to(dt)
+        return (x,) + tuple(out[1:]) if isinstance(out, tuple) else x
 
     def train(self, mode=True):
         super().train(mode)
@@ -203,6 +227,7 @@ def main():
     ap.add_argument("--input", default="whole", choices=["whole", "lung"])
     ap.add_argument("--dstd", action="store_true")
     ap.add_argument("--backbone", default="vit", choices=["vit", "raddino", "resnet50", "xrv_densenet"])
+    ap.add_argument("--mixstyle", type=float, default=0.0, help="MixStyle probability (0 = off)")
     ap.add_argument("--lesion", type=float, default=0.0,
                     help="weight of the TBX11K lesion-box auxiliary patch loss (ViT-style backbones; 0 = off)")
     ap.add_argument("--unfreeze-blocks", type=int, default=6)
@@ -270,7 +295,7 @@ def main():
     cls_w = torch.tensor([1.0, 1.0], device=dev) if args.sampler == "sbal" else torch.tensor(
         [1.0, float((y[tr_idx] == 0).sum() / (y[tr_idx] == 1).sum())], device=dev).clamp(max=6)
 
-    net = Net(args.backbone, args.unfreeze_blocks, n_dom).to(dev)
+    net = Net(args.backbone, args.unfreeze_blocks, n_dom, args.mixstyle).to(dev)
     params = [{"params": net.backbone_params, "lr": args.backbone_lr},
               {"params": list(net.head.parameters()) + list(net.dom_head.parameters())
                          + list(net.patch_head.parameters()), "lr": args.head_lr}]

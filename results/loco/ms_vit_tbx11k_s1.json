@@ -1,0 +1,37 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "ms_vit",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9777315537012026,
+ "auc": 0.8787558033860112,
+ "auc_ci": [
+  0.8646083768880695,
+  0.8905922441548565
+ ],
+ "sens_at_spec70": 0.8575757575757575,
+ "spec_at_sens90": 0.637942733070973,
+ "transfer_sens": 0.6303030303030303,
+ "transfer_spec": 0.9093499796444565,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9622493330414124,
+ "auc_vs_sick": 0.7928485015351756
+}
