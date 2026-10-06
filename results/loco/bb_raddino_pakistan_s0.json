@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "bb_raddino",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9930019294007059,
+ "auc": 0.8489881969621951,
+ "auc_ci": [
+  0.8345730170732629,
+  0.862884590448378
+ ],
+ "sens_at_spec70": 0.8093306288032455,
+ "spec_at_sens90": 0.38188976377952755,
+ "transfer_sens": 0.6989858012170386,
+ "transfer_spec": 0.9114173228346457,
+ "n": 2973,
+ "pos": 2465
+}

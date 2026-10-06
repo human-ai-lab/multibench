@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "bb_resnet50",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9453768113882113,
+ "auc": 0.869263726513223,
+ "auc_ci": [
+  0.851322940666245,
+  0.8858913507675453
+ ],
+ "sens_at_spec70": 0.8328488372093024,
+ "spec_at_sens90": 0.4858531008859674,
+ "transfer_sens": 0.690406976744186,
+ "transfer_spec": 0.9302657902257788,
+ "n": 4187,
+ "pos": 688
+}

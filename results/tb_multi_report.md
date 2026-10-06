@@ -28,8 +28,21 @@ Best fusion: reliability-weighted text+image 0.840 (vs text 0.782); text+audio+i
 +0.048 [+0.003,+0.093] (stack), +0.050 [+0.009,+0.091] (relw), +0.041 [+0.013,+0.069] (modality-dropout MLP).
 Audio adds nothing. With ERM image expert the gain is not significant (+0.026 [-0.015,+0.062]).
 
+## 4. Backbones and lesion supervision (same recipe: lung mask + strong aug + source-balanced; 2 seeds; `loco_summary_all.md`)
+LOCO mean (qatar/nlm/tbx11k/pakistan): RAD-DINO (CXR foundation model, 224px, last 6 blocks) 0.906 > ViT-B/16 ImageNet 0.846
+> ResNet50 0.786 ~ xrv-DenseNet121 0.784. RAD-DINO beats the ViT on all four LOCO corpora (+0.03 to +0.08, CIs exclude 0);
+on CIDRZ all backbones sit at 0.74-0.82 with no significant difference (xrv-DenseNet 0.817, RAD-DINO 0.798, ViT 0.805).
+Lesion-box supervision (TBX11K active-TB boxes -> patch-token auxiliary loss): no gain for the CLS score (ViT: qatar -0.007,
+nlm +0.001, pakistan +0.050, cidrz -0.012; RAD-DINO: all within +-0.01 except pakistan -0.014, nlm -0.016). The patch-max
+lesion score is sometimes higher (e.g. ViT cidrz 0.831 vs 0.792, RAD-DINO pakistan 0.873 vs 0.782) but worse elsewhere
+(ViT pakistan 0.653) and has no CIs/selection protocol: exploratory only. The tbx11k fold cannot use the box labels
+(held out), so it reproduces the baseline.
+CIDRZ fusion with the LOCO-selected RAD-DINO expert (fusion_study_raddino.md): relw text+image 0.842, text+audio+image vs
+text+audio +0.052 [+0.017,+0.087]; same picture as the ViT expert -- CIDRZ looks capped near 0.80-0.84 AUROC.
+
 ## Caveats
 - ViT config (6 unfrozen blocks, lr 5e-5) came from the earlier CIDRZ-informed sweep; method choice here used LOCO only.
 - 2 seeds per cell; CIDRZ has 60 positives (wide CIs). The UAR column in fusion_study.md thresholds raw scores at
   0 and is not meaningful for relw; use AUROC.
-- Not done: TBX11K lesion-box supervision, MixStyle, CNN/foundation-model fine-tuning comparison, calibration analysis.
+- RAD-DINO is run at 224px although it was trained at 518px; backbones share one lr (5e-5) and unfreezing rule per family, untuned.
+- Not done: MixStyle, calibration analysis, pooled-all-corpora training for the final CIDRZ expert.

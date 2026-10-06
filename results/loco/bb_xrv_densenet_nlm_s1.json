@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "bb_xrv_densenet",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9656083404231811,
+ "auc": 0.7689979319420943,
+ "auc_ci": [
+  0.7351451301765545,
+  0.8025770467881754
+ ],
+ "sens_at_spec70": 0.6954314720812182,
+ "spec_at_sens90": 0.32592592592592595,
+ "transfer_sens": 0.5888324873096447,
+ "transfer_spec": 0.7975308641975308,
+ "n": 799,
+ "pos": 394
+}

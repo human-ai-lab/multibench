@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "bb_xrv_densenet",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9204202201716107,
+ "auc": 0.5959743495551899,
+ "auc_ci": [
+  0.5675089248300856,
+  0.6234953832720006
+ ],
+ "sens_at_spec70": 0.4210953346855984,
+ "spec_at_sens90": 0.20275590551181102,
+ "transfer_sens": 0.9488843813387424,
+ "transfer_spec": 0.10433070866141732,
+ "n": 2973,
+ "pos": 2465
+}

@@ -1,0 +1,36 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "lesion_raddino",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "lesion": 1.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9980106748272815,
+ "auc": 0.9252305933538124,
+ "auc_ci": [
+  0.9135057554399726,
+  0.9349933907401443
+ ],
+ "sens_at_spec70": 0.9348484848484848,
+ "spec_at_sens90": 0.7836884244809337,
+ "transfer_sens": 0.6121212121212121,
+ "transfer_spec": 0.9596960238838377,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9838863616091338,
+ "auc_vs_sick": 0.8648791049259111
+}

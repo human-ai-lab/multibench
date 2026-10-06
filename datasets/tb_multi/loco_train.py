@@ -47,30 +47,79 @@ class GRL(torch.autograd.Function):
 
 
 class Net(nn.Module):
-    def __init__(self, unfreeze_blocks, n_dom):
+    """Backbone (vit | xrv_densenet | resnet50 | raddino) + linear heads. Only the last stage(s) train; frozen
+    parts are kept in eval mode so BatchNorm statistics do not drift. `features` returns (B, dim); ViT-style
+    backbones can also return patch tokens (for the lesion auxiliary head)."""
+
+    def __init__(self, backbone, unfreeze_blocks, n_dom):
         super().__init__()
-        self.vit = vit_b_16(weights=ViT_B_16_Weights.IMAGENET1K_V1)
-        self.vit.heads = nn.Identity()
-        for p in self.vit.parameters():
+        self.kind = backbone
+        self.backbone_params, self.train_mods = [], []
+        if backbone == "vit":
+            self.vit = vit_b_16(weights=ViT_B_16_Weights.IMAGENET1K_V1)
+            self.vit.heads = nn.Identity()
+            body, tail, self.dim = self.vit, list(self.vit.encoder.layers)[-unfreeze_blocks:] + [self.vit.encoder.ln], 768
+        elif backbone == "raddino":
+            from transformers import AutoModel
+            self.vit = AutoModel.from_pretrained("microsoft/rad-dino")
+            body, tail, self.dim = self.vit, list(self.vit.encoder.layer)[-unfreeze_blocks:] + [self.vit.layernorm], 768
+        elif backbone == "resnet50":
+            from torchvision.models import ResNet50_Weights, resnet50
+            self.cnn = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
+            self.cnn.fc = nn.Identity()
+            body, tail, self.dim = self.cnn, [self.cnn.layer4], 2048
+        elif backbone == "xrv_densenet":
+            import torchxrayvision as xrv
+            self.cnn = xrv.models.DenseNet(weights="densenet121-res224-all")
+            body = self.cnn
+            tail, self.dim = [self.cnn.features.denseblock4, self.cnn.features.norm5], 1024
+        else:
+            raise ValueError(backbone)
+        for p in body.parameters():
             p.requires_grad = False
-        self.backbone_params = []
-        L = len(self.vit.encoder.layers)
-        for m in list(self.vit.encoder.layers)[L - unfreeze_blocks:] + [self.vit.encoder.ln]:
+        for m in tail:
             for p in m.parameters():
                 p.requires_grad = True
                 self.backbone_params.append(p)
-        self.head = nn.Linear(768, 2)
-        self.dom_head = nn.Linear(768, n_dom)
+        self.tail_mods = tail
+        self.head = nn.Linear(self.dim, 2)
+        self.dom_head = nn.Linear(self.dim, n_dom)
+        self.patch_head = nn.Linear(self.dim, 1)  # lesion auxiliary head (ViT-style backbones only)
 
-    def features(self, x):  # x: uint8-derived float in [0,1], (B,1,H,W)
-        x = ((x.expand(-1, 3, -1, -1)) - MEAN.to(x.device)) / STD.to(x.device)
-        return self.vit(x)
+    def train(self, mode=True):
+        super().train(mode)
+        if mode:  # frozen parts stay in eval mode; only the unfrozen tail trains/updates BN
+            for m in self.modules():
+                if isinstance(m, (nn.BatchNorm2d, nn.Dropout)):
+                    m.eval()
+            for m in self.tail_mods:
+                m.train()
+        return self
+
+    def features(self, x, tokens=False):  # x in [0,1], (B,1,H,W)
+        x = x.expand(-1, 3, -1, -1)
+        if self.kind == "vit":
+            x = (x - MEAN.to(x.device)) / STD.to(x.device)
+            v = self.vit
+            t = v._process_input(x)
+            t = torch.cat([v.class_token.expand(t.shape[0], -1, -1), t], 1)
+            t = v.encoder(t)
+            return (t[:, 0], t[:, 1:]) if tokens else t[:, 0]
+        if self.kind == "raddino":
+            x = (x - 0.5307) / 0.2583
+            t = self.vit(pixel_values=x).last_hidden_state
+            return (t[:, 0], t[:, 1:]) if tokens else t[:, 0]
+        if self.kind == "resnet50":
+            return self.cnn((x - MEAN.to(x.device)) / STD.to(x.device))
+        f = self.cnn.features(((2 * x[:, :1] - 1) * 1024))  # xrv: single channel in [-1024, 1024]
+        return F.adaptive_avg_pool2d(F.relu(f), 1).flatten(1)
 
 
-def augment(x, strong):
-    """x: (B,1,224,224) float [0,1] on GPU."""
+def augment(x, strong, mask=None):
+    """x: (B,1,224,224) float [0,1] on GPU. `mask` (B,1,224,224) lesion map gets the same geometric transform.
+    Returns x, or (x, mask) when a mask is given."""
     if not strong:
-        return x
+        return x if mask is None else (x, mask)
     B = x.shape[0]
     dev = x.device
     ang = (torch.rand(B, device=dev) - 0.5) * 2 * np.deg2rad(8)
@@ -78,7 +127,10 @@ def augment(x, strong):
     tx, ty = (torch.rand(B, device=dev) - 0.5) * 0.12, (torch.rand(B, device=dev) - 0.5) * 0.12
     theta = torch.stack([torch.stack([torch.cos(ang) / sc, -torch.sin(ang) / sc, tx], 1),
                          torch.stack([torch.sin(ang) / sc, torch.cos(ang) / sc, ty], 1)], 1)
-    x = F.grid_sample(x, F.affine_grid(theta, x.shape, align_corners=False), padding_mode="zeros", align_corners=False)
+    grid = F.affine_grid(theta, x.shape, align_corners=False)
+    x = F.grid_sample(x, grid, padding_mode="zeros", align_corners=False)
+    if mask is not None:
+        mask = F.grid_sample(mask, grid, padding_mode="zeros", align_corners=False)
     gamma = torch.exp((torch.rand(B, 1, 1, 1, device=dev) - 0.5) * 0.8)
     x = x.clamp(1e-4, 1) ** gamma
     c = 1 + (torch.rand(B, 1, 1, 1, device=dev) - 0.5) * 0.6
@@ -98,7 +150,7 @@ def augment(x, strong):
             y0 = random.choice([0, 224 - h]) if random.random() < 0.7 else random.randint(0, 224 - h)
             x0 = random.choice([0, 224 - w]) if random.random() < 0.7 else random.randint(0, 224 - w)
             x[i, :, y0:y0 + h, x0:x0 + w] = random.random()
-    return x
+    return x if mask is None else (x, mask)
 
 
 def coral(f, d, n_dom):
@@ -150,6 +202,9 @@ def main():
     ap.add_argument("--aug", default="none", choices=["none", "strong"])
     ap.add_argument("--input", default="whole", choices=["whole", "lung"])
     ap.add_argument("--dstd", action="store_true")
+    ap.add_argument("--backbone", default="vit", choices=["vit", "raddino", "resnet50", "xrv_densenet"])
+    ap.add_argument("--lesion", type=float, default=0.0,
+                    help="weight of the TBX11K lesion-box auxiliary patch loss (ViT-style backbones; 0 = off)")
     ap.add_argument("--unfreeze-blocks", type=int, default=6)
     ap.add_argument("--backbone-lr", type=float, default=5e-5)
     ap.add_argument("--head-lr", type=float, default=1e-3)
@@ -187,6 +242,23 @@ def main():
     va_idx = np.flatnonzero(is_va)
     te_idx = np.flatnonzero(dom_names == args.target)
 
+    row2box, box_masks = None, None
+    if args.lesion > 0 and args.target != "tbx11k" and "tbx11k" in srcs:
+        tb_rows = np.flatnonzero(dom_names == "tbx11k")
+        tb_meta = meta.iloc[tb_rows]
+        # boxes are stored as fractions of the original image: [class, x0, y0, x1, y1]
+        bm = np.zeros((len(tb_rows), 224, 224), np.uint8)
+        for k, bx in enumerate(tb_meta["boxes"].values):
+            for b in json.loads(bx):
+                if b[0] != "ActiveTuberculosis":
+                    continue
+                x0, y0, x1, y1 = [int(round(v * 224)) for v in b[1:]]
+                bm[k, max(y0, 0):y1, max(x0, 0):x1] = 1
+        box_masks = torch.from_numpy(bm).to(dev)
+        row2box = torch.full((len(meta),), -1, dtype=torch.long, device=dev)
+        row2box[torch.from_numpy(tb_rows).to(dev)] = torch.arange(len(tb_rows), device=dev)
+        print(f"lesion supervision: {int((bm.sum((1, 2)) > 0).sum())} TBX11K images with active-TB boxes", flush=True)
+
     if args.sampler == "sbal":
         w = torch.zeros(len(tr_idx), device=dev)
         for k in range(n_dom):
@@ -198,9 +270,10 @@ def main():
     cls_w = torch.tensor([1.0, 1.0], device=dev) if args.sampler == "sbal" else torch.tensor(
         [1.0, float((y[tr_idx] == 0).sum() / (y[tr_idx] == 1).sum())], device=dev).clamp(max=6)
 
-    net = Net(args.unfreeze_blocks, n_dom).to(dev)
+    net = Net(args.backbone, args.unfreeze_blocks, n_dom).to(dev)
     params = [{"params": net.backbone_params, "lr": args.backbone_lr},
-              {"params": list(net.head.parameters()) + list(net.dom_head.parameters()), "lr": args.head_lr}]
+              {"params": list(net.head.parameters()) + list(net.dom_head.parameters())
+                         + list(net.patch_head.parameters()), "lr": args.head_lr}]
     opt = torch.optim.AdamW(params, weight_decay=0.01)
     n_cell = n_dom * 2
     q = torch.ones(n_cell, device=dev) / n_cell  # groupdro weights
@@ -211,10 +284,26 @@ def main():
         net.train()
         for _ in range(args.steps_per_epoch):
             pick = tr_idx[torch.multinomial(w, args.batch_size, replacement=True)]
-            xb = augment(X[pick].float().div(255).unsqueeze(1), args.aug == "strong")
+            xb = X[pick].float().div(255).unsqueeze(1)
             yb, db = y[pick], dom[pick]
-            with torch.autocast("cuda", dtype=torch.bfloat16):
-                f = net.features(xb).float()
+            lesion_loss = None
+            if row2box is not None:
+                bi = row2box[pick]
+                has = bi >= 0
+                mb = torch.where(has.view(-1, 1, 1), box_masks[bi.clamp(min=0)].float(), torch.zeros_like(xb[:, 0])).unsqueeze(1)
+                xb, mb = augment(xb, args.aug == "strong", mb)
+                with torch.autocast("cuda", dtype=torch.bfloat16):
+                    f, tok = net.features(xb, tokens=True)
+                f = f.float()
+                if has.any():
+                    g = int(tok.shape[1] ** 0.5)
+                    tgt = F.adaptive_avg_pool2d(mb, g).flatten(1)
+                    lp = net.patch_head(tok.float()).squeeze(-1)
+                    lesion_loss = F.binary_cross_entropy_with_logits(lp[has], tgt[has], pos_weight=torch.tensor(5.0, device=dev))
+            else:
+                xb = augment(xb, args.aug == "strong")
+                with torch.autocast("cuda", dtype=torch.bfloat16):
+                    f = net.features(xb).float()
             fz = dom_standardize(f, db, n_dom) if args.dstd else f
             logits = net.head(fz)
             ce = F.cross_entropy(logits, yb, weight=cls_w, reduction="none")
@@ -236,6 +325,8 @@ def main():
                 loss = ce.mean() + F.cross_entropy(net.dom_head(GRL.apply(f, lam)), db)
             else:
                 loss = ce.mean()
+            if lesion_loss is not None:
+                loss = loss + args.lesion * lesion_loss
             opt.zero_grad(); loss.backward(); opt.step(); step += 1
         # held-in validation: mean per-source AUROC (never touches the target)
         fv = embed_all(net, X[va_idx])
@@ -262,7 +353,20 @@ def main():
     ft = embed_all(net, X[te_idx])
     s = margins(net, ft, args.dstd)
     yt = meta.label.values[te_idx]
-    r = dict(args=vars(args), val_mean_auc=best, auc=float(roc_auc_score(yt, s)), auc_ci=boot_auc_ci(yt, s),
+    extra = {}
+    if args.lesion > 0 and args.target != "tbx11k":
+        pm = []
+        with torch.no_grad():
+            for i in range(0, len(te_idx), 128):
+                xb = X[te_idx[i:i + 128]].float().div(255).unsqueeze(1)
+                with torch.autocast("cuda", dtype=torch.bfloat16):
+                    _, tok = net.features(xb, tokens=True)
+                pm.append(net.patch_head(tok.float()).squeeze(-1).max(1).values.cpu().numpy())
+        pm = np.concatenate(pm)
+        zc = lambda v: (v - v.mean()) / (v.std() + 1e-8)
+        extra = dict(auc_patchmax=float(roc_auc_score(yt, pm)), auc_comb=float(roc_auc_score(yt, zc(s) + zc(pm))))
+        np.save(os.path.join(args.outdir, f"{args.name}_{args.target}_s{args.seed}_patchmax.npy"), pm.astype(np.float32))
+    r = dict(extra, args=vars(args), val_mean_auc=best, auc=float(roc_auc_score(yt, s)), auc_ci=boot_auc_ci(yt, s),
              **op_points(yt, s, thr), n=int(len(yt)), pos=int(yt.sum()))
     if args.target == "tbx11k":
         cat = meta["category"].values[te_idx]

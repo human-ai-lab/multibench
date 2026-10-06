@@ -1,0 +1,36 @@
+{
+ "auc_patchmax": 0.8778592467255749,
+ "auc_comb": 0.8775145704079714,
+ "args": {
+  "target": "nlm",
+  "name": "lesion_vit",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "lesion": 1.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9934884171928356,
+ "auc": 0.8496083223663595,
+ "auc_ci": [
+  0.8226747731803067,
+  0.8748531191493053
+ ],
+ "sens_at_spec70": 0.7944162436548223,
+ "spec_at_sens90": 0.5209876543209877,
+ "transfer_sens": 0.5025380710659898,
+ "transfer_spec": 0.9530864197530864,
+ "n": 799,
+ "pos": 394
+}

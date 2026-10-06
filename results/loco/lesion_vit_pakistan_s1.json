@@ -1,0 +1,36 @@
+{
+ "auc_patchmax": 0.6511212087332897,
+ "auc_comb": 0.7216647234511507,
+ "args": {
+  "target": "pakistan",
+  "name": "lesion_vit",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "lesion": 1.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9639521221606318,
+ "auc": 0.7581439363690086,
+ "auc_ci": [
+  0.7401056701612683,
+  0.7745817143390087
+ ],
+ "sens_at_spec70": 0.7087221095334686,
+ "spec_at_sens90": 0.1220472440944882,
+ "transfer_sens": 0.713184584178499,
+ "transfer_spec": 0.6889763779527559,
+ "n": 2973,
+ "pos": 2465
+}

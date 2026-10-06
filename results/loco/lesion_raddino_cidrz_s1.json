@@ -1,0 +1,36 @@
+{
+ "auc_patchmax": 0.8119517543859649,
+ "auc_comb": 0.8186403508771929,
+ "args": {
+  "target": "cidrz",
+  "name": "lesion_raddino",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "lesion": 1.0,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9930709174798288,
+ "auc": 0.7975328947368421,
+ "auc_ci": [
+  0.7336638422118207,
+  0.8604510810450352
+ ],
+ "sens_at_spec70": 0.8,
+ "spec_at_sens90": 0.4375,
+ "transfer_sens": 0.7666666666666667,
+ "transfer_spec": 0.7368421052631579,
+ "n": 364,
+ "pos": 60
+}
