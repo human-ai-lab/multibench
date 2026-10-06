@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "cidrz",
+  "name": "sbal",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9811791778669536,
+ "auc": 0.7730263157894738,
+ "auc_ci": [
+  0.6993856168395594,
+  0.8423837266665039
+ ],
+ "sens_at_spec70": 0.7,
+ "spec_at_sens90": 0.33223684210526316,
+ "transfer_sens": 0.7666666666666667,
+ "transfer_spec": 0.5427631578947368,
+ "n": 364,
+ "pos": 60
+}

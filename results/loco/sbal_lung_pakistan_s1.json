@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "sbal_lung",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "lung",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9588850859002975,
+ "auc": 0.7692370350257942,
+ "auc_ci": [
+  0.7491550000710573,
+  0.7893361495444238
+ ],
+ "sens_at_spec70": 0.6953346855983773,
+ "spec_at_sens90": 0.33267716535433073,
+ "transfer_sens": 0.9030425963488844,
+ "transfer_spec": 0.31299212598425197,
+ "n": 2973,
+ "pos": 2465
+}

@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "sbal",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9886752136752137,
+ "auc": 0.668511619108715,
+ "auc_ci": [
+  0.6458739457364109,
+  0.6918858795788418
+ ],
+ "sens_at_spec70": 0.5515151515151515,
+ "spec_at_sens90": 0.20287691681367892,
+ "transfer_sens": 0.2863636363636364,
+ "transfer_spec": 0.9178993079115212,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.7234895111132735,
+ "auc_vs_sick": 0.6119443331998399
+}

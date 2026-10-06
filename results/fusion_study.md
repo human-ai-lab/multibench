@@ -1,0 +1,66 @@
+
+### image expert: erm  (alone AUROC 0.760)
+
+| arm | AUROC | UAR@0.5 or sign | ΔAUROC vs same-method w/o image |
+|---|---|---|---|
+| text | 0.782±0.010 | 0.700 |  |
+| audio | 0.610±0.012 | 0.580 |  |
+| image | 0.760±0.001 | 0.637 |  |
+| stack|text+audio | 0.775±0.010 | 0.713 |  |
+| relw|text+audio | 0.782±0.008 | 0.695 |  |
+| concat|text+audio | 0.768±0.009 | 0.713 |  |
+| stack|text+image | 0.809±0.008 | 0.747 |  |
+| relw|text+image | 0.818±0.006 | 0.702 |  |
+| concat|text+image | 0.804±0.008 | 0.742 |  |
+| stack|text+audio+image | 0.802±0.010 | 0.747 | +0.026 [-0.015,+0.062] |
+| relw|text+audio+image | 0.812±0.005 | 0.701 | +0.028 [-0.010,+0.062] |
+| concat|text+audio+image | 0.781±0.011 | 0.720 | +0.014 [-0.006,+0.031] |
+| mdmlp|text+audio | 0.744±0.013 | 0.673 |  |
+| mdmlp|text+audio+image | 0.772±0.012 | 0.697 | +0.025 [+0.002,+0.047] |
+| mdmlp|full, audio missing at test | 0.788±0.008 | 0.734 |  |
+| mdmlp|full, text missing at test | 0.704±0.013 | 0.663 |  |
+| mdmlp|full, image missing at test | 0.743±0.012 | 0.671 |  |
+
+### image expert: sbal_aug_lung  (alone AUROC 0.809)
+
+| arm | AUROC | UAR@0.5 or sign | ΔAUROC vs same-method w/o image |
+|---|---|---|---|
+| text | 0.782±0.010 | 0.700 |  |
+| audio | 0.610±0.012 | 0.580 |  |
+| image | 0.808±0.001 | 0.711 |  |
+| stack|text+audio | 0.775±0.010 | 0.713 |  |
+| relw|text+audio | 0.782±0.008 | 0.695 |  |
+| concat|text+audio | 0.768±0.009 | 0.713 |  |
+| stack|text+image | 0.833±0.006 | 0.753 |  |
+| relw|text+image | 0.840±0.005 | 0.740 |  |
+| concat|text+image | 0.830±0.008 | 0.755 |  |
+| stack|text+audio+image | 0.827±0.007 | 0.748 | +0.048 [+0.003,+0.093] |
+| relw|text+audio+image | 0.837±0.004 | 0.732 | +0.050 [+0.009,+0.091] |
+| concat|text+audio+image | 0.804±0.008 | 0.747 | +0.035 [+0.006,+0.062] |
+| mdmlp|text+audio | 0.744±0.013 | 0.673 |  |
+| mdmlp|text+audio+image | 0.792±0.008 | 0.730 | +0.041 [+0.013,+0.069] |
+| mdmlp|full, audio missing at test | 0.809±0.008 | 0.740 |  |
+| mdmlp|full, text missing at test | 0.743±0.012 | 0.687 |  |
+| mdmlp|full, image missing at test | 0.739±0.011 | 0.669 |  |
+
+### image expert: sbal_aug_lung_dstd  (alone AUROC 0.804)
+
+| arm | AUROC | UAR@0.5 or sign | ΔAUROC vs same-method w/o image |
+|---|---|---|---|
+| text | 0.782±0.010 | 0.700 |  |
+| audio | 0.610±0.012 | 0.580 |  |
+| image | 0.804±0.001 | 0.698 |  |
+| stack|text+audio | 0.775±0.010 | 0.713 |  |
+| relw|text+audio | 0.782±0.008 | 0.695 |  |
+| concat|text+audio | 0.768±0.009 | 0.713 |  |
+| stack|text+image | 0.831±0.007 | 0.752 |  |
+| relw|text+image | 0.838±0.006 | 0.730 |  |
+| concat|text+image | 0.827±0.009 | 0.753 |  |
+| stack|text+audio+image | 0.824±0.008 | 0.748 | +0.044 [+0.003,+0.084] |
+| relw|text+audio+image | 0.835±0.005 | 0.729 | +0.048 [+0.011,+0.086] |
+| concat|text+audio+image | 0.803±0.009 | 0.748 | +0.032 [+0.006,+0.058] |
+| mdmlp|text+audio | 0.744±0.013 | 0.673 |  |
+| mdmlp|text+audio+image | 0.791±0.011 | 0.727 | +0.041 [+0.015,+0.068] |
+| mdmlp|full, audio missing at test | 0.808±0.007 | 0.735 |  |
+| mdmlp|full, text missing at test | 0.739±0.012 | 0.683 |  |
+| mdmlp|full, image missing at test | 0.739±0.012 | 0.676 |  |

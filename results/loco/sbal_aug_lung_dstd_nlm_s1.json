@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "sbal_aug_lung_dstd",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": true,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9943187658902989,
+ "auc": 0.8063608447703203,
+ "auc_ci": [
+  0.7747513467926147,
+  0.8346383681195513
+ ],
+ "sens_at_spec70": 0.7690355329949239,
+ "spec_at_sens90": 0.454320987654321,
+ "transfer_sens": 0.4873096446700508,
+ "transfer_spec": 0.9037037037037037,
+ "n": 799,
+ "pos": 394
+}

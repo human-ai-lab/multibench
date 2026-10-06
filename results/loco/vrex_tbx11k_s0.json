@@ -1,0 +1,34 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "vrex",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "vrex",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9830383729423001,
+ "auc": 0.6762586511059846,
+ "auc_ci": [
+  0.6519724591849263,
+  0.6998536242040796
+ ],
+ "sens_at_spec70": 0.5772727272727273,
+ "spec_at_sens90": 0.16623693852625865,
+ "transfer_sens": 0.22575757575757577,
+ "transfer_spec": 0.952232324603067,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.7543317845298044,
+ "auc_vs_sick": 0.5959284474702977
+}

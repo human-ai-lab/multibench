@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "erm",
+  "seed": 1,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9995291973035746,
+ "auc": 0.7418562386413485,
+ "auc_ci": [
+  0.7087822135769433,
+  0.7748839940481295
+ ],
+ "sens_at_spec70": 0.6675126903553299,
+ "spec_at_sens90": 0.3308641975308642,
+ "transfer_sens": 0.16243654822335024,
+ "transfer_spec": 0.9851851851851852,
+ "n": 799,
+ "pos": 394
+}

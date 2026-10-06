@@ -1,0 +1,103 @@
+  [whole s0] epoch 0 train_loss=0.1786 valid_uar=0.9667
+  [whole s0] epoch 1 train_loss=0.0299 valid_uar=0.9905
+  [whole s0] epoch 2 train_loss=0.0088 valid_uar=0.9943
+  [whole s0] epoch 3 train_loss=0.0067 valid_uar=0.9905
+  [whole s0] epoch 4 train_loss=0.0139 valid_uar=0.9905
+  [whole s0] epoch 5 train_loss=0.0021 valid_uar=0.9990
+  [whole s0] epoch 6 train_loss=0.0012 valid_uar=0.9990
+  [whole s0] epoch 7 train_loss=0.0005 valid_uar=0.9990
+  [whole s0] epoch 8 train_loss=0.0004 valid_uar=0.9990
+  [whole s0] epoch 9 train_loss=0.0003 valid_uar=0.9990
+  [whole s0] epoch 10 train_loss=0.0003 valid_uar=0.9990
+  [whole s0] epoch 11 train_loss=0.0002 valid_uar=1.0000
+  [whole s0] epoch 12 train_loss=0.0002 valid_uar=1.0000
+  [whole s0] epoch 13 train_loss=0.0002 valid_uar=1.0000
+  [whole s0] epoch 14 train_loss=0.0001 valid_uar=1.0000
+  [whole s1] epoch 0 train_loss=0.1846 valid_uar=0.9943
+  [whole s1] epoch 1 train_loss=0.0304 valid_uar=0.9990
+  [whole s1] epoch 2 train_loss=0.0124 valid_uar=0.9905
+  [whole s1] epoch 3 train_loss=0.0154 valid_uar=0.9990
+  [whole s1] epoch 4 train_loss=0.0046 valid_uar=0.9990
+  [whole s1] epoch 5 train_loss=0.0087 valid_uar=0.9952
+  [whole s1] epoch 6 train_loss=0.0047 valid_uar=0.9981
+  [whole s1] epoch 7 train_loss=0.0011 valid_uar=0.9952
+  [whole s1] epoch 8 train_loss=0.0006 valid_uar=1.0000
+  [whole s1] epoch 9 train_loss=0.0004 valid_uar=1.0000
+  [whole s1] epoch 10 train_loss=0.0003 valid_uar=1.0000
+  [whole s1] epoch 11 train_loss=0.0003 valid_uar=1.0000
+  [whole s1] epoch 12 train_loss=0.0002 valid_uar=1.0000
+  [whole s1] epoch 13 train_loss=0.0002 valid_uar=1.0000
+  [whole s1] epoch 14 train_loss=0.0002 valid_uar=1.0000
+  [whole s2] epoch 0 train_loss=0.1825 valid_uar=0.9571
+  [whole s2] epoch 1 train_loss=0.0390 valid_uar=0.9952
+  [whole s2] epoch 2 train_loss=0.0128 valid_uar=0.9952
+  [whole s2] epoch 3 train_loss=0.0052 valid_uar=1.0000
+  [whole s2] epoch 4 train_loss=0.0034 valid_uar=1.0000
+  [whole s2] epoch 5 train_loss=0.0021 valid_uar=1.0000
+  [whole s2] epoch 6 train_loss=0.0012 valid_uar=1.0000
+  [whole s2] epoch 7 train_loss=0.0005 valid_uar=1.0000
+  [whole s2] epoch 8 train_loss=0.0004 valid_uar=1.0000
+  [whole s2] epoch 9 train_loss=0.0003 valid_uar=1.0000
+  [whole s2] epoch 10 train_loss=0.0003 valid_uar=1.0000
+  [whole s2] epoch 11 train_loss=0.0002 valid_uar=1.0000
+  [whole s2] epoch 12 train_loss=0.0002 valid_uar=1.0000
+  [whole s2] epoch 13 train_loss=0.0002 valid_uar=1.0000
+  [whole s2] epoch 14 train_loss=0.0001 valid_uar=1.0000
+  [lungmask s0] epoch 0 train_loss=0.2633 valid_uar=0.9524
+  [lungmask s0] epoch 1 train_loss=0.1052 valid_uar=0.9762
+  [lungmask s0] epoch 2 train_loss=0.0637 valid_uar=0.9867
+  [lungmask s0] epoch 3 train_loss=0.0834 valid_uar=0.9724
+  [lungmask s0] epoch 4 train_loss=0.0535 valid_uar=0.9743
+  [lungmask s0] epoch 5 train_loss=0.0140 valid_uar=0.9886
+  [lungmask s0] epoch 6 train_loss=0.0077 valid_uar=0.9771
+  [lungmask s0] epoch 7 train_loss=0.0154 valid_uar=0.9943
+  [lungmask s0] epoch 8 train_loss=0.0042 valid_uar=0.9857
+  [lungmask s0] epoch 9 train_loss=0.0382 valid_uar=0.9838
+  [lungmask s0] epoch 10 train_loss=0.0047 valid_uar=0.9914
+  [lungmask s0] epoch 11 train_loss=0.0015 valid_uar=0.9867
+  [lungmask s0] epoch 12 train_loss=0.0010 valid_uar=0.9867
+  [lungmask s0] epoch 13 train_loss=0.0008 valid_uar=0.9876
+  [lungmask s0] epoch 14 train_loss=0.0006 valid_uar=0.9876
+  [lungmask s1] epoch 0 train_loss=0.2791 valid_uar=0.9743
+  [lungmask s1] epoch 1 train_loss=0.1065 valid_uar=0.9714
+  [lungmask s1] epoch 2 train_loss=0.0577 valid_uar=0.9781
+  [lungmask s1] epoch 3 train_loss=0.0501 valid_uar=0.9752
+  [lungmask s1] epoch 4 train_loss=0.0272 valid_uar=0.9829
+  [lungmask s1] epoch 5 train_loss=0.0219 valid_uar=0.9743
+  [lungmask s1] epoch 6 train_loss=0.0088 valid_uar=0.9657
+  [lungmask s1] epoch 7 train_loss=0.0028 valid_uar=0.9752
+  [lungmask s1] epoch 8 train_loss=0.0017 valid_uar=0.9781
+  [lungmask s1] epoch 9 train_loss=0.0010 valid_uar=0.9781
+  [lungmask s1] epoch 10 train_loss=0.0008 valid_uar=0.9781
+  [lungmask s1] epoch 11 train_loss=0.0006 valid_uar=0.9781
+  [lungmask s1] epoch 12 train_loss=0.0006 valid_uar=0.9781
+  [lungmask s1] epoch 13 train_loss=0.0005 valid_uar=0.9781
+  [lungmask s1] epoch 14 train_loss=0.0004 valid_uar=0.9781
+  [lungmask s2] epoch 0 train_loss=0.3026 valid_uar=0.8933
+  [lungmask s2] epoch 1 train_loss=0.1203 valid_uar=0.9676
+  [lungmask s2] epoch 2 train_loss=0.1018 valid_uar=0.9752
+  [lungmask s2] epoch 3 train_loss=0.0450 valid_uar=0.9829
+  [lungmask s2] epoch 4 train_loss=0.0306 valid_uar=0.9838
+  [lungmask s2] epoch 5 train_loss=0.0171 valid_uar=0.9676
+  [lungmask s2] epoch 6 train_loss=0.0080 valid_uar=0.9610
+  [lungmask s2] epoch 7 train_loss=0.0210 valid_uar=0.9743
+  [lungmask s2] epoch 8 train_loss=0.0074 valid_uar=0.9810
+  [lungmask s2] epoch 9 train_loss=0.0041 valid_uar=0.9800
+  [lungmask s2] epoch 10 train_loss=0.0012 valid_uar=0.9810
+  [lungmask s2] epoch 11 train_loss=0.0009 valid_uar=0.9790
+  [lungmask s2] epoch 12 train_loss=0.0007 valid_uar=0.9762
+  [lungmask s2] epoch 13 train_loss=0.0005 valid_uar=0.9762
+  [lungmask s2] epoch 14 train_loss=0.0004 valid_uar=0.9752
+
+model                                                            qatar_auc       qatar_uar       cidrz_auc       cidrz_uar
+results/models/tb_cxr_qatar_vit_u6_whole_s0.pt                       0.999           0.990           0.640           0.581
+results/models/tb_cxr_qatar_vit_u6_whole_s1.pt                       1.000           0.986           0.639           0.556
+results/models/tb_cxr_qatar_vit_u6_whole_s2.pt                       0.994           0.976           0.626           0.621
+vit whole mean +/- sd (n=3)                                   0.998+/-0.003    0.984+/-0.006    0.635+/-0.006    0.586+/-0.027
+results/models/tb_cxr_qatar_vit_u6_lungmask_s0.pt                    0.996           0.978           0.780           0.683
+results/models/tb_cxr_qatar_vit_u6_lungmask_s1.pt                    0.994           0.978           0.773           0.653
+results/models/tb_cxr_qatar_vit_u6_lungmask_s2.pt                    0.993           0.977           0.792           0.688
+vit lungmask mean +/- sd (n=3)                                0.994+/-0.001    0.978+/-0.000    0.782+/-0.008    0.675+/-0.015
+
+Seed-averaged zero-shot CIDRZ AUROC (n=364), paired participant bootstrap:
+  vit lungmask (0.785) minus vit whole (0.637): +0.148 [95% CI +0.072, +0.221]

@@ -1,0 +1,115 @@
+Downloading: "https://download.pytorch.org/models/vit_b_16-c867db91.pth" to /home/bagustris/.cache/torch/hub/checkpoints/vit_b_16-c867db91.pth
+  0%|          | 0.00/330M [00:00<?, ?B/s]  0%|          | 1.50M/330M [00:00<00:23, 14.6MB/s]  1%|          | 3.25M/330M [00:00<00:20, 16.7MB/s]  2%|▏         | 5.00M/330M [00:00<00:19, 17.3MB/s]  2%|▏         | 7.25M/330M [00:00<00:17, 19.5MB/s]  3%|▎         | 9.38M/330M [00:00<00:16, 20.3MB/s]  4%|▎         | 11.9M/330M [00:00<00:15, 21.9MB/s]  4%|▍         | 14.6M/330M [00:00<00:13, 23.8MB/s]  5%|▌         | 17.5M/330M [00:00<00:12, 25.7MB/s]  6%|▌         | 20.2M/330M [00:00<00:12, 26.3MB/s]  7%|▋         | 23.4M/330M [00:01<00:11, 28.1MB/s]  8%|▊         | 26.4M/330M [00:01<00:10, 29.0MB/s]  9%|▉         | 29.2M/330M [00:01<00:11, 27.8MB/s] 10%|▉         | 32.0M/330M [00:01<00:11, 26.8MB/s] 11%|█         | 35.1M/330M [00:01<00:10, 28.4MB/s] 11%|█▏        | 37.9M/330M [00:01<00:10, 28.1MB/s] 12%|█▏        | 40.8M/330M [00:01<00:10, 28.5MB/s] 13%|█▎        | 43.6M/330M [00:01<00:10, 28.9MB/s] 14%|█▍        | 46.8M/330M [00:01<00:10, 29.4MB/s] 15%|█▌        | 49.8M/330M [00:01<00:09, 30.0MB/s] 16%|█▌        | 52.6M/330M [00:02<00:09, 29.7MB/s] 17%|█▋        | 55.5M/330M [00:02<00:09, 29.4MB/s] 18%|█▊        | 58.4M/330M [00:02<00:09, 28.9MB/s] 19%|█▊        | 61.2M/330M [00:02<00:09, 28.4MB/s] 19%|█▉        | 64.0M/330M [00:02<00:09, 28.1MB/s] 20%|██        | 67.2M/330M [00:02<00:09, 29.6MB/s] 21%|██▏       | 70.2M/330M [00:02<00:09, 30.0MB/s] 22%|██▏       | 73.1M/330M [00:02<00:08, 30.0MB/s] 23%|██▎       | 76.4M/330M [00:02<00:08, 30.9MB/s] 24%|██▍       | 79.4M/330M [00:03<00:08, 30.4MB/s] 25%|██▌       | 82.6M/330M [00:03<00:08, 31.0MB/s] 26%|██▌       | 85.6M/330M [00:03<00:08, 31.0MB/s] 27%|██▋       | 88.6M/330M [00:03<00:08, 30.0MB/s] 28%|██▊       | 91.5M/330M [00:03<00:08, 27.9MB/s] 29%|██▊       | 94.2M/330M [00:03<00:08, 27.8MB/s] 29%|██▉       | 97.2M/330M [00:03<00:08, 28.4MB/s] 30%|███       | 100M/330M [00:03<00:08, 28.9MB/s]  31%|███       | 103M/330M [00:03<00:08, 29.1MB/s] 32%|███▏      | 106M/330M [00:04<00:07, 29.5MB/s] 33%|███▎      | 109M/330M [00:04<00:07, 30.1MB/s] 34%|███▍      | 112M/330M [00:04<00:07, 29.4MB/s] 35%|███▍      | 115M/330M [00:04<00:07, 29.7MB/s] 36%|███▌      | 118M/330M [00:04<00:07, 30.1MB/s] 37%|███▋      | 121M/330M [00:04<00:07, 29.7MB/s] 38%|███▊      | 124M/330M [00:04<00:07, 30.1MB/s] 39%|███▊      | 127M/330M [00:04<00:07, 30.2MB/s] 39%|███▉      | 130M/330M [00:04<00:06, 30.8MB/s] 40%|████      | 133M/330M [00:04<00:06, 29.9MB/s] 41%|████▏     | 136M/330M [00:05<00:06, 29.9MB/s] 42%|████▏     | 140M/330M [00:05<00:06, 30.7MB/s] 43%|████▎     | 143M/330M [00:05<00:06, 31.1MB/s] 44%|████▍     | 146M/330M [00:05<00:06, 30.8MB/s] 45%|████▍     | 149M/330M [00:05<00:06, 30.4MB/s] 46%|████▌     | 152M/330M [00:05<00:06, 30.9MB/s] 47%|████▋     | 155M/330M [00:05<00:05, 30.7MB/s] 48%|████▊     | 158M/330M [00:05<00:05, 31.2MB/s] 49%|████▊     | 161M/330M [00:05<00:05, 31.1MB/s] 50%|████▉     | 164M/330M [00:05<00:05, 30.9MB/s] 51%|█████     | 167M/330M [00:06<00:05, 30.9MB/s] 51%|█████▏    | 170M/330M [00:06<00:05, 31.1MB/s] 52%|█████▏    | 173M/330M [00:06<00:05, 31.0MB/s] 53%|█████▎    | 176M/330M [00:06<00:05, 31.5MB/s] 54%|█████▍    | 179M/330M [00:06<00:05, 30.9MB/s] 55%|█████▌    | 182M/330M [00:06<00:05, 30.7MB/s] 56%|█████▌    | 186M/330M [00:06<00:04, 31.3MB/s] 57%|█████▋    | 188M/330M [00:06<00:04, 31.1MB/s] 58%|█████▊    | 192M/330M [00:06<00:04, 31.0MB/s] 59%|█████▉    | 195M/330M [00:07<00:04, 31.5MB/s] 60%|█████▉    | 198M/330M [00:07<00:04, 31.5MB/s] 61%|██████    | 201M/330M [00:07<00:04, 31.1MB/s] 62%|██████▏   | 204M/330M [00:07<00:04, 31.0MB/s] 63%|██████▎   | 207M/330M [00:07<00:04, 30.7MB/s] 64%|██████▎   | 210M/330M [00:07<00:04, 31.2MB/s] 65%|██████▍   | 213M/330M [00:07<00:03, 31.2MB/s] 65%|██████▌   | 216M/330M [00:07<00:03, 31.5MB/s] 66%|██████▋   | 219M/330M [00:07<00:03, 31.2MB/s] 67%|██████▋   | 222M/330M [00:07<00:03, 31.4MB/s] 68%|██████▊   | 226M/330M [00:08<00:03, 31.0MB/s] 69%|██████▉   | 229M/330M [00:08<00:03, 31.1MB/s] 70%|███████   | 232M/330M [00:08<00:03, 31.1MB/s] 71%|███████   | 235M/330M [00:08<00:03, 31.5MB/s] 72%|███████▏  | 238M/330M [00:08<00:03, 31.6MB/s] 73%|███████▎  | 241M/330M [00:08<00:02, 31.5MB/s] 74%|███████▍  | 244M/330M [00:08<00:02, 31.3MB/s] 75%|███████▍  | 247M/330M [00:08<00:02, 30.7MB/s] 76%|███████▌  | 250M/330M [00:08<00:02, 31.2MB/s] 77%|███████▋  | 254M/330M [00:08<00:02, 32.1MB/s] 78%|███████▊  | 257M/330M [00:09<00:02, 31.2MB/s] 79%|███████▊  | 260M/330M [00:09<00:02, 31.1MB/s] 80%|███████▉  | 263M/330M [00:09<00:02, 30.8MB/s] 80%|████████  | 266M/330M [00:09<00:02, 30.9MB/s] 81%|████████▏ | 269M/330M [00:09<00:02, 30.5MB/s] 82%|████████▏ | 272M/330M [00:09<00:01, 30.7MB/s] 83%|████████▎ | 275M/330M [00:09<00:01, 30.7MB/s] 84%|████████▍ | 278M/330M [00:09<00:01, 31.1MB/s] 85%|████████▌ | 281M/330M [00:09<00:01, 31.0MB/s] 86%|████████▌ | 284M/330M [00:10<00:02, 19.7MB/s] 87%|████████▋ | 286M/330M [00:10<00:02, 20.9MB/s] 88%|████████▊ | 289M/330M [00:10<00:01, 22.2MB/s] 88%|████████▊ | 292M/330M [00:10<00:01, 23.4MB/s] 89%|████████▉ | 295M/330M [00:10<00:01, 24.9MB/s] 90%|████████▉ | 297M/330M [00:10<00:01, 25.4MB/s] 91%|█████████ | 300M/330M [00:10<00:01, 27.0MB/s] 92%|█████████▏| 303M/330M [00:10<00:00, 28.5MB/s] 93%|█████████▎| 306M/330M [00:11<00:01, 24.5MB/s] 94%|█████████▎| 309M/330M [00:11<00:00, 26.0MB/s] 95%|█████████▍| 312M/330M [00:11<00:00, 27.5MB/s] 95%|█████████▌| 315M/330M [00:11<00:00, 28.4MB/s] 96%|█████████▋| 318M/330M [00:11<00:00, 29.1MB/s] 97%|█████████▋| 322M/330M [00:11<00:00, 30.4MB/s] 98%|█████████▊| 324M/330M [00:11<00:00, 30.1MB/s] 99%|█████████▉| 328M/330M [00:11<00:00, 30.9MB/s]100%|██████████| 330M/330M [00:11<00:00, 29.1MB/s]
+  [whole s0] epoch 0 train_loss=0.3406 valid_uar=0.9705
+  [whole s0] epoch 1 train_loss=0.0752 valid_uar=0.9867
+  [whole s0] epoch 2 train_loss=0.0335 valid_uar=0.9800
+  [whole s0] epoch 3 train_loss=0.0245 valid_uar=0.9743
+  [whole s0] epoch 4 train_loss=0.0150 valid_uar=0.9924
+  [whole s0] epoch 5 train_loss=0.0065 valid_uar=0.9933
+  [whole s0] epoch 6 train_loss=0.0052 valid_uar=0.9924
+  [whole s0] epoch 7 train_loss=0.0040 valid_uar=0.9790
+  [whole s0] epoch 8 train_loss=0.0027 valid_uar=0.9933
+  [whole s0] epoch 9 train_loss=0.0020 valid_uar=0.9981
+  [whole s0] epoch 10 train_loss=0.0014 valid_uar=0.9933
+  [whole s0] epoch 11 train_loss=0.0009 valid_uar=0.9933
+  [whole s0] epoch 12 train_loss=0.0007 valid_uar=0.9933
+  [whole s0] epoch 13 train_loss=0.0006 valid_uar=0.9933
+  [whole s0] epoch 14 train_loss=0.0005 valid_uar=0.9933
+  [whole s1] epoch 0 train_loss=0.3333 valid_uar=0.9714
+  [whole s1] epoch 1 train_loss=0.0733 valid_uar=0.9876
+  [whole s1] epoch 2 train_loss=0.0350 valid_uar=0.9867
+  [whole s1] epoch 3 train_loss=0.0210 valid_uar=0.9886
+  [whole s1] epoch 4 train_loss=0.0149 valid_uar=0.9952
+  [whole s1] epoch 5 train_loss=0.0082 valid_uar=0.9905
+  [whole s1] epoch 6 train_loss=0.0070 valid_uar=0.9981
+  [whole s1] epoch 7 train_loss=0.0034 valid_uar=0.9933
+  [whole s1] epoch 8 train_loss=0.0028 valid_uar=0.9981
+  [whole s1] epoch 9 train_loss=0.0020 valid_uar=0.9886
+  [whole s1] epoch 10 train_loss=0.0015 valid_uar=0.9981
+  [whole s1] epoch 11 train_loss=0.0009 valid_uar=0.9981
+  [whole s1] epoch 12 train_loss=0.0007 valid_uar=0.9933
+  [whole s1] epoch 13 train_loss=0.0006 valid_uar=0.9933
+  [whole s1] epoch 14 train_loss=0.0005 valid_uar=0.9933
+  [whole s2] epoch 0 train_loss=0.3408 valid_uar=0.9581
+  [whole s2] epoch 1 train_loss=0.0743 valid_uar=0.9810
+  [whole s2] epoch 2 train_loss=0.0348 valid_uar=0.9848
+  [whole s2] epoch 3 train_loss=0.0396 valid_uar=0.9905
+  [whole s2] epoch 4 train_loss=0.0169 valid_uar=0.9924
+  [whole s2] epoch 5 train_loss=0.0112 valid_uar=0.9933
+  [whole s2] epoch 6 train_loss=0.0069 valid_uar=0.9924
+  [whole s2] epoch 7 train_loss=0.0047 valid_uar=0.9838
+  [whole s2] epoch 8 train_loss=0.0035 valid_uar=0.9933
+  [whole s2] epoch 9 train_loss=0.0029 valid_uar=0.9886
+  [whole s2] epoch 10 train_loss=0.0014 valid_uar=0.9838
+  [whole s2] epoch 11 train_loss=0.0011 valid_uar=0.9981
+  [whole s2] epoch 12 train_loss=0.0009 valid_uar=0.9981
+  [whole s2] epoch 13 train_loss=0.0007 valid_uar=0.9933
+  [whole s2] epoch 14 train_loss=0.0005 valid_uar=0.9933
+  [lungmask s0] epoch 0 train_loss=0.4009 valid_uar=0.9457
+  [lungmask s0] epoch 1 train_loss=0.1941 valid_uar=0.9181
+  [lungmask s0] epoch 2 train_loss=0.1322 valid_uar=0.9781
+  [lungmask s0] epoch 3 train_loss=0.1223 valid_uar=0.9429
+  [lungmask s0] epoch 4 train_loss=0.0950 valid_uar=0.9800
+  [lungmask s0] epoch 5 train_loss=0.0663 valid_uar=0.9771
+  [lungmask s0] epoch 6 train_loss=0.0497 valid_uar=0.9790
+  [lungmask s0] epoch 7 train_loss=0.0348 valid_uar=0.9771
+  [lungmask s0] epoch 8 train_loss=0.0228 valid_uar=0.9790
+  [lungmask s0] epoch 9 train_loss=0.0248 valid_uar=0.9724
+  [lungmask s0] epoch 10 train_loss=0.0161 valid_uar=0.9819
+  [lungmask s0] epoch 11 train_loss=0.0092 valid_uar=0.9800
+  [lungmask s0] epoch 12 train_loss=0.0106 valid_uar=0.9848
+  [lungmask s0] epoch 13 train_loss=0.0121 valid_uar=0.9819
+  [lungmask s0] epoch 14 train_loss=0.0048 valid_uar=0.9810
+  [lungmask s1] epoch 0 train_loss=0.3939 valid_uar=0.9400
+  [lungmask s1] epoch 1 train_loss=0.1967 valid_uar=0.9543
+  [lungmask s1] epoch 2 train_loss=0.1245 valid_uar=0.9610
+  [lungmask s1] epoch 3 train_loss=0.0963 valid_uar=0.9695
+  [lungmask s1] epoch 4 train_loss=0.0806 valid_uar=0.9705
+  [lungmask s1] epoch 5 train_loss=0.0588 valid_uar=0.9829
+  [lungmask s1] epoch 6 train_loss=0.0518 valid_uar=0.9752
+  [lungmask s1] epoch 7 train_loss=0.0495 valid_uar=0.9733
+  [lungmask s1] epoch 8 train_loss=0.0348 valid_uar=0.9810
+  [lungmask s1] epoch 9 train_loss=0.0230 valid_uar=0.9810
+  [lungmask s1] epoch 10 train_loss=0.0154 valid_uar=0.9810
+  [lungmask s1] epoch 11 train_loss=0.0111 valid_uar=0.9857
+  [lungmask s1] epoch 12 train_loss=0.0069 valid_uar=0.9810
+  [lungmask s1] epoch 13 train_loss=0.0079 valid_uar=0.9848
+  [lungmask s1] epoch 14 train_loss=0.0049 valid_uar=0.9743
+  [lungmask s2] epoch 0 train_loss=0.4529 valid_uar=0.9162
+  [lungmask s2] epoch 1 train_loss=0.2010 valid_uar=0.9552
+  [lungmask s2] epoch 2 train_loss=0.1455 valid_uar=0.9705
+  [lungmask s2] epoch 3 train_loss=0.1097 valid_uar=0.9667
+  [lungmask s2] epoch 4 train_loss=0.0691 valid_uar=0.9733
+  [lungmask s2] epoch 5 train_loss=0.0625 valid_uar=0.9695
+  [lungmask s2] epoch 6 train_loss=0.0425 valid_uar=0.9781
+  [lungmask s2] epoch 7 train_loss=0.0357 valid_uar=0.9733
+  [lungmask s2] epoch 8 train_loss=0.0279 valid_uar=0.9857
+  [lungmask s2] epoch 9 train_loss=0.0260 valid_uar=0.9886
+  [lungmask s2] epoch 10 train_loss=0.0286 valid_uar=0.9695
+  [lungmask s2] epoch 11 train_loss=0.0321 valid_uar=0.9848
+  [lungmask s2] epoch 12 train_loss=0.0077 valid_uar=0.9810
+  [lungmask s2] epoch 13 train_loss=0.0052 valid_uar=0.9857
+  [lungmask s2] epoch 14 train_loss=0.0080 valid_uar=0.9781
+
+model                                                            qatar_auc       qatar_uar       cidrz_auc       cidrz_uar
+results/models/tb_cxr_qatar_vit_whole_s0.pt                          0.998           0.975           0.605           0.568
+results/models/tb_cxr_qatar_vit_whole_s1.pt                          0.998           0.980           0.601           0.539
+results/models/tb_cxr_qatar_vit_whole_s2.pt                          0.997           0.975           0.605           0.566
+vit whole mean +/- sd (n=3)                                   0.998+/-0.001    0.977+/-0.002    0.604+/-0.002    0.558+/-0.013
+results/models/tb_cxr_qatar_vit_lungmask_s0.pt                       0.989           0.972           0.730           0.656
+results/models/tb_cxr_qatar_vit_lungmask_s1.pt                       0.989           0.971           0.720           0.665
+results/models/tb_cxr_qatar_vit_lungmask_s2.pt                       0.989           0.968           0.705           0.599
+vit lungmask mean +/- sd (n=3)                                0.989+/-0.000    0.970+/-0.002    0.719+/-0.010    0.640+/-0.029
+results/models/tb_cxr_qatar_whole_s0.pt                              0.999           0.988           0.581           0.527
+results/models/tb_cxr_qatar_whole_s1.pt                              1.000           0.990           0.573           0.549
+results/models/tb_cxr_qatar_whole_s2.pt                              1.000           0.993           0.632           0.531
+vgg whole mean +/- sd (n=3)                                   1.000+/-0.000    0.990+/-0.002    0.595+/-0.026    0.535+/-0.010
+results/models/tb_cxr_qatar_lungmask_s0.pt                           0.980           0.929           0.725           0.660
+results/models/tb_cxr_qatar_lungmask_s1.pt                           0.982           0.924           0.744           0.631
+results/models/tb_cxr_qatar_lungmask_s2.pt                           0.989           0.944           0.737           0.596
+vgg lungmask mean +/- sd (n=3)                                0.984+/-0.004    0.932+/-0.009    0.735+/-0.008    0.629+/-0.026
+
+Seed-averaged zero-shot CIDRZ AUROC (n=364), paired participant bootstrap:
+  vit lungmask (0.722) minus vit whole (0.604): +0.118 [95% CI +0.042, +0.197]
+  vit whole (0.604) minus vgg whole (0.604): -0.000 [95% CI -0.082, +0.083]
+  vit lungmask (0.722) minus vgg lungmask (0.743): -0.021 [95% CI -0.087, +0.046]

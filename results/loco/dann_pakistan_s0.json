@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "dann",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "dann",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9791087935708754,
+ "auc": 0.8635910622734024,
+ "auc_ci": [
+  0.8505075895091062,
+  0.8772742338946702
+ ],
+ "sens_at_spec70": 0.8170385395537525,
+ "spec_at_sens90": 0.5,
+ "transfer_sens": 0.6279918864097364,
+ "transfer_spec": 0.9468503937007874,
+ "n": 2973,
+ "pos": 2465
+}

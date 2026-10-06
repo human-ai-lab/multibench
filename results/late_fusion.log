@@ -1,0 +1,20 @@
+CIDRZ pooled: n=364, positives=60
+Scoring image expert results/models/tb_cxr_qatar_partial_unfreeze.pt (label-free, out-of-fold AdaBN + TTA)...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+Image expert alone (label-free margin) AUROC on all 364: 0.592
+
+Image expert: results/models/tb_cxr_qatar_partial_unfreeze.pt
+
+arm                         UAR mean+/-sd  AUROC mean+/-sd  UAR 95% CI   | vs text-only: dUAR [95% CI]  dAUROC [95% CI]  NB p(UAR)
+image                    0.572+/-0.005  0.585+/-0.005  [0.503,0.640] | -0.145 [-0.238,-0.060]  -0.197 [-0.296,-0.102]  p=0.005
+audio                    0.573+/-0.024  0.597+/-0.014  [0.513,0.654] | -0.134 [-0.214,-0.056]  -0.170 [-0.261,-0.079]  p=0.004
+text                     0.706+/-0.013  0.777+/-0.010  [0.658,0.778]
+text+audio               0.713+/-0.018  0.775+/-0.010  [0.660,0.780] | +0.003 [-0.024,+0.030]  +0.001 [-0.009,+0.011]  p=0.691
+text+image               0.696+/-0.017  0.771+/-0.010  [0.637,0.763] | -0.015 [-0.055,+0.020]  -0.006 [-0.019,+0.007]  p=0.648
+text+audio+image         0.704+/-0.018  0.769+/-0.012  [0.647,0.769] | -0.007 [-0.047,+0.031]  -0.007 [-0.023,+0.008]  p=0.936
+text+image (avg)         0.694+/-0.010  0.735+/-0.009  [0.626,0.753] | -0.025 [-0.093,+0.039]  -0.046 [-0.098,+0.006]  p=0.731
+text+audio+image (avg)   0.694+/-0.010  0.740+/-0.011  [0.618,0.748] | -0.033 [-0.100,+0.031]  -0.037 [-0.093,+0.018]  p=0.778

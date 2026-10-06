@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "groupdro",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "groupdro",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.974712007278978,
+ "auc": 0.692074076440242,
+ "auc_ci": [
+  0.6675598368605588,
+  0.714400997771103
+ ],
+ "sens_at_spec70": 0.5403651115618662,
+ "spec_at_sens90": 0.2874015748031496,
+ "transfer_sens": 0.6373225152129818,
+ "transfer_spec": 0.610236220472441,
+ "n": 2973,
+ "pos": 2465
+}

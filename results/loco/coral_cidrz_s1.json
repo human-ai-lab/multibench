@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "cidrz",
+  "name": "coral",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "coral",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9804702254505401,
+ "auc": 0.7199561403508772,
+ "auc_ci": [
+  0.64818029170635,
+  0.7881213700069811
+ ],
+ "sens_at_spec70": 0.6333333333333333,
+ "spec_at_sens90": 0.29276315789473684,
+ "transfer_sens": 0.7,
+ "transfer_spec": 0.6348684210526315,
+ "n": 364,
+ "pos": 60
+}

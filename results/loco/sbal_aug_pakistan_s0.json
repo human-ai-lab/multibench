@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "sbal_aug",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9837203455709518,
+ "auc": 0.6917825941128555,
+ "auc_ci": [
+  0.6719119535933019,
+  0.7124610905674441
+ ],
+ "sens_at_spec70": 0.5995943204868154,
+ "spec_at_sens90": 0.11220472440944881,
+ "transfer_sens": 0.7383367139959433,
+ "transfer_spec": 0.41338582677165353,
+ "n": 2973,
+ "pos": 2465
+}

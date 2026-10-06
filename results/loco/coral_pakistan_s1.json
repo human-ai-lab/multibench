@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "coral",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "coral",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9783529749712129,
+ "auc": 0.8120234463592658,
+ "auc_ci": [
+  0.7920324539657565,
+  0.8301229052164625
+ ],
+ "sens_at_spec70": 0.78052738336714,
+ "spec_at_sens90": 0.4744094488188976,
+ "transfer_sens": 0.5513184584178499,
+ "transfer_spec": 0.8740157480314961,
+ "n": 2973,
+ "pos": 2465
+}

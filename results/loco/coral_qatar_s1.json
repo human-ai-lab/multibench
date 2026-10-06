@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "coral",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "coral",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.997173976385933,
+ "auc": 0.8374805592295472,
+ "auc_ci": [
+  0.8177147401616389,
+  0.8589226096696699
+ ],
+ "sens_at_spec70": 0.8008720930232558,
+ "spec_at_sens90": 0.32123463846813377,
+ "transfer_sens": 0.5116279069767442,
+ "transfer_spec": 0.9888539582737925,
+ "n": 4187,
+ "pos": 688
+}

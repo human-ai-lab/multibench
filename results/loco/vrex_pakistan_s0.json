@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "vrex",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "vrex",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9738843738733128,
+ "auc": 0.8483461372602258,
+ "auc_ci": [
+  0.8331849480726788,
+  0.8640462147695155
+ ],
+ "sens_at_spec70": 0.7963488843813388,
+ "spec_at_sens90": 0.4311023622047244,
+ "transfer_sens": 0.6377281947261664,
+ "transfer_spec": 0.937007874015748,
+ "n": 2973,
+ "pos": 2465
+}

@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "cidrz",
+  "name": "erm",
+  "seed": 1,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9795282825933687,
+ "auc": 0.7764802631578948,
+ "auc_ci": [
+  0.7050488592391939,
+  0.8436256760279027
+ ],
+ "sens_at_spec70": 0.7,
+ "spec_at_sens90": 0.33223684210526316,
+ "transfer_sens": 0.5666666666666667,
+ "transfer_spec": 0.819078947368421,
+ "n": 364,
+ "pos": 60
+}

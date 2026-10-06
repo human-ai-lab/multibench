@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "dann",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "dann",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.998191840894823,
+ "auc": 0.758513505044808,
+ "auc_ci": [
+  0.7255460016600206,
+  0.7910788765038641
+ ],
+ "sens_at_spec70": 0.7081218274111675,
+ "spec_at_sens90": 0.3160493827160494,
+ "transfer_sens": 0.4289340101522843,
+ "transfer_spec": 0.9111111111111111,
+ "n": 799,
+ "pos": 394
+}

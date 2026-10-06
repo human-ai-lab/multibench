@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "vrex",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "vrex",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9972723195948671,
+ "auc": 0.7407282070564642,
+ "auc_ci": [
+  0.7059465601193313,
+  0.7703401264472858
+ ],
+ "sens_at_spec70": 0.6548223350253807,
+ "spec_at_sens90": 0.3358024691358025,
+ "transfer_sens": 0.22842639593908629,
+ "transfer_spec": 0.9703703703703703,
+ "n": 799,
+ "pos": 394
+}

@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "erm",
+  "seed": 0,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.995109856930509,
+ "auc": 0.9136401928790285,
+ "auc_ci": [
+  0.8983746496162226,
+  0.9273960550683238
+ ],
+ "sens_at_spec70": 0.8822674418604651,
+ "spec_at_sens90": 0.655901686196056,
+ "transfer_sens": 0.6322674418604651,
+ "transfer_spec": 0.9965704486996285,
+ "n": 4187,
+ "pos": 688
+}

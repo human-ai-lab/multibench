@@ -1,0 +1,32 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "groupdro",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "groupdro",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "unfreeze_blocks": 6,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco"
+ },
+ "val_mean_auc": 0.9995912777312547,
+ "auc": 0.7429717365419566,
+ "auc_ci": [
+  0.7077439627973096,
+  0.7755379749205232
+ ],
+ "sens_at_spec70": 0.7030456852791879,
+ "spec_at_sens90": 0.345679012345679,
+ "transfer_sens": 0.13451776649746192,
+ "transfer_spec": 0.9777777777777777,
+ "n": 799,
+ "pos": 394
+}
