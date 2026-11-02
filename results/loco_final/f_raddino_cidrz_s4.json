@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "cidrz",
+  "name": "f_raddino",
+  "seed": 4,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9935877916276061,
+ "auc": 0.8157894736842105,
+ "auc_ci": [
+  0.74862109375,
+  0.8812749691016746
+ ],
+ "sens_at_spec70": 0.7333333333333333,
+ "spec_at_sens90": 0.3980263157894737,
+ "transfer_sens": 0.7333333333333333,
+ "transfer_spec": 0.7269736842105263,
+ "thr": 1.9287312269210817,
+ "n": 364,
+ "pos": 60
+}

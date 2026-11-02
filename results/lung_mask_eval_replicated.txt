@@ -1,0 +1,51 @@
+  [whole] results/models/tb_cxr_qatar_whole_s0.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+  [whole] results/models/tb_cxr_qatar_whole_s1.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+  [whole] results/models/tb_cxr_qatar_whole_s2.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+  [lungmask] results/models/tb_cxr_qatar_lungmask_s0.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+  [lungmask] results/models/tb_cxr_qatar_lungmask_s1.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+  [lungmask] results/models/tb_cxr_qatar_lungmask_s2.pt: adapting...
+  image expert fold 1/5 scored
+  image expert fold 2/5 scored
+  image expert fold 3/5 scored
+  image expert fold 4/5 scored
+  image expert fold 5/5 scored
+
+model                                                              qatar_auc         qatar_uar         cidrz_auc         cidrz_uar cidrz_adapted_auc
+results/models/tb_cxr_qatar_whole_s0.pt                                0.999             0.988             0.581             0.527             0.605
+results/models/tb_cxr_qatar_whole_s1.pt                                1.000             0.990             0.573             0.549             0.623
+results/models/tb_cxr_qatar_whole_s2.pt                                1.000             0.993             0.632             0.531             0.629
+whole mean +/- sd (n=3)                                         1.000+/-0.000      0.990+/-0.002      0.595+/-0.026      0.535+/-0.010      0.619+/-0.010
+results/models/tb_cxr_qatar_lungmask_s0.pt                             0.980             0.929             0.725             0.660             0.740
+results/models/tb_cxr_qatar_lungmask_s1.pt                             0.982             0.924             0.744             0.631             0.751
+results/models/tb_cxr_qatar_lungmask_s2.pt                             0.989             0.944             0.737             0.596             0.739
+lungmask mean +/- sd (n=3)                                      0.984+/-0.004      0.932+/-0.009      0.735+/-0.008      0.629+/-0.026      0.743+/-0.005
+
+Seed-averaged CIDRZ scores, lungmask minus whole (paired participant bootstrap, n=364):
+  zero-shot    AUROC whole=0.604  lungmask=0.743  diff=+0.139 [95% CI +0.042, +0.238]
+  AdaBN + TTA  AUROC whole=0.626  lungmask=0.748  diff=+0.122 [95% CI +0.025, +0.222]
+CHAIN_DONE

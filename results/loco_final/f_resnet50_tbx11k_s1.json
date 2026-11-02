@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_resnet50",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9717085085448476,
+ "auc": 0.8489554933237929,
+ "auc_ci": [
+  0.8315980416875943,
+  0.864356846640755
+ ],
+ "sens_at_spec70": 0.796969696969697,
+ "spec_at_sens90": 0.5280227982087121,
+ "transfer_sens": 0.7212121212121212,
+ "transfer_spec": 0.8170715158094721,
+ "thr": 0.6070627689361574,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9298156842711298,
+ "auc_vs_sick": 0.7657576591910292
+}

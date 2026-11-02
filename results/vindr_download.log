@@ -1,0 +1,378 @@
+2146 files, 4 workers
+retry 1/6 train/00f2f97f74e086e1f82acc285ee4a5c5.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/046ad82db74a4155eaff3586b0d1e068.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/053cf0f0a75926ebd53f0265bad6aee4.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/0339aac16e3dd93ee397315a224147a6.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/038a7c88fcd819549f430c1fd907658c.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/046ad82db74a4155eaff3586b0d1e068.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/053cf0f0a75926ebd53f0265bad6aee4.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/0339aac16e3dd93ee397315a224147a6.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/038a7c88fcd819549f430c1fd907658c.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+10/2146 done, 0 failed
+20/2146 done, 0 failed
+retry 1/6 train/0e88612bd294e249382b9e64d222cdf4.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/1066a058b5bae597f2dbb33780c2577d.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/0df187b5072103a0919c1a34be03e7ed.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+30/2146 done, 0 failed
+retry 1/6 train/18a61a07e6f5f13ebfee57fa36cd8b6f.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/12d8de45e35e8b8c896109bfb46f8a82.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+40/2146 done, 0 failed
+50/2146 done, 0 failed
+60/2146 done, 0 failed
+70/2146 done, 0 failed
+80/2146 done, 0 failed
+90/2146 done, 0 failed
+100/2146 done, 0 failed
+110/2146 done, 0 failed
+retry 1/6 train/392910e2001c7d9710d1e11f1bf4bd73.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/392910e2001c7d9710d1e11f1bf4bd73.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/392910e2001c7d9710d1e11f1bf4bd73.dicom:
+2026-10-29
+retry 3/6 train/392910e2001c7d9710d1e11f1bf4bd73.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/392910e2001c7d9710d1e11f1bf4bd73.dicom:
+2026-10-29
+retry 1/6 train/37233691ba64ed88b4e05882d7e41d61.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+120/2146 done, 0 failed
+130/2146 done, 0 failed
+retry 1/6 train/44999de3c6dd3312011578cdbfc7116e.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/4652edceea12613caef68322a7fddec0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/41ebb4e4b4434bb495434e6a4026c9d7.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/45fad4fe08460cf9aec10986ba13c582.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/44999de3c6dd3312011578cdbfc7116e.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/4652edceea12613caef68322a7fddec0.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/41ebb4e4b4434bb495434e6a4026c9d7.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/45fad4fe08460cf9aec10986ba13c582.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 1/6 train/47413ec6c79b4795ea7849cea26ece84.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/47188d0c91088558e62b52f1c9f06b0d.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/46e487b18e0988c53bf9056bd3689a6d.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/47a50643e0ffee2204984ca1ac6bccf0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+140/2146 done, 0 failed
+150/2146 done, 0 failed
+160/2146 done, 0 failed
+retry 1/6 train/54e6184c63c75a9695d7effc17969ad0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/547c05d144ba6fc07c0c4bb052a3baad.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/543c0591a8706112a0e71620509a398f.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/55e39b1282cde6796b82c6b5019a1fb8.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/54e6184c63c75a9695d7effc17969ad0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/543c0591a8706112a0e71620509a398f.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/547c05d144ba6fc07c0c4bb052a3baad.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+170/2146 done, 0 failed
+180/2146 done, 0 failed
+retry 1/6 train/5bec9b12b354f2d865db06ae323259b8.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/5d6c0df203f0e3f04467e27507029026.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/5c0e5d5565e95746f3760193c38a48bf.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/5b2e28bd44d10e3e10605d0d95ffba22.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/5bec9b12b354f2d865db06ae323259b8.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/5d6c0df203f0e3f04467e27507029026.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/5c0e5d5565e95746f3760193c38a48bf.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/5b2e28bd44d10e3e10605d0d95ffba22.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+190/2146 done, 0 failed
+retry 1/6 train/63f24af3bd9f735911958c1190306af1.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/64f4fa78d723ad71e2422bc74bcd38f4.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/642617909307cc0ba39930495ed65a41.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/63cf713d392ce347a329b20e8bd4782b.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+200/2146 done, 0 failed
+210/2146 done, 0 failed
+retry 1/6 train/6c52edbfaea1be8334fd862161a8f4e4.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/6d6746496137a10dbfbb4019c47174c0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/6dc207746578921c58e86d97b78534bd.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+220/2146 done, 0 failed
+230/2146 done, 0 failed
+240/2146 done, 0 failed
+250/2146 done, 0 failed
+260/2146 done, 0 failed
+270/2146 done, 0 failed
+280/2146 done, 0 failed
+retry 1/6 train/93ed73782bc23a0ef9c426c21982d8d7.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/9809f0d8f7d4654a2599c052a5b83dbd.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/95d3c55f3737289bc2ea761df9a0c120.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/9710d919aaab2bdac30900f140de109b.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/93ed73782bc23a0ef9c426c21982d8d7.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+290/2146 done, 0 failed
+300/2146 done, 0 failed
+310/2146 done, 0 failed
+320/2146 done, 0 failed
+330/2146 done, 0 failed
+retry 1/6 train/af4f5a12b32b5d76951f3994cd7e9ad6.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+340/2146 done, 0 failed
+350/2146 done, 0 failed
+360/2146 done, 0 failed
+370/2146 done, 0 failed
+380/2146 done, 0 failed
+390/2146 done, 0 failed
+400/2146 done, 0 failed
+retry 1/6 train/d3b82f17d58da80f02e2b0812606cee2.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/d3637a1935a905b3c326af31389cb846.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/d2de60c06501603f1d4842fa71808636.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/d3dfd38de2eecc6492fa8101d8245b76.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/d3b82f17d58da80f02e2b0812606cee2.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+410/2146 done, 0 failed
+retry 1/6 train/da668869900c862ce12bd06fde5feb8d.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/d9d272d8282ba9ce1ce1065f45cd0456.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/da43f621e092ce20c96b5f4efcc2ea43.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/da668869900c862ce12bd06fde5feb8d.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+420/2146 done, 0 failed
+retry 1/6 train/e2375b4b6839b3783d0918a689eecfd0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/e0a078144e3167316fa44673aa5e3aab.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/dff6766d2464bfe77de7f6f19edbf51a.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/e0a7f7a788eedf388b90bf00bd4e39df.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/e2375b4b6839b3783d0918a689eecfd0.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/e0a078144e3167316fa44673aa5e3aab.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/dff6766d2464bfe77de7f6f19edbf51a.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/e0a7f7a788eedf388b90bf00bd4e39df.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+430/2146 done, 0 failed
+440/2146 done, 0 failed
+450/2146 done, 0 failed
+460/2146 done, 0 failed
+470/2146 done, 0 failed
+retry 1/6 train/fc979a294242406c565414d75dd68f9f.dicom: RuntimeError wget exit 4: ion selected: Basic realm="PhysioNet", charset="UTF-8"
+Read error (
+retry 1/6 train/fc40fa29a65f935b15a3763a83d11a15.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/ff924bcbd38f123aec723aa7040d7e43.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/ff924bcbd38f123aec723aa7040d7e43.dicom:
+2026-10-29
+480/2146 done, 0 failed
+490/2146 done, 0 failed
+500/2146 done, 0 failed
+510/2146 done, 0 failed
+retry 1/6 test/26a5285339df294ce288663b092c23c3.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/9d55051f2ad55edc96612d7d28dfd472.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/efaa3db93267375dcd48555debfaef9b.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/46f349b7cabf56c2c2d9c1d069f8c564.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 test/9d55051f2ad55edc96612d7d28dfd472.dicom: RuntimeError wget exit 8: r-cxr/1.0.0/test/9d55051f2ad55edc96612d7d28dfd472.dicom:
+2026-10-29
+retry 2/6 test/26a5285339df294ce288663b092c23c3.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+520/2146 done, 0 failed
+retry 1/6 test/f064fef0a9542fb09bec9faa70a718d6.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/330c8fe642a041f281f7e7cad8ac2f7c.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/1c23c0b48f19721b171febe638673eec.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/d3402dc78261931dde321771b5319d91.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+530/2146 done, 0 failed
+540/2146 done, 0 failed
+550/2146 done, 0 failed
+560/2146 done, 0 failed
+570/2146 done, 0 failed
+580/2146 done, 0 failed
+590/2146 done, 0 failed
+600/2146 done, 0 failed
+retry 1/6 test/7bf0f93d42efd25936029bd1082d88a2.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/b4be21fea9b9bf0992e72d56db1a2cc9.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/3198b14b43ec49fdb55d5fe3b03a56f3.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/e9d6be0a35a7a6ee40349318f0e3e699.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 test/7bf0f93d42efd25936029bd1082d88a2.dicom: RuntimeError wget exit 8: r-cxr/1.0.0/test/7bf0f93d42efd25936029bd1082d88a2.dicom:
+2026-10-29
+retry 2/6 test/3198b14b43ec49fdb55d5fe3b03a56f3.dicom: RuntimeError wget exit 8: r-cxr/1.0.0/test/3198b14b43ec49fdb55d5fe3b03a56f3.dicom:
+2026-10-29
+610/2146 done, 0 failed
+620/2146 done, 0 failed
+630/2146 done, 0 failed
+640/2146 done, 0 failed
+650/2146 done, 0 failed
+660/2146 done, 0 failed
+670/2146 done, 0 failed
+680/2146 done, 0 failed
+690/2146 done, 0 failed
+retry 1/6 train/3a7fe3406fe234fc95b144dea0e29852.dicom: RuntimeError wget exit 4: ion selected: Basic realm="PhysioNet", charset="UTF-8"
+Read error (
+retry 1/6 train/4db39daa428ae70f35510d3f559d86c0.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/f0591ae18efc36ec22302f52a8ad7667.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/89a938068845b572a4a4aae8a1fc99d9.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/3a7fe3406fe234fc95b144dea0e29852.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/4db39daa428ae70f35510d3f559d86c0.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/f0591ae18efc36ec22302f52a8ad7667.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/89a938068845b572a4a4aae8a1fc99d9.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+700/2146 done, 0 failed
+710/2146 done, 0 failed
+720/2146 done, 0 failed
+retry 1/6 train/a2479854555891427600b51f4a1e8786.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/58531213db18b19dd940e11ed1350ca4.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/4c7ad3fca0d9c09fb5c649ac91cbad14.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/daa38c68b720696d6d0c59fe690dc2a5.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+730/2146 done, 0 failed
+retry 1/6 train/d469bfee3721c94c801396d0a592ce9f.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/d469bfee3721c94c801396d0a592ce9f.dicom:
+2026-10-29
+retry 2/6 train/d469bfee3721c94c801396d0a592ce9f.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/d469bfee3721c94c801396d0a592ce9f.dicom:
+2026-10-29
+retry 3/6 train/d469bfee3721c94c801396d0a592ce9f.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/d469bfee3721c94c801396d0a592ce9f.dicom:
+2026-10-29
+retry 4/6 train/d469bfee3721c94c801396d0a592ce9f.dicom: RuntimeError wget exit 8: -cxr/1.0.0/train/d469bfee3721c94c801396d0a592ce9f.dicom:
+2026-10-29
+retry 1/6 train/c4aa9f4f97ba03ea7aa610e204119de2.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/3a317a2f18be6d7d3574a49f0b8e3309.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/78d5ff1cb48bc317bd20d7e3ddae34f5.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 5/6 train/d469bfee3721c94c801396d0a592ce9f.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/c4aa9f4f97ba03ea7aa610e204119de2.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/3a317a2f18be6d7d3574a49f0b8e3309.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+740/2146 done, 0 failed
+750/2146 done, 0 failed
+retry 1/6 train/093a21385d162d81f65583c0133ecf12.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+760/2146 done, 0 failed
+770/2146 done, 0 failed
+780/2146 done, 0 failed
+790/2146 done, 0 failed
+800/2146 done, 0 failed
+810/2146 done, 0 failed
+820/2146 done, 0 failed
+830/2146 done, 0 failed
+840/2146 done, 0 failed
+850/2146 done, 0 failed
+860/2146 done, 0 failed
+870/2146 done, 0 failed
+880/2146 done, 0 failed
+890/2146 done, 0 failed
+900/2146 done, 0 failed
+910/2146 done, 0 failed
+920/2146 done, 0 failed
+930/2146 done, 0 failed
+940/2146 done, 0 failed
+950/2146 done, 0 failed
+960/2146 done, 0 failed
+970/2146 done, 0 failed
+980/2146 done, 0 failed
+990/2146 done, 0 failed
+1000/2146 done, 0 failed
+1010/2146 done, 0 failed
+1020/2146 done, 0 failed
+1030/2146 done, 0 failed
+1040/2146 done, 0 failed
+retry 1/6 train/8a85b4a8aa474ad0d1537b50da88477c.dicom: RuntimeError wget exit 4: ion selected: Basic realm="PhysioNet", charset="UTF-8"
+Read error (
+1050/2146 done, 0 failed
+1060/2146 done, 0 failed
+retry 1/6 train/f81d98bddc31de6dd86537881df24d0f.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/6c177d92b5fa4ce2996244c7f3c68424.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/886a47df44638ed409c9304005fd032a.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/e9a62997d0d5a13aa7a957ba7840f77b.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/f81d98bddc31de6dd86537881df24d0f.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/6c177d92b5fa4ce2996244c7f3c68424.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/886a47df44638ed409c9304005fd032a.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+1070/2146 done, 0 failed
+1080/2146 done, 0 failed
+1090/2146 done, 0 failed
+1100/2146 done, 0 failed
+1110/2146 done, 0 failed
+retry 1/6 train/807f44d40491398be00abd695c3c1a36.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/65c022ec43d252175815d4dbde63a3dd.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/65a15b80c547d718915643b579eaedb2.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/45be6be8ef7817787b00be04c6fd5286.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/807f44d40491398be00abd695c3c1a36.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/65c022ec43d252175815d4dbde63a3dd.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/65a15b80c547d718915643b579eaedb2.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 train/45be6be8ef7817787b00be04c6fd5286.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+1120/2146 done, 0 failed
+1130/2146 done, 0 failed
+1140/2146 done, 0 failed
+1150/2146 done, 0 failed
+1160/2146 done, 0 failed
+1170/2146 done, 0 failed
+1180/2146 done, 0 failed
+1190/2146 done, 0 failed
+1200/2146 done, 0 failed
+1210/2146 done, 0 failed
+1220/2146 done, 0 failed
+1230/2146 done, 0 failed
+1240/2146 done, 0 failed
+1250/2146 done, 0 failed
+1260/2146 done, 0 failed
+1270/2146 done, 0 failed
+1280/2146 done, 0 failed
+1290/2146 done, 0 failed
+1300/2146 done, 0 failed
+1310/2146 done, 0 failed
+retry 1/6 train/397b7968bbdf2db72e34625ad8e874c2.dicom: RuntimeError wget exit 4: ion selected: Basic realm="PhysioNet", charset="UTF-8"
+Read error (
+1320/2146 done, 0 failed
+1330/2146 done, 0 failed
+retry 1/6 train/d8dbee83116aef5c27b78b8b6aa53170.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+1340/2146 done, 0 failed
+1350/2146 done, 0 failed
+1360/2146 done, 0 failed
+1370/2146 done, 0 failed
+1380/2146 done, 0 failed
+1390/2146 done, 0 failed
+1400/2146 done, 0 failed
+1410/2146 done, 0 failed
+1420/2146 done, 0 failed
+1430/2146 done, 0 failed
+1440/2146 done, 0 failed
+1450/2146 done, 0 failed
+1460/2146 done, 0 failed
+1470/2146 done, 0 failed
+1480/2146 done, 0 failed
+1490/2146 done, 0 failed
+1500/2146 done, 0 failed
+1510/2146 done, 0 failed
+1520/2146 done, 0 failed
+1530/2146 done, 0 failed
+1540/2146 done, 0 failed
+1550/2146 done, 0 failed
+retry 1/6 train/62b135c34d01b4af10c39d65939d9d43.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/8a67f8e2673ceb7004824904b6e72055.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 train/bee427b74f77002c1a4faa71e65d5744.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 train/62b135c34d01b4af10c39d65939d9d43.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+1560/2146 done, 0 failed
+1570/2146 done, 0 failed
+1580/2146 done, 0 failed
+1590/2146 done, 0 failed
+1600/2146 done, 0 failed
+1610/2146 done, 0 failed
+1620/2146 done, 0 failed
+1630/2146 done, 0 failed
+1640/2146 done, 0 failed
+retry 1/6 test/9d19cfe48e499605ca146bd93557d413.dicom: RuntimeError wget exit 4: ion selected: Basic realm="PhysioNet", charset="UTF-8"
+Read error (
+retry 1/6 test/aa6eac68ec54061a4d8db4e92fe26fca.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/81228a9f8fca8710e0f6f9aedf9bd667.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 1/6 test/53272263f44e3360b23a54230f7becf7.dicom: RuntimeError wget exit 4: Authentication selected: Basic realm="PhysioNet", charset="UTF-8"
+retry 2/6 test/9d19cfe48e499605ca146bd93557d413.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 test/aa6eac68ec54061a4d8db4e92fe26fca.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 test/81228a9f8fca8710e0f6f9aedf9bd667.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+retry 2/6 test/53272263f44e3360b23a54230f7becf7.dicom: RuntimeError wget exit 4: failed: Connection timed out.
+1650/2146 done, 0 failed
+1660/2146 done, 0 failed
+1670/2146 done, 0 failed
+1680/2146 done, 0 failed
+1690/2146 done, 0 failed
+1700/2146 done, 0 failed
+1710/2146 done, 0 failed
+1720/2146 done, 0 failed
+1730/2146 done, 0 failed
+1740/2146 done, 0 failed
+1750/2146 done, 0 failed
+1760/2146 done, 0 failed
+1770/2146 done, 0 failed
+1780/2146 done, 0 failed
+1790/2146 done, 0 failed
+1800/2146 done, 0 failed
+1810/2146 done, 0 failed
+1820/2146 done, 0 failed
+1830/2146 done, 0 failed
+1840/2146 done, 0 failed
+1850/2146 done, 0 failed
+1860/2146 done, 0 failed
+1870/2146 done, 0 failed
+1880/2146 done, 0 failed
+1890/2146 done, 0 failed
+1900/2146 done, 0 failed
+1910/2146 done, 0 failed
+1920/2146 done, 0 failed
+1930/2146 done, 0 failed
+1940/2146 done, 0 failed
+1950/2146 done, 0 failed
+1960/2146 done, 0 failed
+1970/2146 done, 0 failed
+1980/2146 done, 0 failed
+1990/2146 done, 0 failed
+2000/2146 done, 0 failed
+2010/2146 done, 0 failed
+2020/2146 done, 0 failed
+2030/2146 done, 0 failed
+2040/2146 done, 0 failed
+2050/2146 done, 0 failed
+2060/2146 done, 0 failed
+2070/2146 done, 0 failed
+2080/2146 done, 0 failed
+2090/2146 done, 0 failed
+2100/2146 done, 0 failed
+2110/2146 done, 0 failed
+2120/2146 done, 0 failed
+2130/2146 done, 0 failed
+2140/2146 done, 0 failed
+2146/2146 done, 0 failed

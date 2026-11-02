@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_xrv",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "auc": 0.8073464912280701,
+ "auc_ci": [
+  0.7454484831936808,
+  0.8627443090632774
+ ],
+ "sens_at_spec70": 0.8,
+ "spec_at_sens90": 0.5822368421052632,
+ "transfer_sens": 0.9,
+ "transfer_spec": 0.5756578947368421,
+ "thr": 1.036041116714478,
+ "n": 364,
+ "pos": 60
+}

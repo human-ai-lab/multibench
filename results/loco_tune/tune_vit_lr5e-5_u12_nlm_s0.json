@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "tune_vit_lr5e-5_u12",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 12,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9955939054028957,
+ "auc": 0.8730839130162312,
+ "auc_ci": [
+  0.8477534237930204,
+  0.8962348811358479
+ ],
+ "sens_at_spec70": 0.8553299492385786,
+ "spec_at_sens90": 0.5753086419753086,
+ "transfer_sens": 0.38071065989847713,
+ "transfer_spec": 0.9925925925925926,
+ "thr": 5.774312877655029,
+ "n": 799,
+ "pos": 394
+}

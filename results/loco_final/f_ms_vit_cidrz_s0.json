@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "cidrz",
+  "name": "f_ms_vit",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9783405924640332,
+ "auc": 0.8011513157894737,
+ "auc_ci": [
+  0.7305567423864796,
+  0.8708808732609588
+ ],
+ "sens_at_spec70": 0.75,
+ "spec_at_sens90": 0.39473684210526316,
+ "transfer_sens": 0.65,
+ "transfer_spec": 0.8289473684210527,
+ "thr": 3.3405193328857425,
+ "n": 364,
+ "pos": 60
+}

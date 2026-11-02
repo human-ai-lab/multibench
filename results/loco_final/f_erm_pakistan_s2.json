@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "f_erm",
+  "seed": 2,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9787559530199031,
+ "auc": 0.8380100940729265,
+ "auc_ci": [
+  0.8237367318741645,
+  0.8519101729712415
+ ],
+ "sens_at_spec70": 0.7862068965517242,
+ "spec_at_sens90": 0.3051181102362205,
+ "transfer_sens": 0.6681541582150101,
+ "transfer_spec": 0.9468503937007874,
+ "thr": 1.5525323867797847,
+ "n": 2973,
+ "pos": 2465
+}

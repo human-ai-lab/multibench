@@ -1,0 +1,39 @@
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Traceback (most recent call last):
+  File "/home/bagustris/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/bagustris/.local/share/uv/python/cpython-3.10-linux-x86_64-gnu/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/bagustris/github/multibench/datasets/tb_cxr_qatar/train_partial_unfreeze.py", line 122, in <module>
+    main()
+  File "/home/bagustris/github/multibench/datasets/tb_cxr_qatar/train_partial_unfreeze.py", line 115, in main
+    r = evaluate(args.save, cidrz_path=args.cidrz_path, device=device)
+  File "/home/bagustris/github/multibench/datasets/tb_cxr_qatar/cross_dataset_analysis.py", line 161, in evaluate
+    eval_ds = _load_split(cidrz_path, eval_splits)
+  File "/home/bagustris/github/multibench/datasets/tb_cxr_qatar/cross_dataset_analysis.py", line 48, in _load_split
+    with open(path, "rb") as f:
+FileNotFoundError: [Errno 2] No such file or directory: 'data/google_health/tb_dataset.pkl'
+epoch 0: train_loss=0.1264 valid_acc=0.7571
+epoch 1: train_loss=0.0157 valid_acc=0.8095
+epoch 2: train_loss=0.0270 valid_acc=0.8524
+epoch 3: train_loss=0.0196 valid_acc=0.8905
+epoch 4: train_loss=0.0022 valid_acc=0.8571
+epoch 5: train_loss=0.0051 valid_acc=0.9317
+epoch 6: train_loss=0.0149 valid_acc=0.9635
+epoch 7: train_loss=0.0099 valid_acc=0.9603
+epoch 8: train_loss=0.0145 valid_acc=0.7841
+epoch 9: train_loss=0.0031 valid_acc=0.7302
+epoch 10: train_loss=0.0067 valid_acc=0.8286
+epoch 11: train_loss=0.0161 valid_acc=0.9254
+epoch 12: train_loss=0.0085 valid_acc=0.9778
+epoch 13: train_loss=0.0075 valid_acc=0.9810
+epoch 14: train_loss=0.0042 valid_acc=0.9667
+epoch 15: train_loss=0.0000 valid_acc=0.9683
+epoch 16: train_loss=0.0077 valid_acc=0.9143
+epoch 17: train_loss=0.0112 valid_acc=0.9000
+epoch 18: train_loss=0.0065 valid_acc=0.9714
+epoch 19: train_loss=0.0001 valid_acc=0.9000
+saved best checkpoint (valid_acc=0.9810) to results/models/tb_cxr_qatar_partial_unfreeze.pt

@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "f_xrv",
+  "seed": 2,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9604065957313571,
+ "auc": 0.910439527572662,
+ "auc_ci": [
+  0.8966997552483673,
+  0.9243609838758964
+ ],
+ "sens_at_spec70": 0.8924418604651163,
+ "spec_at_sens90": 0.6873392397827951,
+ "transfer_sens": 0.7848837209302325,
+ "transfer_spec": 0.9014004001143183,
+ "thr": 0.8130955696105957,
+ "n": 4187,
+ "pos": 688
+}

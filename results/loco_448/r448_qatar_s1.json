@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "r448",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 448,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 32,
+  "reg": 1.0,
+  "outdir": "results/loco_448"
+ },
+ "val_mean_auc": 0.9944520455390021,
+ "auc": 0.9753758548954186,
+ "auc_ci": [
+  0.9682446418869048,
+  0.9821474645095921
+ ],
+ "sens_at_spec70": 0.9723837209302325,
+ "spec_at_sens90": 0.9717062017719348,
+ "transfer_sens": 0.6729651162790697,
+ "transfer_spec": 0.9988568162332095,
+ "thr": 6.187285423278809,
+ "n": 4187,
+ "pos": 688
+}

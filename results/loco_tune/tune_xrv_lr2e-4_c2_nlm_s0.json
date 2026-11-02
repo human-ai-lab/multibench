@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "tune_xrv_lr2e-4_c2",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0002,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9811196295982936,
+ "auc": 0.80421758475904,
+ "auc_ci": [
+  0.7713279531955256,
+  0.8341919646299671
+ ],
+ "sens_at_spec70": 0.7538071065989848,
+ "spec_at_sens90": 0.4246913580246914,
+ "transfer_sens": 0.5050761421319797,
+ "transfer_spec": 0.9160493827160494,
+ "thr": 2.031874120235443,
+ "n": 799,
+ "pos": 394
+}

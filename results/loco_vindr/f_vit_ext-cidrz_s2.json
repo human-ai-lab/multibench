@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_vit",
+  "seed": 2,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "auc": 0.7716008771929825,
+ "auc_ci": [
+  0.7000578384950855,
+  0.8467817631053572
+ ],
+ "sens_at_spec70": 0.7333333333333333,
+ "spec_at_sens90": 0.29605263157894735,
+ "transfer_sens": 0.5,
+ "transfer_spec": 0.9013157894736842,
+ "thr": 4.205996417999268,
+ "n": 364,
+ "pos": 60
+}

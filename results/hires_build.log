@@ -1,0 +1,27 @@
+building qatar...
+  qatar: 1000/4200
+  qatar: 2000/4200
+  qatar: 3000/4200
+  qatar: 4000/4200
+  qatar: n=4200 pos=700 neg=3500
+building montgomery...
+  montgomery: n=138 pos=58 neg=80
+building shenzhen...
+  shenzhen: n=662 pos=336 neg=326
+building tbx11k...
+  tbx11k: 1000/8400
+  tbx11k: 2000/8400
+  tbx11k: 3000/8400
+  tbx11k: 4000/8400
+  tbx11k: 5000/8400
+  tbx11k: 6000/8400
+  tbx11k: 7000/8400
+  tbx11k: 8000/8400
+  tbx11k: n=8400 pos=660 neg=7740
+building pakistan...
+  pakistan: 1000/3008
+  pakistan: 2000/3008
+  pakistan: 3000/3008
+  pakistan: n=3008 pos=2494 neg=514
+building cidrz...
+  cidrz: n=364 pos=60 neg=304

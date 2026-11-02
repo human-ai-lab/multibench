@@ -1,0 +1,2 @@
+corpus_a,id_a,label_a,corpus_b,id_b,label_b,hamming,corr
+vindr,6ada8f68e2f901b30feb74aaa0c32ba4,0,vindr,60c5297ae2262cacbfc9eecc611e152e,0,6,0.9706798791885376

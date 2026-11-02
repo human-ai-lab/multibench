@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "f_erm",
+  "seed": 0,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9965350621600622,
+ "auc": 0.8707824328545697,
+ "auc_ci": [
+  0.8528601862117735,
+  0.8870303750968012
+ ],
+ "sens_at_spec70": 0.815406976744186,
+ "spec_at_sens90": 0.44755644469848527,
+ "transfer_sens": 0.5450581395348837,
+ "transfer_spec": 0.9991426121749071,
+ "thr": 6.0679216384887695,
+ "n": 4187,
+ "pos": 688
+}

@@ -1,0 +1,48 @@
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Training on Qatar TB CXR (train split; valid split for checkpoint selection)...
+Epoch 0 train loss: 0.34361601573776224
+Epoch 0 valid loss: 0.41884487616637395 acc: 0.6761904761904762
+Saving Best
+Epoch 1 train loss: 0.16705120259857908
+Epoch 1 valid loss: 0.3082821922642844 acc: 0.8063492063492064
+Saving Best
+Epoch 2 train loss: 0.1586207195870946
+Epoch 2 valid loss: 0.25216189003179945 acc: 0.8746031746031746
+Saving Best
+Epoch 3 train loss: 0.11446020215398119
+Epoch 3 valid loss: 0.36253487358963676 acc: 0.7492063492063492
+Epoch 4 train loss: 0.10277810914562319
+Epoch 4 valid loss: 0.2372097089058823 acc: 0.846031746031746
+Epoch 5 train loss: 0.07236503416761046
+Epoch 5 valid loss: 0.2787653966318993 acc: 0.8269841269841269
+Epoch 6 train loss: 0.08186664741587679
+Epoch 6 valid loss: 0.26066746922239425 acc: 0.8174603174603174
+Epoch 7 train loss: 0.07303976434857908
+Epoch 7 valid loss: 0.20837850097625973 acc: 0.8650793650793651
+Epoch 8 train loss: 0.06491663234992302
+Epoch 8 valid loss: 0.3467713849175544 acc: 0.7714285714285715
+Epoch 9 train loss: 0.05697987052951255
+Epoch 9 valid loss: 0.310091008470645 acc: 0.7793650793650794
+Epoch 10 train loss: 0.05230216469748249
+Epoch 10 valid loss: 0.18998420271608565 acc: 0.8841269841269841
+Saving Best
+Epoch 11 train loss: 0.046066757570459686
+Epoch 11 valid loss: 0.1634539250047907 acc: 0.9047619047619048
+Saving Best
+Epoch 12 train loss: 0.06954999753083166
+Epoch 12 valid loss: 0.19336208348118122 acc: 0.8857142857142857
+Epoch 13 train loss: 0.04291512039494004
+Epoch 13 valid loss: 0.17807966582477092 acc: 0.8952380952380953
+Epoch 14 train loss: 0.10447001589564024
+Epoch 14 valid loss: 0.1973851816166961 acc: 0.8888888888888888
+Training Time: 46.23452091217041
+Training Params: 12445762
+
+Evaluating on ALL of CIDRZ (n=364, none used for training) - data/google_health/tb_dataset_lungmask.pkl ...
+Cross-dataset evaluation results (trained on Qatar, tested on CIDRZ):
+  UA: 0.631140350877193
+  WA: 0.7637362637362637
+  F1: 0.6155244411692459

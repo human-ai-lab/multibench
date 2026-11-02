@@ -1,0 +1,195 @@
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+
+=== Fold 1/5: train=249 valid=42 test=73 (test pos=12/73) ===
+Epoch 0 train loss: 0.8204944795483805
+Epoch 0 valid loss: 0.5673882166544596 acc: 0.9047619047619048
+Saving Best
+Epoch 1 train loss: 1.2322139334079463
+Epoch 1 valid loss: 1.3634912400018602 acc: 0.16666666666666666
+Epoch 2 train loss: 0.9056297349388222
+Epoch 2 valid loss: 0.7560529439222246 acc: 0.47619047619047616
+Epoch 3 train loss: 0.737559349740612
+Epoch 3 valid loss: 0.5279086828231812 acc: 0.8333333333333334
+Epoch 4 train loss: 0.20906404540855364
+Epoch 4 valid loss: 0.7491915481431144 acc: 0.8571428571428571
+Epoch 5 train loss: 0.33982682837736194
+Epoch 5 valid loss: 0.6477880477905273 acc: 0.7619047619047619
+Epoch 6 train loss: 0.11699596639099505
+Epoch 6 valid loss: 0.754160497869764 acc: 0.6904761904761905
+Epoch 7 train loss: 0.17124621024103212
+Epoch 7 valid loss: 0.7205147516159784 acc: 0.7142857142857143
+Epoch 8 train loss: 0.31947620545995953
+Epoch 8 valid loss: 0.6744572889237177 acc: 0.6190476190476191
+Training Time: 4.034702301025391
+Training Params: 12467602
+acc: 0.8493150684931506
+Inference Time: 0.036062002182006836
+Inference Params: 12467602
+Fold 1 result: {'Accuracy': 0.8493150684931506, 'UA': 0.6420765027322404, 'WA': 0.8493150684931506, 'F1': 0.6672192291753005}
+
+=== Fold 2/5: train=249 valid=42 test=73 (test pos=12/73) ===
+Epoch 0 train loss: 1.3718951807682773
+Epoch 0 valid loss: 0.8166049789814722 acc: 0.19047619047619047
+Saving Best
+Epoch 1 train loss: 0.7941589571505665
+Epoch 1 valid loss: 0.5835078841163999 acc: 0.6190476190476191
+Saving Best
+Epoch 2 train loss: 0.529266822320151
+Epoch 2 valid loss: 0.8474274859541938 acc: 0.42857142857142855
+Epoch 3 train loss: 0.6688515803436319
+Epoch 3 valid loss: 0.5140543622629983 acc: 0.6904761904761905
+Saving Best
+Epoch 4 train loss: 0.43880890424683106
+Epoch 4 valid loss: 0.6203917889367967 acc: 0.8333333333333334
+Saving Best
+Epoch 5 train loss: 0.2060015404140614
+Epoch 5 valid loss: 0.5332524847416651 acc: 0.7380952380952381
+Epoch 6 train loss: 0.10801353821309577
+Epoch 6 valid loss: 0.6204200415384202 acc: 0.7619047619047619
+Epoch 7 train loss: 0.22137669247040248
+Epoch 7 valid loss: 0.6052903050468081 acc: 0.7380952380952381
+Epoch 8 train loss: 0.06177778826255585
+Epoch 8 valid loss: 0.6039427518844604 acc: 0.7142857142857143
+Epoch 9 train loss: 0.06778752493209685
+Epoch 9 valid loss: 0.6873240272204081 acc: 0.7142857142857143
+Epoch 10 train loss: 0.04672588427918921
+Epoch 10 valid loss: 0.7754052536828178 acc: 0.7142857142857143
+Epoch 11 train loss: 0.005922662573396449
+Epoch 11 valid loss: 0.8601709320431664 acc: 0.7380952380952381
+Epoch 12 train loss: 0.08358364592300223
+Epoch 12 valid loss: 1.190162201722463 acc: 0.8333333333333334
+Training Time: 3.827455997467041
+Training Params: 12467602
+acc: 0.8493150684931506
+Inference Time: 0.04920172691345215
+Inference Params: 12467602
+Fold 2 result: {'Accuracy': 0.8493150684931506, 'UA': 0.6420765027322404, 'WA': 0.8493150684931506, 'F1': 0.6672192291753005}
+
+=== Fold 3/5: train=249 valid=42 test=73 (test pos=12/73) ===
+Epoch 0 train loss: 0.8479250460474127
+Epoch 0 valid loss: 0.5830217316037133 acc: 0.8333333333333334
+Saving Best
+Epoch 1 train loss: 0.7069948974802313
+Epoch 1 valid loss: 0.6012047671136402 acc: 0.5952380952380952
+Epoch 2 train loss: 0.4572165083574004
+Epoch 2 valid loss: 0.522500475247701 acc: 0.8333333333333334
+Epoch 3 train loss: 0.2441840447994121
+Epoch 3 valid loss: 0.5004793575831822 acc: 0.7619047619047619
+Epoch 4 train loss: 0.2876567390062428
+Epoch 4 valid loss: 0.49923913393701824 acc: 0.8571428571428571
+Saving Best
+Epoch 5 train loss: 0.17619247751003767
+Epoch 5 valid loss: 0.5532233048053015 acc: 0.7619047619047619
+Epoch 6 train loss: 0.032587766224982676
+Epoch 6 valid loss: 0.943153787226904 acc: 0.8809523809523809
+Saving Best
+Epoch 7 train loss: 0.12161398953004578
+Epoch 7 valid loss: 0.7174311904680162 acc: 0.7619047619047619
+Epoch 8 train loss: 0.08441941589006158
+Epoch 8 valid loss: 0.7643145180883861 acc: 0.8571428571428571
+Epoch 9 train loss: 0.10577618407438992
+Epoch 9 valid loss: 0.7574128465993064 acc: 0.7380952380952381
+Epoch 10 train loss: 0.007554736744961234
+Epoch 10 valid loss: 0.9834501072764397 acc: 0.6190476190476191
+Epoch 11 train loss: 0.18096278247049763
+Epoch 11 valid loss: 1.3798752345499539 acc: 0.8809523809523809
+Epoch 12 train loss: 0.2539962367055919
+Epoch 12 valid loss: 1.1320420035294123 acc: 0.7857142857142857
+Epoch 13 train loss: 0.18649019872009742
+Epoch 13 valid loss: 1.6609965170334493 acc: 0.40476190476190477
+Epoch 14 train loss: 0.11524981088496498
+Epoch 14 valid loss: 0.7317515696798053 acc: 0.6904761904761905
+Training Time: 6.877933025360107
+Training Params: 12467602
+acc: 0.821917808219178
+Inference Time: 0.04341578483581543
+Inference Params: 12467602
+Fold 3 result: {'Accuracy': 0.821917808219178, 'UA': 0.6256830601092896, 'WA': 0.821917808219178, 'F1': 0.6384761904761904}
+
+=== Fold 4/5: train=249 valid=42 test=73 (test pos=12/73) ===
+Epoch 0 train loss: 1.5775275259432064
+Epoch 0 valid loss: 0.6730619754110064 acc: 0.8333333333333334
+Saving Best
+Epoch 1 train loss: 0.8217526917237354
+Epoch 1 valid loss: 0.6760475749061221 acc: 0.38095238095238093
+Epoch 2 train loss: 0.49226537346839905
+Epoch 2 valid loss: 0.5007450041316804 acc: 0.8333333333333334
+Epoch 3 train loss: 0.32674409935800697
+Epoch 3 valid loss: 0.5106519120080131 acc: 0.8333333333333334
+Epoch 4 train loss: 0.16620544886932312
+Epoch 4 valid loss: 0.4906782138915289 acc: 0.8571428571428571
+Saving Best
+Epoch 5 train loss: 0.4436244823825901
+Epoch 5 valid loss: 0.5405554473400116 acc: 0.5952380952380952
+Epoch 6 train loss: 0.2921097867901588
+Epoch 6 valid loss: 0.5966847978887104 acc: 0.7142857142857143
+Epoch 7 train loss: 0.08623459906762383
+Epoch 7 valid loss: 0.46821166220165433 acc: 0.8095238095238095
+Epoch 8 train loss: 0.26526714986215644
+Epoch 8 valid loss: 0.6739232866537004 acc: 0.8571428571428571
+Epoch 9 train loss: 0.12570527735140208
+Epoch 9 valid loss: 0.5953204149291629 acc: 0.7619047619047619
+Epoch 10 train loss: 0.21512961082266682
+Epoch 10 valid loss: 0.6411226618857611 acc: 0.7142857142857143
+Epoch 11 train loss: 0.060233921304048074
+Epoch 11 valid loss: 0.7347199150494167 acc: 0.7142857142857143
+Epoch 12 train loss: 0.03622820446558523
+Epoch 12 valid loss: 0.7504590182077318 acc: 0.7619047619047619
+Training Time: 4.007262945175171
+Training Params: 12467602
+acc: 0.8356164383561644
+Inference Time: 0.03270840644836426
+Inference Params: 12467602
+Fold 4 result: {'Accuracy': 0.8356164383561644, 'UA': 0.6338797814207651, 'WA': 0.8356164383561644, 'F1': 0.6523809523809524}
+
+=== Fold 5/5: train=250 valid=42 test=72 (test pos=12/72) ===
+Epoch 0 train loss: 1.3134909073114396
+Epoch 0 valid loss: 0.5659963318279811 acc: 0.8809523809523809
+Saving Best
+Epoch 1 train loss: 0.6521273072957993
+Epoch 1 valid loss: 0.511022360551925 acc: 0.8809523809523809
+Epoch 2 train loss: 0.36559684383869173
+Epoch 2 valid loss: 0.5241005449067979 acc: 0.7857142857142857
+Epoch 3 train loss: 0.4079809726178646
+Epoch 3 valid loss: 0.5776119629542033 acc: 0.8571428571428571
+Epoch 4 train loss: 0.3101475200485438
+Epoch 4 valid loss: 0.6656459456398374 acc: 0.8571428571428571
+Epoch 5 train loss: 0.09668147426843643
+Epoch 5 valid loss: 0.6690255588009244 acc: 0.8571428571428571
+Epoch 6 train loss: 0.1186935529448092
+Epoch 6 valid loss: 0.7304184692246574 acc: 0.8571428571428571
+Epoch 7 train loss: 0.11500305503234268
+Epoch 7 valid loss: 0.6762048382134664 acc: 0.7619047619047619
+Epoch 8 train loss: 0.14427651635132496
+Epoch 8 valid loss: 0.775003549775907 acc: 0.6904761904761905
+Training Time: 3.3110244274139404
+Training Params: 12467602
+acc: 0.8333333333333334
+Inference Time: 0.43242692947387695
+Inference Params: 12467602
+Fold 5 result: {'Accuracy': 0.8333333333333334, 'UA': 0.5, 'WA': 0.8333333333333334, 'F1': 0.45454545454545453}
+
+=== 5-fold cross-validation summary (364 total samples) ===
+Accuracy: mean=0.838 std=0.010  values=[0.849, 0.849, 0.822, 0.836, 0.833]
+UA: mean=0.609 std=0.055  values=[0.642, 0.642, 0.626, 0.634, 0.5]
+WA: mean=0.838 std=0.010  values=[0.849, 0.849, 0.822, 0.836, 0.833]
+F1: mean=0.616 std=0.081  values=[0.667, 0.667, 0.638, 0.652, 0.455]

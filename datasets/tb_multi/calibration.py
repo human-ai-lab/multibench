@@ -48,6 +48,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--methods", nargs="+", default=["erm", "sbal", "sbal_aug_lung", "sbal_aug_lung_dstd", "bb_raddino",
                                                       "ms_raddino", "lesion_raddino"])
+    ap.add_argument("--dir", default="results/loco")
     ap.add_argument("--out", default="results/calibration.md")
     args = ap.parse_args()
     _, meta = load_all(None)
@@ -56,7 +57,7 @@ def main():
             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for name in args.methods:
         for t in T:
-            fs = sorted(glob.glob(f"results/loco/{name}_{t}_s*.json"))
+            fs = sorted(glob.glob(f"{args.dir}/{name}_{t}_s*.json"))
             if not fs:
                 continue
             ms = [metrics(y[t], np.load(f.replace(".json", "_scores.npy")).astype(np.float64)) for f in fs]

@@ -1,0 +1,115 @@
+RESULT tune_vit_lr2e-5_u6_qatar_s0 AUC 0.942 [0.931,0.952] sens@spec70 0.94 spec@sens90 0.79 transfer sens 0.70 spec 0.98
+RESULT tune_raddino_lr2e-5_u6_qatar_s0 AUC 0.976 [0.968,0.983] sens@spec70 0.98 spec@sens90 0.97 transfer sens 0.79 spec 0.99
+RESULT tune_vit_lr2e-5_u12_qatar_s0 AUC 0.967 [0.960,0.974] sens@spec70 0.98 spec@sens90 0.90 transfer sens 0.76 spec 0.99
+RESULT tune_vit_lr2e-5_u6_nlm_s0 AUC 0.831 [0.803,0.858] sens@spec70 0.76 spec@sens90 0.50 transfer sens 0.50 spec 0.94
+RESULT tune_raddino_lr2e-5_u6_nlm_s0 AUC 0.915 [0.896,0.934] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.59 spec 0.99
+RESULT tune_vit_lr2e-5_u12_nlm_s0 AUC 0.857 [0.831,0.881] sens@spec70 0.84 spec@sens90 0.55 transfer sens 0.43 spec 0.97
+RESULT tune_vit_lr2e-5_u6_tbx11k_s0 AUC 0.826 [0.809,0.841] sens@spec70 0.79 spec@sens90 0.55 transfer sens 0.57 spec 0.86
+RESULT tune_raddino_lr2e-5_u6_tbx11k_s0 AUC 0.928 [0.917,0.937] sens@spec70 0.95 spec@sens90 0.81 transfer sens 0.68 spec 0.94
+RESULT tune_vit_lr2e-5_u6_pakistan_s0 AUC 0.848 [0.833,0.864] sens@spec70 0.83 spec@sens90 0.41 transfer sens 0.88 spec 0.51
+RESULT tune_vit_lr2e-5_u12_tbx11k_s0 AUC 0.868 [0.853,0.880] sens@spec70 0.87 spec@sens90 0.65 transfer sens 0.59 spec 0.90
+RESULT tune_raddino_lr2e-5_u6_pakistan_s0 AUC 0.820 [0.803,0.837] sens@spec70 0.78 spec@sens90 0.32 transfer sens 0.74 spec 0.78
+RESULT tune_vit_lr2e-5_u12_pakistan_s0 AUC 0.825 [0.809,0.841] sens@spec70 0.78 spec@sens90 0.37 transfer sens 0.86 spec 0.50
+RESULT tune_raddino_lr2e-5_u12_qatar_s0 AUC 0.978 [0.970,0.984] sens@spec70 0.98 spec@sens90 0.98 transfer sens 0.78 spec 1.00
+RESULT tune_vit_lr5e-5_u6_qatar_s0 AUC 0.929 [0.917,0.941] sens@spec70 0.92 spec@sens90 0.77 transfer sens 0.72 spec 0.97
+RESULT tune_raddino_lr5e-5_u6_qatar_s0 AUC 0.966 [0.957,0.975] sens@spec70 0.96 spec@sens90 0.94 transfer sens 0.76 spec 0.99
+RESULT tune_vit_lr5e-5_u6_nlm_s0 AUC 0.840 [0.813,0.865] sens@spec70 0.77 spec@sens90 0.49 transfer sens 0.44 spec 0.97
+RESULT tune_raddino_lr2e-5_u12_nlm_s0 AUC 0.938 [0.921,0.953] sens@spec70 0.93 spec@sens90 0.79 transfer sens 0.51 spec 1.00
+RESULT tune_vit_lr5e-5_u6_tbx11k_s0 AUC 0.885 [0.869,0.898] sens@spec70 0.88 spec@sens90 0.67 transfer sens 0.65 spec 0.92
+RESULT tune_raddino_lr5e-5_u6_nlm_s0 AUC 0.928 [0.910,0.944] sens@spec70 0.94 spec@sens90 0.75 transfer sens 0.60 spec 0.98
+RESULT tune_vit_lr5e-5_u6_pakistan_s0 AUC 0.785 [0.767,0.802] sens@spec70 0.74 spec@sens90 0.20 transfer sens 0.79 spec 0.59
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 98.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 111.31 MiB is free. Process 1761810 has 11.09 GiB memory in use. Process 1763392 has 7.27 GiB memory in use. Including non-PyTorch memory, this process has 10.86 GiB memory in use. Of the allocated memory 9.45 GiB is allocated by PyTorch, and 837.66 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+RESULT tune_raddino_lr5e-5_u6_tbx11k_s0 AUC 0.931 [0.919,0.940] sens@spec70 0.94 spec@sens90 0.80 transfer sens 0.71 spec 0.95
+RESULT tune_raddino_lr2e-5_u12_tbx11k_s0 AUC 0.940 [0.930,0.948] sens@spec70 0.95 spec@sens90 0.83 transfer sens 0.70 spec 0.96
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 98.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 109.25 MiB is free. Process 1767006 has 11.09 GiB memory in use. Process 1767445 has 7.27 GiB memory in use. Including non-PyTorch memory, this process has 10.86 GiB memory in use. Of the allocated memory 9.45 GiB is allocated by PyTorch, and 837.65 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+RESULT tune_raddino_lr5e-5_u6_pakistan_s0 AUC 0.819 [0.803,0.834] sens@spec70 0.78 spec@sens90 0.27 transfer sens 0.68 spec 0.86
+RESULT tune_raddino_lr5e-5_u12_nlm_s0 AUC 0.909 [0.887,0.929] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.57 spec 0.98
+RESULT tune_vit_lr5e-5_u12_qatar_s0 AUC 0.963 [0.955,0.972] sens@spec70 0.97 spec@sens90 0.90 transfer sens 0.73 spec 0.99
+RESULT tune_vit_lr1e-4_u6_qatar_s0 AUC 0.944 [0.933,0.955] sens@spec70 0.94 spec@sens90 0.84 transfer sens 0.70 spec 0.99
+RESULT tune_vit_lr5e-5_u12_nlm_s0 AUC 0.873 [0.848,0.896] sens@spec70 0.86 spec@sens90 0.58 transfer sens 0.38 spec 0.99
+RESULT tune_vit_lr1e-4_u6_nlm_s0 AUC 0.864 [0.837,0.887] sens@spec70 0.84 spec@sens90 0.57 transfer sens 0.44 spec 0.98
+RESULT tune_raddino_lr5e-5_u12_tbx11k_s0 AUC 0.912 [0.899,0.922] sens@spec70 0.92 spec@sens90 0.72 transfer sens 0.60 spec 0.95
+RESULT tune_vit_lr1e-4_u6_tbx11k_s0 AUC 0.894 [0.879,0.905] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.65 spec 0.92
+RESULT tune_vit_lr5e-5_u12_tbx11k_s0 AUC 0.865 [0.850,0.878] sens@spec70 0.85 spec@sens90 0.61 transfer sens 0.57 spec 0.92
+RESULT tune_vit_lr1e-4_u6_pakistan_s0 AUC 0.799 [0.783,0.816] sens@spec70 0.75 spec@sens90 0.18 transfer sens 0.80 spec 0.60
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 98.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 37.25 MiB is free. Process 1778790 has 11.09 GiB memory in use. Process 1782033 has 8.54 GiB memory in use. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 8.72 GiB is allocated by PyTorch, and 306.34 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 98.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 37.25 MiB is free. Process 1778790 has 11.09 GiB memory in use. Process 1782033 has 8.54 GiB memory in use. Including non-PyTorch memory, this process has 9.62 GiB memory in use. Of the allocated memory 8.72 GiB is allocated by PyTorch, and 306.31 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 98.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 101.25 MiB is free. Process 1778790 has 11.28 GiB memory in use. Process 1782033 has 8.54 GiB memory in use. Including non-PyTorch memory, this process has 9.37 GiB memory in use. Of the allocated memory 8.48 GiB is allocated by PyTorch, and 301.44 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+RESULT tune_raddino_lr5e-5_u12_pakistan_s0 AUC 0.870 [0.857,0.882] sens@spec70 0.84 spec@sens90 0.41 transfer sens 0.77 spec 0.89
+RESULT tune_vit_lr5e-5_u12_pakistan_s0 AUC 0.819 [0.804,0.835] sens@spec70 0.76 spec@sens90 0.33 transfer sens 0.82 spec 0.60
+RESULT tune_vit_lr1e-4_u12_qatar_s0 AUC 0.959 [0.951,0.967] sens@spec70 0.96 spec@sens90 0.87 transfer sens 0.72 spec 0.99
+RESULT tune_raddino_lr1e-4_u12_pakistan_s0 AUC 0.806 [0.791,0.821] sens@spec70 0.77 spec@sens90 0.19 transfer sens 0.74 spec 0.77
+RESULT tune_raddino_lr1e-4_u6_qatar_s0 AUC 0.966 [0.957,0.975] sens@spec70 0.96 spec@sens90 0.94 transfer sens 0.77 spec 1.00
+RESULT tune_resnet50_lr5e-5_c2_qatar_s0 AUC 0.909 [0.895,0.924] sens@spec70 0.89 spec@sens90 0.66 transfer sens 0.67 spec 0.98
+RESULT tune_vit_lr1e-4_u12_nlm_s0 AUC 0.812 [0.781,0.841] sens@spec70 0.75 spec@sens90 0.45 transfer sens 0.32 spec 0.98
+RESULT tune_resnet50_lr5e-5_c2_nlm_s0 AUC 0.720 [0.686,0.757] sens@spec70 0.64 spec@sens90 0.22 transfer sens 0.38 spec 0.90
+RESULT tune_raddino_lr1e-4_u6_nlm_s0 AUC 0.921 [0.902,0.939] sens@spec70 0.91 spec@sens90 0.73 transfer sens 0.62 spec 0.98
+RESULT tune_resnet50_lr5e-5_c2_tbx11k_s0 AUC 0.816 [0.799,0.833] sens@spec70 0.78 spec@sens90 0.52 transfer sens 0.67 spec 0.80
+RESULT tune_resnet50_lr5e-5_c2_pakistan_s0 AUC 0.653 [0.629,0.679] sens@spec70 0.55 spec@sens90 0.17 transfer sens 0.93 spec 0.10
+RESULT tune_vit_lr1e-4_u12_tbx11k_s0 AUC 0.832 [0.816,0.845] sens@spec70 0.81 spec@sens90 0.55 transfer sens 0.62 spec 0.85
+RESULT tune_xrv_lr2e-4_c1_qatar_s0 AUC 0.907 [0.894,0.921] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.82 spec 0.85
+RESULT tune_raddino_lr1e-4_u6_tbx11k_s0 AUC 0.925 [0.915,0.934] sens@spec70 0.94 spec@sens90 0.78 transfer sens 0.62 spec 0.96
+RESULT tune_xrv_lr2e-4_c1_nlm_s0 AUC 0.759 [0.726,0.793] sens@spec70 0.68 spec@sens90 0.26 transfer sens 0.54 spec 0.86
+RESULT tune_xrv_lr2e-4_c1_tbx11k_s0 AUC 0.814 [0.797,0.830] sens@spec70 0.78 spec@sens90 0.54 transfer sens 0.68 spec 0.79
+RESULT tune_xrv_lr2e-4_c1_pakistan_s0 AUC 0.576 [0.547,0.603] sens@spec70 0.40 spec@sens90 0.14 transfer sens 0.94 spec 0.08
+RESULT tune_raddino_lr1e-4_u6_pakistan_s0 AUC 0.861 [0.848,0.873] sens@spec70 0.84 spec@sens90 0.38 transfer sens 0.80 spec 0.82
+RESULT tune_vit_lr1e-4_u12_pakistan_s0 AUC 0.696 [0.675,0.717] sens@spec70 0.62 spec@sens90 0.13 transfer sens 0.80 spec 0.35
+RESULT tune_resnet50_lr1e-3_c1_qatar_s0 AUC 0.889 [0.873,0.906] sens@spec70 0.86 spec@sens90 0.60 transfer sens 0.68 spec 0.95
+RESULT tune_resnet50_lr5e-5_c1_qatar_s0 AUC 0.893 [0.878,0.907] sens@spec70 0.86 spec@sens90 0.58 transfer sens 0.71 spec 0.92
+RESULT tune_xrv_lr5e-5_c1_qatar_s0 AUC 0.934 [0.922,0.945] sens@spec70 0.92 spec@sens90 0.77 transfer sens 0.85 spec 0.90
+RESULT tune_resnet50_lr1e-3_c1_nlm_s0 AUC 0.817 [0.789,0.844] sens@spec70 0.76 spec@sens90 0.44 transfer sens 0.55 spec 0.88
+RESULT tune_xrv_lr5e-5_c1_nlm_s0 AUC 0.770 [0.735,0.803] sens@spec70 0.71 spec@sens90 0.36 transfer sens 0.60 spec 0.83
+RESULT tune_resnet50_lr5e-5_c1_nlm_s0 AUC 0.813 [0.782,0.842] sens@spec70 0.77 spec@sens90 0.49 transfer sens 0.59 spec 0.84
+RESULT tune_resnet50_lr1e-3_c1_tbx11k_s0 AUC 0.808 [0.792,0.823] sens@spec70 0.76 spec@sens90 0.56 transfer sens 0.58 spec 0.82
+RESULT tune_xrv_lr5e-5_c1_tbx11k_s0 AUC 0.814 [0.797,0.830] sens@spec70 0.78 spec@sens90 0.51 transfer sens 0.67 spec 0.80
+RESULT tune_resnet50_lr5e-5_c1_tbx11k_s0 AUC 0.793 [0.774,0.811] sens@spec70 0.75 spec@sens90 0.48 transfer sens 0.60 spec 0.82
+RESULT tune_resnet50_lr1e-3_c1_pakistan_s0 AUC 0.368 [0.342,0.394] sens@spec70 0.14 spec@sens90 0.02 transfer sens 0.79 spec 0.08
+RESULT tune_xrv_lr5e-5_c1_pakistan_s0 AUC 0.596 [0.568,0.623] sens@spec70 0.42 spec@sens90 0.20 transfer sens 0.95 spec 0.10
+RESULT tune_resnet50_lr5e-5_c1_pakistan_s0 AUC 0.749 [0.729,0.768] sens@spec70 0.68 spec@sens90 0.19 transfer sens 0.90 spec 0.20
+RESULT tune_xrv_lr1e-3_c2_qatar_s0 AUC 0.945 [0.936,0.954] sens@spec70 0.95 spec@sens90 0.82 transfer sens 0.73 spec 0.97
+RESULT tune_resnet50_lr2e-4_c1_qatar_s0 AUC 0.913 [0.899,0.926] sens@spec70 0.89 spec@sens90 0.68 transfer sens 0.69 spec 0.96
+RESULT tune_xrv_lr5e-5_c2_qatar_s0 AUC 0.935 [0.924,0.946] sens@spec70 0.93 spec@sens90 0.82 transfer sens 0.78 spec 0.93
+RESULT tune_resnet50_lr2e-4_c1_nlm_s0 AUC 0.858 [0.832,0.883] sens@spec70 0.82 spec@sens90 0.55 transfer sens 0.51 spec 0.97
+RESULT tune_xrv_lr1e-3_c2_nlm_s0 AUC 0.795 [0.761,0.825] sens@spec70 0.76 spec@sens90 0.31 transfer sens 0.56 spec 0.90
+RESULT tune_xrv_lr5e-5_c2_nlm_s0 AUC 0.823 [0.792,0.851] sens@spec70 0.75 spec@sens90 0.44 transfer sens 0.62 spec 0.86
+RESULT tune_resnet50_lr2e-4_c1_tbx11k_s0 AUC 0.836 [0.819,0.852] sens@spec70 0.82 spec@sens90 0.54 transfer sens 0.65 spec 0.85
+RESULT tune_xrv_lr1e-3_c2_tbx11k_s0 AUC 0.856 [0.841,0.870] sens@spec70 0.84 spec@sens90 0.61 transfer sens 0.71 spec 0.83
+RESULT tune_resnet50_lr2e-4_c1_pakistan_s0 AUC 0.543 [0.518,0.568] sens@spec70 0.41 spec@sens90 0.02 transfer sens 0.84 spec 0.09
+RESULT tune_xrv_lr5e-5_c2_tbx11k_s0 AUC 0.854 [0.838,0.867] sens@spec70 0.83 spec@sens90 0.60 transfer sens 0.74 spec 0.79
+RESULT tune_xrv_lr1e-3_c2_pakistan_s0 AUC 0.656 [0.629,0.681] sens@spec70 0.52 spec@sens90 0.18 transfer sens 0.87 spec 0.25
+DONE worker 2
+RESULT tune_xrv_lr2e-4_c2_qatar_s0 AUC 0.937 [0.928,0.948] sens@spec70 0.94 spec@sens90 0.80 transfer sens 0.76 spec 0.94
+RESULT tune_xrv_lr5e-5_c2_pakistan_s0 AUC 0.501 [0.470,0.531] sens@spec70 0.28 spec@sens90 0.11 transfer sens 0.92 spec 0.08
+RESULT tune_xrv_lr2e-4_c2_nlm_s0 AUC 0.804 [0.771,0.834] sens@spec70 0.75 spec@sens90 0.42 transfer sens 0.51 spec 0.92
+RESULT tune_resnet50_lr2e-4_c2_qatar_s0 AUC 0.927 [0.914,0.940] sens@spec70 0.90 spec@sens90 0.72 transfer sens 0.61 spec 1.00
+RESULT tune_xrv_lr2e-4_c2_tbx11k_s0 AUC 0.831 [0.815,0.844] sens@spec70 0.81 spec@sens90 0.56 transfer sens 0.65 spec 0.83
+RESULT tune_resnet50_lr2e-4_c2_nlm_s0 AUC 0.839 [0.811,0.867] sens@spec70 0.80 spec@sens90 0.47 transfer sens 0.54 spec 0.95
+RESULT tune_xrv_lr2e-4_c2_pakistan_s0 AUC 0.510 [0.480,0.539] sens@spec70 0.32 spec@sens90 0.08 transfer sens 0.90 spec 0.08
+RESULT tune_resnet50_lr2e-4_c2_tbx11k_s0 AUC 0.848 [0.832,0.863] sens@spec70 0.82 spec@sens90 0.54 transfer sens 0.57 spec 0.92
+RESULT tune_resnet50_lr1e-3_c2_qatar_s0 AUC 0.932 [0.919,0.944] sens@spec70 0.92 spec@sens90 0.77 transfer sens 0.65 spec 0.99
+RESULT tune_resnet50_lr2e-4_c2_pakistan_s0 AUC 0.492 [0.467,0.517] sens@spec70 0.32 spec@sens90 0.07 transfer sens 0.75 spec 0.19
+RESULT tune_xrv_lr1e-3_c1_qatar_s0 AUC 0.912 [0.899,0.925] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.77 spec 0.89
+RESULT tune_resnet50_lr1e-3_c2_nlm_s0 AUC 0.800 [0.768,0.831] sens@spec70 0.71 spec@sens90 0.42 transfer sens 0.58 spec 0.87
+RESULT tune_xrv_lr1e-3_c1_nlm_s0 AUC 0.796 [0.762,0.828] sens@spec70 0.72 spec@sens90 0.37 transfer sens 0.40 spec 0.97
+RESULT tune_resnet50_lr1e-3_c2_tbx11k_s0 AUC 0.846 [0.829,0.861] sens@spec70 0.82 spec@sens90 0.58 transfer sens 0.83 spec 0.69
+RESULT tune_xrv_lr1e-3_c1_tbx11k_s0 AUC 0.840 [0.825,0.854] sens@spec70 0.84 spec@sens90 0.58 transfer sens 0.71 spec 0.81
+RESULT tune_resnet50_lr1e-3_c2_pakistan_s0 AUC 0.724 [0.704,0.744] sens@spec70 0.64 spec@sens90 0.19 transfer sens 0.81 spec 0.37
+DONE worker 1
+RESULT tune_xrv_lr1e-3_c1_pakistan_s0 AUC 0.706 [0.680,0.730] sens@spec70 0.61 spec@sens90 0.27 transfer sens 0.87 spec 0.33
+DONE worker 0
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 26.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 47.38 MiB is free. Including non-PyTorch memory, this process has 9.78 GiB memory in use. Process 1828962 has 9.73 GiB memory in use. Process 1828960 has 9.73 GiB memory in use. Of the allocated memory 8.90 GiB is allocated by PyTorch, and 297.43 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 50.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 47.38 MiB is free. Process 1828961 has 9.78 GiB memory in use. Process 1828962 has 9.73 GiB memory in use. Including non-PyTorch memory, this process has 9.73 GiB memory in use. Of the allocated memory 8.85 GiB is allocated by PyTorch, and 297.36 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+Traceback (most recent call last):
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 50.00 MiB. GPU 0 has a total capacity of 31.33 GiB of which 47.38 MiB is free. Process 1828961 has 9.78 GiB memory in use. Including non-PyTorch memory, this process has 9.73 GiB memory in use. Process 1828960 has 9.73 GiB memory in use. Of the allocated memory 8.85 GiB is allocated by PyTorch, and 297.37 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+DONE worker 0
+DONE worker 1
+RESULT tune_raddino_lr1e-4_u12_nlm_s0 AUC 0.921 [0.901,0.940] sens@spec70 0.92 spec@sens90 0.75 transfer sens 0.50 spec 1.00
+RESULT tune_raddino_lr1e-4_u12_tbx11k_s0 AUC 0.929 [0.917,0.938] sens@spec70 0.93 spec@sens90 0.77 transfer sens 0.67 spec 0.95
+DONE worker 2

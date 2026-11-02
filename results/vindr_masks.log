@@ -1,0 +1,2 @@
+Warning: Input size (224x224) is not the native resolution (512x512) for this model. A resize will be performed but this could impact performance.
+vindr: n=2146 mask area mean 0.405, failures 2

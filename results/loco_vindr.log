@@ -1,0 +1,121 @@
+EXT f_raddino cidrz s0 AUC 0.803
+EXT f_raddino india s0 AUC 0.662
+RESULT f_raddino_vindr_s0 AUC 0.888 [0.872,0.903] sens@spec70 0.87 spec@sens90 0.63 transfer sens 0.55 spec 0.96
+EXT f_ms_raddino cidrz s0 AUC 0.804
+EXT f_ms_raddino india s0 AUC 0.662
+RESULT f_ms_raddino_vindr_s0 AUC 0.896 [0.881,0.910] sens@spec70 0.90 spec@sens90 0.71 transfer sens 0.59 spec 0.94
+EXT f_vit cidrz s0 AUC 0.810
+EXT f_vit india s0 AUC 0.578
+RESULT f_vit_vindr_s0 AUC 0.877 [0.861,0.893] sens@spec70 0.87 spec@sens90 0.64 transfer sens 0.57 spec 0.94
+EXT f_resnet50 cidrz s0 AUC 0.798
+EXT f_resnet50 india s0 AUC 0.653
+RESULT f_resnet50_vindr_s0 AUC 0.830 [0.810,0.848] sens@spec70 0.80 spec@sens90 0.53 transfer sens 0.43 spec 0.94
+EXT f_xrv cidrz s0 AUC 0.807
+EXT f_xrv india s0 AUC 0.616
+RESULT f_xrv_vindr_s0 AUC 0.827 [0.806,0.846] sens@spec70 0.78 spec@sens90 0.50 transfer sens 0.58 spec 0.89
+EXT f_erm cidrz s0 AUC 0.763
+EXT f_erm india s0 AUC 0.649
+RESULT f_erm_vindr_s0 AUC 0.847 [0.828,0.864] sens@spec70 0.82 spec@sens90 0.55 transfer sens 0.23 spec 0.99
+EXT f_sbal cidrz s0 AUC 0.754
+EXT f_sbal india s0 AUC 0.678
+RESULT f_sbal_vindr_s0 AUC 0.873 [0.855,0.890] sens@spec70 0.86 spec@sens90 0.58 transfer sens 0.37 spec 0.99
+EXT f_ms_vit cidrz s0 AUC 0.799
+EXT f_ms_vit india s0 AUC 0.604
+RESULT f_ms_vit_vindr_s0 AUC 0.837 [0.820,0.855] sens@spec70 0.80 spec@sens90 0.55 transfer sens 0.55 spec 0.91
+EXT f_raddino cidrz s1 AUC 0.816
+EXT f_raddino india s1 AUC 0.669
+RESULT f_raddino_vindr_s1 AUC 0.873 [0.855,0.890] sens@spec70 0.85 spec@sens90 0.57 transfer sens 0.61 spec 0.93
+EXT f_ms_raddino cidrz s1 AUC 0.778
+EXT f_ms_raddino india s1 AUC 0.644
+RESULT f_ms_raddino_vindr_s1 AUC 0.886 [0.870,0.902] sens@spec70 0.87 spec@sens90 0.64 transfer sens 0.63 spec 0.95
+EXT f_vit cidrz s1 AUC 0.818
+EXT f_vit india s1 AUC 0.591
+RESULT f_vit_vindr_s1 AUC 0.851 [0.833,0.869] sens@spec70 0.83 spec@sens90 0.56 transfer sens 0.51 spec 0.93
+EXT f_resnet50 cidrz s1 AUC 0.802
+EXT f_resnet50 india s1 AUC 0.623
+RESULT f_resnet50_vindr_s1 AUC 0.847 [0.827,0.864] sens@spec70 0.81 spec@sens90 0.52 transfer sens 0.63 spec 0.88
+EXT f_xrv cidrz s1 AUC 0.810
+EXT f_xrv india s1 AUC 0.592
+RESULT f_xrv_vindr_s1 AUC 0.802 [0.781,0.822] sens@spec70 0.75 spec@sens90 0.47 transfer sens 0.60 spec 0.83
+EXT f_erm cidrz s1 AUC 0.780
+EXT f_erm india s1 AUC 0.617
+RESULT f_erm_vindr_s1 AUC 0.824 [0.804,0.843] sens@spec70 0.79 spec@sens90 0.50 transfer sens 0.28 spec 0.98
+EXT f_sbal cidrz s1 AUC 0.758
+EXT f_sbal india s1 AUC 0.625
+RESULT f_sbal_vindr_s1 AUC 0.813 [0.791,0.833] sens@spec70 0.77 spec@sens90 0.38 transfer sens 0.25 spec 0.99
+EXT f_ms_vit cidrz s1 AUC 0.801
+EXT f_ms_vit india s1 AUC 0.613
+RESULT f_ms_vit_vindr_s1 AUC 0.853 [0.836,0.871] sens@spec70 0.83 spec@sens90 0.56 transfer sens 0.51 spec 0.95
+EXT f_raddino cidrz s2 AUC 0.782
+EXT f_raddino india s2 AUC 0.588
+RESULT f_raddino_vindr_s2 AUC 0.913 [0.899,0.927] sens@spec70 0.91 spec@sens90 0.75 transfer sens 0.64 spec 0.95
+EXT f_ms_raddino cidrz s2 AUC 0.829
+EXT f_ms_raddino india s2 AUC 0.618
+RESULT f_ms_raddino_vindr_s2 AUC 0.934 [0.922,0.946] sens@spec70 0.95 spec@sens90 0.83 transfer sens 0.79 spec 0.92
+EXT f_vit cidrz s2 AUC 0.772
+EXT f_vit india s2 AUC 0.603
+RESULT f_vit_vindr_s2 AUC 0.874 [0.857,0.891] sens@spec70 0.86 spec@sens90 0.62 transfer sens 0.54 spec 0.95
+EXT f_resnet50 cidrz s2 AUC 0.774
+EXT f_resnet50 india s2 AUC 0.658
+RESULT f_resnet50_vindr_s2 AUC 0.885 [0.869,0.899] sens@spec70 0.89 spec@sens90 0.67 transfer sens 0.49 spec 0.96
+EXT f_xrv cidrz s2 AUC 0.796
+EXT f_xrv india s2 AUC 0.578
+RESULT f_xrv_vindr_s2 AUC 0.829 [0.810,0.849] sens@spec70 0.79 spec@sens90 0.51 transfer sens 0.56 spec 0.89
+EXT f_erm cidrz s2 AUC 0.801
+EXT f_erm india s2 AUC 0.605
+RESULT f_erm_vindr_s2 AUC 0.859 [0.840,0.875] sens@spec70 0.86 spec@sens90 0.58 transfer sens 0.33 spec 0.98
+EXT f_sbal cidrz s2 AUC 0.806
+EXT f_sbal india s2 AUC 0.622
+RESULT f_sbal_vindr_s2 AUC 0.845 [0.824,0.863] sens@spec70 0.84 spec@sens90 0.51 transfer sens 0.33 spec 0.97
+EXT f_ms_vit cidrz s2 AUC 0.788
+EXT f_ms_vit india s2 AUC 0.578
+RESULT f_ms_vit_vindr_s2 AUC 0.849 [0.830,0.866] sens@spec70 0.81 spec@sens90 0.51 transfer sens 0.57 spec 0.92
+EXT f_raddino cidrz s3 AUC 0.784
+EXT f_raddino india s3 AUC 0.617
+RESULT f_raddino_vindr_s3 AUC 0.890 [0.874,0.905] sens@spec70 0.89 spec@sens90 0.67 transfer sens 0.60 spec 0.94
+EXT f_ms_raddino cidrz s3 AUC 0.754
+EXT f_ms_raddino india s3 AUC 0.639
+RESULT f_ms_raddino_vindr_s3 AUC 0.896 [0.880,0.911] sens@spec70 0.89 spec@sens90 0.68 transfer sens 0.59 spec 0.96
+EXT f_vit cidrz s3 AUC 0.814
+EXT f_vit india s3 AUC 0.593
+RESULT f_vit_vindr_s3 AUC 0.862 [0.845,0.880] sens@spec70 0.84 spec@sens90 0.58 transfer sens 0.57 spec 0.93
+EXT f_resnet50 cidrz s3 AUC 0.744
+EXT f_resnet50 india s3 AUC 0.641
+RESULT f_resnet50_vindr_s3 AUC 0.844 [0.826,0.861] sens@spec70 0.83 spec@sens90 0.56 transfer sens 0.57 spec 0.89
+EXT f_xrv cidrz s3 AUC 0.813
+EXT f_xrv india s3 AUC 0.592
+RESULT f_xrv_vindr_s3 AUC 0.816 [0.795,0.835] sens@spec70 0.76 spec@sens90 0.48 transfer sens 0.56 spec 0.88
+EXT f_erm cidrz s3 AUC 0.760
+EXT f_erm india s3 AUC 0.646
+RESULT f_erm_vindr_s3 AUC 0.791 [0.769,0.812] sens@spec70 0.74 spec@sens90 0.45 transfer sens 0.24 spec 0.98
+EXT f_sbal cidrz s3 AUC 0.727
+EXT f_sbal india s3 AUC 0.653
+RESULT f_sbal_vindr_s3 AUC 0.809 [0.788,0.828] sens@spec70 0.77 spec@sens90 0.44 transfer sens 0.27 spec 0.98
+EXT f_ms_vit cidrz s3 AUC 0.782
+EXT f_ms_vit india s3 AUC 0.586
+RESULT f_ms_vit_vindr_s3 AUC 0.801 [0.779,0.820] sens@spec70 0.74 spec@sens90 0.44 transfer sens 0.45 spec 0.91
+EXT f_raddino cidrz s4 AUC 0.766
+EXT f_raddino india s4 AUC 0.648
+RESULT f_raddino_vindr_s4 AUC 0.904 [0.890,0.918] sens@spec70 0.91 spec@sens90 0.74 transfer sens 0.56 spec 0.96
+EXT f_ms_raddino cidrz s4 AUC 0.822
+EXT f_ms_raddino india s4 AUC 0.653
+RESULT f_ms_raddino_vindr_s4 AUC 0.908 [0.892,0.921] sens@spec70 0.90 spec@sens90 0.70 transfer sens 0.61 spec 0.95
+EXT f_vit cidrz s4 AUC 0.803
+EXT f_vit india s4 AUC 0.605
+RESULT f_vit_vindr_s4 AUC 0.834 [0.815,0.853] sens@spec70 0.81 spec@sens90 0.50 transfer sens 0.54 spec 0.92
+EXT f_resnet50 cidrz s4 AUC 0.744
+EXT f_resnet50 india s4 AUC 0.610
+RESULT f_resnet50_vindr_s4 AUC 0.846 [0.827,0.862] sens@spec70 0.84 spec@sens90 0.52 transfer sens 0.63 spec 0.87
+EXT f_xrv cidrz s4 AUC 0.810
+EXT f_xrv india s4 AUC 0.603
+RESULT f_xrv_vindr_s4 AUC 0.829 [0.808,0.848] sens@spec70 0.79 spec@sens90 0.53 transfer sens 0.65 spec 0.85
+EXT f_erm cidrz s4 AUC 0.779
+EXT f_erm india s4 AUC 0.605
+RESULT f_erm_vindr_s4 AUC 0.783 [0.760,0.805] sens@spec70 0.75 spec@sens90 0.35 transfer sens 0.19 spec 0.99
+EXT f_sbal cidrz s4 AUC 0.710
+EXT f_sbal india s4 AUC 0.629
+RESULT f_sbal_vindr_s4 AUC 0.800 [0.776,0.820] sens@spec70 0.76 spec@sens90 0.40 transfer sens 0.17 spec 0.99
+EXT f_ms_vit cidrz s4 AUC 0.778
+EXT f_ms_vit india s4 AUC 0.621
+RESULT f_ms_vit_vindr_s4 AUC 0.846 [0.828,0.865] sens@spec70 0.82 spec@sens90 0.55 transfer sens 0.52 spec 0.94
+DONE worker 0

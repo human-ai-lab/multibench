@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "r448",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 448,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 32,
+  "reg": 1.0,
+  "outdir": "results/loco_448"
+ },
+ "val_mean_auc": 0.9994923555901015,
+ "auc": 0.9640017353614856,
+ "auc_ci": [
+  0.9571371206437894,
+  0.9699549764401564
+ ],
+ "sens_at_spec70": 0.9787878787878788,
+ "spec_at_sens90": 0.9046003528294205,
+ "transfer_sens": 0.6803030303030303,
+ "transfer_spec": 0.9799158637535622,
+ "thr": 8.868672561645509,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9962111075972462,
+ "auc_vs_sick": 0.9308612001067947
+}

@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_ms_raddino",
+  "seed": 2,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "auc": 0.6182750101289995,
+ "auc_ci": [
+  0.6101267179892531,
+  0.6267440669168276
+ ],
+ "sens_at_spec70": 0.461977648202138,
+ "spec_at_sens90": 0.17714285714285713,
+ "transfer_sens": 0.07482993197278912,
+ "transfer_spec": 0.9889212827988338,
+ "thr": 4.3609613418579105,
+ "n": 16807,
+ "pos": 8232
+}

@@ -1,0 +1,40 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_erm",
+  "seed": 4,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "val_mean_auc": 0.9824949087607938,
+ "auc": 0.7833560371517029,
+ "auc_ci": [
+  0.7600348078073603,
+  0.8049727665604602
+ ],
+ "sens_at_spec70": 0.7461300309597523,
+ "spec_at_sens90": 0.346,
+ "transfer_sens": 0.1873065015479876,
+ "transfer_spec": 0.99,
+ "thr": 5.080895614624024,
+ "n": 2146,
+ "pos": 646
+}

@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "f_ms_vit",
+  "seed": 3,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9832749527043005,
+ "auc": 0.9477055736855048,
+ "auc_ci": [
+  0.93744975757652,
+  0.9575481301985386
+ ],
+ "sens_at_spec70": 0.938953488372093,
+ "spec_at_sens90": 0.8265218633895399,
+ "transfer_sens": 0.7151162790697675,
+ "transfer_spec": 0.9831380394398399,
+ "thr": 3.501645088195801,
+ "n": 4187,
+ "pos": 688
+}

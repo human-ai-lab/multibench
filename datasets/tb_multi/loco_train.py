@@ -27,7 +27,7 @@ import torch.nn.functional as F
 from sklearn.metrics import roc_auc_score
 from torchvision.models import ViT_B_16_Weights, vit_b_16
 
-from datasets.tb_multi.common import CORPORA, SOURCES, boot_auc_ci, load_all, op_points
+from datasets.tb_multi.common import ALL, EXTERNAL, SOURCES, boot_auc_ci, load_all, op_points
 from datasets.tb_multi.standardize import OUT_DIR
 from utils.device import get_device
 
@@ -51,9 +51,11 @@ class Net(nn.Module):
     parts are kept in eval mode so BatchNorm statistics do not drift. `features` returns (B, dim); ViT-style
     backbones can also return patch tokens (for the lesion auxiliary head)."""
 
-    def __init__(self, backbone, unfreeze_blocks, n_dom, mixstyle=0.0, mixstyle_alpha=0.1):
+    def __init__(self, backbone, unfreeze_blocks, n_dom, mixstyle=0.0, mixstyle_alpha=0.1, cnn_unfreeze=1, img_size=224):
         super().__init__()
         self.kind = backbone
+        assert img_size == 224 or backbone == "raddino", "--img-size is only supported for raddino"
+        self.img_size = img_size
         self.mix_p, self.mix_alpha = mixstyle, mixstyle_alpha
         self.backbone_params, self.train_mods = [], []
         if backbone == "vit":
@@ -68,12 +70,13 @@ class Net(nn.Module):
             from torchvision.models import ResNet50_Weights, resnet50
             self.cnn = resnet50(weights=ResNet50_Weights.IMAGENET1K_V2)
             self.cnn.fc = nn.Identity()
-            body, tail, self.dim = self.cnn, [self.cnn.layer4], 2048
+            body, tail, self.dim = self.cnn, [self.cnn.layer3, self.cnn.layer4][-cnn_unfreeze:], 2048
         elif backbone == "xrv_densenet":
             import torchxrayvision as xrv
             self.cnn = xrv.models.DenseNet(weights="densenet121-res224-all")
             body = self.cnn
-            tail, self.dim = [self.cnn.features.denseblock4, self.cnn.features.norm5], 1024
+            tail, self.dim = ([self.cnn.features.transition3, self.cnn.features.denseblock3] if cnn_unfreeze > 1 else []) + \
+                [self.cnn.features.denseblock4, self.cnn.features.norm5], 1024
         else:
             raise ValueError(backbone)
         for p in body.parameters():
@@ -86,8 +89,8 @@ class Net(nn.Module):
         if mixstyle > 0:  # MixStyle on the activations that enter the trainable tail
             host = {"vit": lambda: self.vit.encoder.layers, "raddino": lambda: self.vit.encoder.layer,
                     "resnet50": lambda: [self.cnn.layer1, self.cnn.layer2, self.cnn.layer3],
-                    "xrv_densenet": lambda: [self.cnn.features.denseblock3]}[backbone]()
-            site = host[-(unfreeze_blocks + 1)] if backbone in ("vit", "raddino") else host[-1]
+                    "xrv_densenet": lambda: [self.cnn.features.denseblock2, self.cnn.features.denseblock3]}[backbone]()
+            site = host[-(unfreeze_blocks + 1)] if backbone in ("vit", "raddino") else host[-cnn_unfreeze]
             site.register_forward_hook(self._mix_hook)
         self.head = nn.Linear(self.dim, 2)
         self.dom_head = nn.Linear(self.dim, n_dom)
@@ -121,6 +124,8 @@ class Net(nn.Module):
         return self
 
     def features(self, x, tokens=False):  # x in [0,1], (B,1,H,W)
+        if self.img_size != 224:  # upsampled input (no new detail; only changes the patch grid RAD-DINO sees)
+            x = F.interpolate(x, size=(self.img_size, self.img_size), mode="bilinear", align_corners=False)
         x = x.expand(-1, 3, -1, -1)
         if self.kind == "vit":
             x = (x - MEAN.to(x.device)) / STD.to(x.device)
@@ -140,11 +145,12 @@ class Net(nn.Module):
 
 
 def augment(x, strong, mask=None):
-    """x: (B,1,224,224) float [0,1] on GPU. `mask` (B,1,224,224) lesion map gets the same geometric transform.
+    """x: (B,1,S,S) float [0,1] on GPU (S = 224 or the TB_RES cache size). `mask` (B,1,S,S) lesion map gets the same geometric transform.
     Returns x, or (x, mask) when a mask is given."""
     if not strong:
         return x if mask is None else (x, mask)
-    B = x.shape[0]
+    B, S = x.shape[0], x.shape[-1]
+    k = S / 224
     dev = x.device
     ang = (torch.rand(B, device=dev) - 0.5) * 2 * np.deg2rad(8)
     sc = 1 + (torch.rand(B, device=dev) - 0.5) * 0.2
@@ -161,18 +167,18 @@ def augment(x, strong, mask=None):
     b = (torch.rand(B, 1, 1, 1, device=dev) - 0.5) * 0.2
     x = ((x - 0.5) * c + 0.5 + b).clamp(0, 1)
     # resolution jitter (harmonizes 256px-JPEG-like vs 512+ sources): random down-up for ~half the batch
-    r = int(np.random.choice([112, 160, 224]))
-    if r < 224:
+    r = int(np.random.choice([round(112 * k), round(160 * k), S]))
+    if r < S:
         half = torch.rand(B, device=dev) < 0.5
-        low = F.interpolate(F.interpolate(x, size=(r, r), mode="bilinear", align_corners=False), size=(224, 224),
+        low = F.interpolate(F.interpolate(x, size=(r, r), mode="bilinear", align_corners=False), size=(S, S),
                             mode="bilinear", align_corners=False)
         x = torch.where(half.view(B, 1, 1, 1), low, x)
     # erase a random border/corner patch (annotation tags, collimation, laterality markers)
     for i in range(B):
         if random.random() < 0.5:
-            h, w = random.randint(12, 48), random.randint(12, 48)
-            y0 = random.choice([0, 224 - h]) if random.random() < 0.7 else random.randint(0, 224 - h)
-            x0 = random.choice([0, 224 - w]) if random.random() < 0.7 else random.randint(0, 224 - w)
+            h, w = random.randint(round(12 * k), round(48 * k)), random.randint(round(12 * k), round(48 * k))
+            y0 = random.choice([0, S - h]) if random.random() < 0.7 else random.randint(0, S - h)
+            x0 = random.choice([0, S - w]) if random.random() < 0.7 else random.randint(0, S - w)
             x[i, :, y0:y0 + h, x0:x0 + w] = random.random()
     return x if mask is None else (x, mask)
 
@@ -200,12 +206,13 @@ def dom_standardize(f, d, n_dom):
 
 
 @torch.no_grad()
-def embed_all(net, X, bs=128):
+def embed_all(net, X, bs=None):
+    bs = bs or (128 if max(net.img_size, X.shape[-1]) <= 224 else 16)
     net.eval()
     out = []
     for i in range(0, len(X), bs):
         with torch.autocast("cuda", dtype=torch.bfloat16):
-            out.append(net.features(X[i:i + bs].float().div(255).unsqueeze(1)).float())
+            out.append(net.features(X[i:i + bs].float().div(255).unsqueeze(1)).float().clone())  # clone: CLS is a view of the token tensor
     return torch.cat(out)
 
 
@@ -218,7 +225,7 @@ def margins(net, feats, dstd):
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--target", required=True, choices=SOURCES + ["cidrz"])
+    ap.add_argument("--target", required=True, choices=SOURCES + EXTERNAL)
     ap.add_argument("--name", required=True)
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--sampler", default="sbal", choices=["random", "sbal"])
@@ -231,6 +238,9 @@ def main():
     ap.add_argument("--lesion", type=float, default=0.0,
                     help="weight of the TBX11K lesion-box auxiliary patch loss (ViT-style backbones; 0 = off)")
     ap.add_argument("--unfreeze-blocks", type=int, default=6)
+    ap.add_argument("--cnn-unfreeze", type=int, default=1, choices=[1, 2], help="resnet50: layer4 | layer3+4; densenet: denseblock4 | +denseblock3")
+    ap.add_argument("--eval-ext", action="store_true", help="also score the other external corpus (india: label validity unverified)")
+    ap.add_argument("--img-size", type=int, default=224, help="raddino only: bilinearly upsample the 224 input")
     ap.add_argument("--backbone-lr", type=float, default=5e-5)
     ap.add_argument("--head-lr", type=float, default=1e-3)
     ap.add_argument("--epochs", type=int, default=6)
@@ -238,15 +248,17 @@ def main():
     ap.add_argument("--batch-size", type=int, default=64)
     ap.add_argument("--reg", type=float, default=1.0, help="vrex beta / coral & dann weight")
     ap.add_argument("--outdir", default="results/loco")
+    ap.add_argument("--ckpt-dir", default="", help="if set, save the best held-in-validation state_dict here so a new target can be scored without retraining")
     args = ap.parse_args()
     os.makedirs(args.outdir, exist_ok=True)
     random.seed(args.seed); np.random.seed(args.seed); torch.manual_seed(args.seed)
     dev = get_device()
 
-    _, meta = load_all(None)
+    corp = [c for c in ALL if os.path.exists(os.path.join(OUT_DIR, f"{c}_meta.csv"))]  # india exists at 224 only
+    _, meta = load_all(None, corpora=corp)
     suffix = "lung" if args.input == "lung" else ""
     arrs = [np.load(os.path.join(OUT_DIR, f"{c}{'_' + suffix if suffix else ''}.npy"), mmap_mode="r")
-            [meta[meta.corpus == c].row.values] for c in CORPORA]
+            [meta[meta.corpus == c].row.values] for c in corp]
     X = torch.from_numpy(np.concatenate(arrs)).to(dev)
     y = torch.from_numpy(meta.label.values).long().to(dev)
     dom_names = meta.domain.values
@@ -295,7 +307,7 @@ def main():
     cls_w = torch.tensor([1.0, 1.0], device=dev) if args.sampler == "sbal" else torch.tensor(
         [1.0, float((y[tr_idx] == 0).sum() / (y[tr_idx] == 1).sum())], device=dev).clamp(max=6)
 
-    net = Net(args.backbone, args.unfreeze_blocks, n_dom, args.mixstyle).to(dev)
+    net = Net(args.backbone, args.unfreeze_blocks, n_dom, args.mixstyle, cnn_unfreeze=args.cnn_unfreeze, img_size=args.img_size).to(dev)
     params = [{"params": net.backbone_params, "lr": args.backbone_lr},
               {"params": list(net.head.parameters()) + list(net.dom_head.parameters())
                          + list(net.patch_head.parameters()), "lr": args.head_lr}]
@@ -365,8 +377,11 @@ def main():
               f"({time.time() - t0:.0f}s)", flush=True)
         if val > best:
             best = val
-            best_state = {k: v.detach().clone() for k, v in net.state_dict().items() if "vit.encoder" in k or "head" in k}
-    net.load_state_dict(best_state, strict=False)
+            best_state = {k: v.detach().clone() for k, v in net.state_dict().items()}  # full copy: tails of CNNs / RAD-DINO's final norm were previously not restored
+    net.load_state_dict(best_state)
+    if args.ckpt_dir:
+        os.makedirs(args.ckpt_dir, exist_ok=True)
+        torch.save({k: v.cpu() for k, v in best_state.items()}, os.path.join(args.ckpt_dir, f"{args.name}_{args.target}_s{args.seed}.pt"))
 
     fv = embed_all(net, X[va_idx])
     dv = dom_names[va_idx]; yv = meta.label.values[va_idx]
@@ -375,6 +390,7 @@ def main():
         i = dv == s
         sv[i] = margins(net, fv[torch.from_numpy(i).to(dev)], args.dstd)
     thr = float(np.quantile(sv[yv == 1], 0.10))  # pooled held-in val: 90% sensitivity
+    np.savez(os.path.join(args.outdir, f"{args.name}_{args.target}_s{args.seed}_val.npz"), s=sv, y=yv, d=dv.astype(str))  # exact ensemble thresholds
     ft = embed_all(net, X[te_idx])
     s = margins(net, ft, args.dstd)
     yt = meta.label.values[te_idx]
@@ -392,7 +408,7 @@ def main():
         extra = dict(auc_patchmax=float(roc_auc_score(yt, pm)), auc_comb=float(roc_auc_score(yt, zc(s) + zc(pm))))
         np.save(os.path.join(args.outdir, f"{args.name}_{args.target}_s{args.seed}_patchmax.npy"), pm.astype(np.float32))
     r = dict(extra, args=vars(args), val_mean_auc=best, auc=float(roc_auc_score(yt, s)), auc_ci=boot_auc_ci(yt, s),
-             **op_points(yt, s, thr), n=int(len(yt)), pos=int(yt.sum()))
+             **op_points(yt, s, thr), thr=thr, n=int(len(yt)), pos=int(yt.sum()))
     if args.target == "tbx11k":
         cat = meta["category"].values[te_idx]
         for other in ("healthy", "sick"):
@@ -401,6 +417,17 @@ def main():
     tag = f"{args.name}_{args.target}_s{args.seed}"
     json.dump(r, open(os.path.join(args.outdir, tag + ".json"), "w"), indent=1, default=float)
     np.save(os.path.join(args.outdir, tag + "_scores.npy"), s.astype(np.float32))
+    if args.target in EXTERNAL and args.eval_ext:  # the model is trained on the four sources only, so it can score the other external corpora
+        for oth in EXTERNAL:
+            if oth == args.target or oth not in corp:
+                continue
+            io = np.flatnonzero(dom_names == oth)
+            so, yo = margins(net, embed_all(net, X[io]), args.dstd), meta.label.values[io]
+            ro = dict(args=vars(args), auc=float(roc_auc_score(yo, so)), auc_ci=boot_auc_ci(yo, so),
+                      **op_points(yo, so, thr), thr=thr, n=int(len(yo)), pos=int(yo.sum()))
+            json.dump(ro, open(os.path.join(args.outdir, f"{args.name}_ext-{oth}_s{args.seed}.json"), "w"), indent=1, default=float)
+            np.save(os.path.join(args.outdir, f"{args.name}_ext-{oth}_s{args.seed}_scores.npy"), so.astype(np.float32))
+            print(f"EXT {args.name} {oth} s{args.seed} AUC {ro['auc']:.3f}", flush=True)
     print(f"RESULT {tag} AUC {r['auc']:.3f} [{r['auc_ci'][0]:.3f},{r['auc_ci'][1]:.3f}] "
           f"sens@spec70 {r['sens_at_spec70']:.2f} spec@sens90 {r['spec_at_sens90']:.2f} "
           f"transfer sens {r['transfer_sens']:.2f} spec {r['transfer_spec']:.2f}", flush=True)

@@ -1,0 +1,13 @@
+
+model                                                            qatar_auc       qatar_uar       cidrz_auc       cidrz_uar
+results/models/tb_cxr_qatar_vit_whole_s0.pt                          0.998           0.975           0.605           0.568
+results/models/tb_cxr_qatar_vit_whole_s1.pt                          0.998           0.980           0.601           0.539
+results/models/tb_cxr_qatar_vit_whole_s2.pt                          0.997           0.975           0.605           0.566
+vit whole mean +/- sd (n=3)                                   0.998+/-0.001    0.977+/-0.002    0.604+/-0.002    0.558+/-0.013
+results/models/tb_cxr_qatar_vit_lungmask_s0.pt                       0.989           0.972           0.730           0.656
+results/models/tb_cxr_qatar_vit_lungmask_s1.pt                       0.989           0.971           0.720           0.665
+results/models/tb_cxr_qatar_vit_lungmask_s2.pt                       0.989           0.968           0.705           0.599
+vit lungmask mean +/- sd (n=3)                                0.989+/-0.000    0.970+/-0.002    0.719+/-0.010    0.640+/-0.029
+
+Seed-averaged zero-shot CIDRZ AUROC (n=364), paired participant bootstrap:
+  vit lungmask (0.722) minus vit whole (0.604): +0.118 [95% CI +0.042, +0.197]

@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "tune_resnet50_lr1e-3_c2",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9637285296659175,
+ "auc": 0.7241099806743223,
+ "auc_ci": [
+  0.7041013488778823,
+  0.7436923214754297
+ ],
+ "sens_at_spec70": 0.6430020283975659,
+ "spec_at_sens90": 0.19094488188976377,
+ "transfer_sens": 0.8137931034482758,
+ "transfer_spec": 0.3700787401574803,
+ "thr": -1.448540163040161,
+ "n": 2973,
+ "pos": 2465
+}

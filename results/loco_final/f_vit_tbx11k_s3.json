@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_vit",
+  "seed": 3,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9753188741516737,
+ "auc": 0.8538138886490088,
+ "auc_ci": [
+  0.8381328349680962,
+  0.8672009246991494
+ ],
+ "sens_at_spec70": 0.8393939393939394,
+ "spec_at_sens90": 0.5960103134753698,
+ "transfer_sens": 0.5969696969696969,
+ "transfer_spec": 0.8990365042746641,
+ "thr": 6.155330848693848,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9549342772115049,
+ "auc_vs_sick": 0.7497701408356694
+}

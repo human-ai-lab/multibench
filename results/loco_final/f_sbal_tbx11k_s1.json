@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_sbal",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9850427350427351,
+ "auc": 0.7227938908696134,
+ "auc_ci": [
+  0.7015707018484568,
+  0.7439216055978662
+ ],
+ "sens_at_spec70": 0.656060606060606,
+ "spec_at_sens90": 0.2450807436558556,
+ "transfer_sens": 0.2287878787878788,
+ "transfer_spec": 0.9406975166236938,
+ "thr": 11.241045379638672,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.8125635536526625,
+ "auc_vs_sick": 0.6304290148177814
+}

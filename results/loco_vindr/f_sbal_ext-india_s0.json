@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_sbal",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "auc": 0.6784210873020595,
+ "auc_ci": [
+  0.6707830044096376,
+  0.6862176618814073
+ ],
+ "sens_at_spec70": 0.5568513119533528,
+ "spec_at_sens90": 0.2742857142857143,
+ "transfer_sens": 0.05308551992225462,
+ "transfer_spec": 0.9794752186588921,
+ "thr": 5.506414127349854,
+ "n": 16807,
+ "pos": 8232
+}

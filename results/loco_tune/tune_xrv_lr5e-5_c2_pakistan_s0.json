@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "tune_xrv_lr5e-5_c2",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9452280495237767,
+ "auc": 0.5008944115251314,
+ "auc_ci": [
+  0.4698956639132065,
+  0.5309809110922956
+ ],
+ "sens_at_spec70": 0.2839756592292089,
+ "spec_at_sens90": 0.1062992125984252,
+ "transfer_sens": 0.9196754563894524,
+ "transfer_spec": 0.07874015748031496,
+ "thr": -0.7668255329132082,
+ "n": 2973,
+ "pos": 2465
+}

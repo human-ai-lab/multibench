@@ -8,15 +8,22 @@ from datasets.tb_multi.standardize import OUT_DIR
 CORPORA = ["qatar", "montgomery", "shenzhen", "tbx11k", "pakistan", "cidrz"]
 # LOCO domains: Montgomery (138 images) is merged with Shenzhen as the NLM release ("nlm") so its fold
 # has usable CIs; per-corpus numbers inside the fold can still be split via `corpus`.
-DOMAIN_OF = dict(qatar="qatar", montgomery="nlm", shenzhen="nlm", tbx11k="tbx11k", pakistan="pakistan", cidrz="cidrz")
+DOMAIN_OF = dict(qatar="qatar", montgomery="nlm", shenzhen="nlm", tbx11k="tbx11k", pakistan="pakistan", cidrz="cidrz",
+                 india="india", vindr="vindr")
+# External targets are never trained on or used for selection. `india` (Kaggle, unverified provenance) and `vindr`
+# (PhysioNet, radiologist labels, enriched sample with per-row weights `w`) are kept out of CORPORA so earlier pooled
+# analyses (probes) are unchanged; `load_all(ALL)` adds them. New corpora go LAST in ALL: row indices of earlier
+# corpora (and so every held-in split) must not shift.
+EXTERNAL = ["cidrz", "india", "vindr"]
+ALL = CORPORA + ["india", "vindr"]
 SOURCES = ["qatar", "nlm", "tbx11k", "pakistan"]
 
 
-def load_all(suffix="xrv", kind="npy"):
+def load_all(suffix="xrv", kind="npy", corpora=None):
     """Concatenate corpora (minus the dedup drop list, TBX11K latent/uncertain) -> (X, meta DataFrame)."""
     drop = pd.read_csv("results/tb_multi_dedup_drop.csv")
     metas, feats = [], []
-    for c in CORPORA:
+    for c in (corpora or CORPORA):
         m = pd.read_csv(f"{OUT_DIR}/{c}_meta.csv")
         x = np.load(f"{OUT_DIR}/{c}_{suffix}.npy", mmap_mode="r") if suffix else None
         keep = ~m["id"].isin(set(drop[drop.corpus == c]["id"]))

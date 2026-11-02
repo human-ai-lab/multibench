@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "f_xrv",
+  "seed": 2,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9517896470334795,
+ "auc": 0.756293622526393,
+ "auc_ci": [
+  0.7341624215353909,
+  0.7776164797682839
+ ],
+ "sens_at_spec70": 0.6827586206896552,
+ "spec_at_sens90": 0.2952755905511811,
+ "transfer_sens": 0.9164300202839757,
+ "transfer_spec": 0.2559055118110236,
+ "thr": -0.2913883328437806,
+ "n": 2973,
+ "pos": 2465
+}

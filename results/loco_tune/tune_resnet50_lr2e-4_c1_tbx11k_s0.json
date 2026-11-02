@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "tune_resnet50_lr2e-4_c1",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0002,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9740278552093823,
+ "auc": 0.835814036689325,
+ "auc_ci": [
+  0.8188806956325556,
+  0.8520225505582006
+ ],
+ "sens_at_spec70": 0.8227272727272728,
+ "spec_at_sens90": 0.5384719772017913,
+ "transfer_sens": 0.6484848484848484,
+ "transfer_spec": 0.846519202062695,
+ "thr": 2.653256893157959,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9313985452599314,
+ "auc_vs_sick": 0.7374662094513416
+}

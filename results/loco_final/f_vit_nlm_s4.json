@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "f_vit",
+  "seed": 4,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9936616039377798,
+ "auc": 0.8599172776837751,
+ "auc_ci": [
+  0.8320805447177155,
+  0.8854207538359323
+ ],
+ "sens_at_spec70": 0.8477157360406091,
+ "spec_at_sens90": 0.5185185185185185,
+ "transfer_sens": 0.6040609137055838,
+ "transfer_spec": 0.9308641975308642,
+ "thr": 3.7450564861297604,
+ "n": 799,
+ "pos": 394
+}

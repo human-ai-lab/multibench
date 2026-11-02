@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_erm",
+  "seed": 2,
+  "sampler": "random",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9820512820512821,
+ "auc": 0.6968150770837702,
+ "auc_ci": [
+  0.6751134066619823,
+  0.7156340049446984
+ ],
+ "sens_at_spec70": 0.6318181818181818,
+ "spec_at_sens90": 0.2700502103406161,
+ "transfer_sens": 0.13333333333333333,
+ "transfer_spec": 0.9291627086443208,
+ "thr": 5.915587711334229,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.8034608866292033,
+ "auc_vs_sick": 0.5870861700707515
+}

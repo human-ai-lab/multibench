@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_xrv",
+  "seed": 4,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "xrv_densenet",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9706768878492763,
+ "auc": 0.8340032157646488,
+ "auc_ci": [
+  0.8182892280325068,
+  0.8482435039684186
+ ],
+ "sens_at_spec70": 0.8333333333333334,
+ "spec_at_sens90": 0.5679196634550142,
+ "transfer_sens": 0.6606060606060606,
+ "transfer_spec": 0.8237209933505225,
+ "thr": 2.5843111038208013,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9367350248538366,
+ "auc_vs_sick": 0.728301461754105
+}

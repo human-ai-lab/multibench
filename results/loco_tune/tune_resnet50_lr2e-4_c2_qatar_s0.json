@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "tune_resnet50_lr2e-4_c2",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0002,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9838208590925982,
+ "auc": 0.9268678094073389,
+ "auc_ci": [
+  0.9139678533343095,
+  0.9398931441110487
+ ],
+ "sens_at_spec70": 0.9026162790697675,
+ "spec_at_sens90": 0.7239211203200915,
+ "transfer_sens": 0.6090116279069767,
+ "transfer_spec": 0.9957130608745356,
+ "thr": 3.1474692821502686,
+ "n": 4187,
+ "pos": 688
+}

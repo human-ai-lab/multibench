@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "f_ms_vit",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.5,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9803668429238884,
+ "auc": 0.7860575617702958,
+ "auc_ci": [
+  0.7696883338205467,
+  0.8020164829967127
+ ],
+ "sens_at_spec70": 0.7383367139959433,
+ "spec_at_sens90": 0.14960629921259844,
+ "transfer_sens": 0.8352941176470589,
+ "transfer_spec": 0.3937007874015748,
+ "thr": -0.4256192684173586,
+ "n": 2973,
+ "pos": 2465
+}

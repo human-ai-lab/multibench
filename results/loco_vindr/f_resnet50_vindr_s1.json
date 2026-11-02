@@ -1,0 +1,40 @@
+{
+ "args": {
+  "target": "vindr",
+  "name": "f_resnet50",
+  "seed": 1,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "resnet50",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 2,
+  "eval_ext": true,
+  "img_size": 224,
+  "backbone_lr": 0.001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_vindr",
+  "ckpt_dir": "/data/tb_multi_ckpt"
+ },
+ "val_mean_auc": 0.965662100803637,
+ "auc": 0.8471713106295149,
+ "auc_ci": [
+  0.8273735927736453,
+  0.8642342392263278
+ ],
+ "sens_at_spec70": 0.8126934984520123,
+ "spec_at_sens90": 0.518,
+ "transfer_sens": 0.6253869969040248,
+ "transfer_spec": 0.8793333333333333,
+ "thr": -0.5773422956466668,
+ "n": 2146,
+ "pos": 646
+}

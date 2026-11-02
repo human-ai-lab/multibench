@@ -1,0 +1,41 @@
+{
+ "args": {
+  "target": "tbx11k",
+  "name": "f_raddino",
+  "seed": 4,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.994962047709393,
+ "auc": 0.9321011033115797,
+ "auc_ci": [
+  0.9206951524059069,
+  0.9419395657688215
+ ],
+ "sens_at_spec70": 0.953030303030303,
+ "spec_at_sens90": 0.8246709187135296,
+ "transfer_sens": 0.5757575757575758,
+ "transfer_spec": 0.9696023883837699,
+ "thr": 10.851564407348633,
+ "n": 8029,
+ "pos": 660,
+ "auc_vs_healthy": 0.9851724361625351,
+ "auc_vs_sick": 0.8774954945935122
+}

@@ -35,6 +35,7 @@ google_health = [
     "pydicom",
     "kaggle",
     "kagglehub",
+    "scikit-image",
 ]
 google_health_hear = [
     "multibench[google_health]",
@@ -44,6 +45,14 @@ google_health_hear = [
 google_health_xrv = [
     "multibench[google_health]",
     "torchxrayvision",
+]
+# Cross-corpus TB benchmark (datasets/tb_multi): standardize/dedup/embed need kagglehub + pandas +
+# torchxrayvision (xrv embeddings and lung masks); loco_train's RAD-DINO backbone needs transformers.
+tb_multi = [
+    "multibench[google_health]",
+    "torchxrayvision",
+    "transformers>=4.40",
+    "huggingface_hub",
 ]
 test = [
     "pytest",

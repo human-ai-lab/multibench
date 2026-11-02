@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "tune_vit_lr5e-5_u12",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 12,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 5e-05,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9809321732995695,
+ "auc": 0.8193632109373752,
+ "auc_ci": [
+  0.8038996182503911,
+  0.834736896927033
+ ],
+ "sens_at_spec70": 0.7614604462474645,
+ "spec_at_sens90": 0.33267716535433073,
+ "transfer_sens": 0.8150101419878296,
+ "transfer_spec": 0.5984251968503937,
+ "thr": -0.24029837548732758,
+ "n": 2973,
+ "pos": 2465
+}

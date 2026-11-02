@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "qatar",
+  "name": "f_sbal",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "none",
+  "input": "whole",
+  "dstd": false,
+  "backbone": "vit",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_final"
+ },
+ "val_mean_auc": 0.9960958878078444,
+ "auc": 0.9174573133852197,
+ "auc_ci": [
+  0.9039156088515378,
+  0.9315216706543086
+ ],
+ "sens_at_spec70": 0.876453488372093,
+ "spec_at_sens90": 0.6381823378108031,
+ "transfer_sens": 0.48255813953488375,
+ "transfer_spec": 0.9982852243498143,
+ "thr": 4.719203948974609,
+ "n": 4187,
+ "pos": 688
+}

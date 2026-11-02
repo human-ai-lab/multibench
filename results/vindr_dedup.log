@@ -1,0 +1,11 @@
+vindr x qatar: 0 near-duplicate pairs
+vindr x montgomery: 0 near-duplicate pairs
+vindr x shenzhen: 0 near-duplicate pairs
+vindr x tbx11k: 0 near-duplicate pairs
+vindr x pakistan: 0 near-duplicate pairs
+vindr x cidrz: 0 near-duplicate pairs
+vindr x india: 0 near-duplicate pairs
+vindr x vindr: 1 within-corpus pairs
+positive control: 105/105 perturbed copies recovered
+external images to drop: 1; label conflicts among pairs: 0
+EXIT 0

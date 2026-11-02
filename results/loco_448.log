@@ -1,0 +1,12 @@
+RESULT r448_nlm_s0 AUC 0.959 [0.946,0.970] sens@spec70 0.96 spec@sens90 0.88 transfer sens 0.47 spec 1.00
+RESULT r448_qatar_s0 AUC 0.966 [0.956,0.976] sens@spec70 0.96 spec@sens90 0.98 transfer sens 0.76 spec 1.00
+RESULT r448_pakistan_s0 AUC 0.960 [0.953,0.967] sens@spec70 0.95 spec@sens90 0.91 transfer sens 0.79 spec 0.98
+RESULT r448_tbx11k_s0 AUC 0.928 [0.919,0.937] sens@spec70 0.94 spec@sens90 0.78 transfer sens 0.60 spec 0.96
+RESULT r448_qatar_s1 AUC 0.975 [0.968,0.982] sens@spec70 0.97 spec@sens90 0.97 transfer sens 0.67 spec 1.00
+RESULT r448_cidrz_s0 AUC 0.839 [0.777,0.896] sens@spec70 0.83 spec@sens90 0.43 transfer sens 0.73 spec 0.85
+RESULT r448_nlm_s1 AUC 0.942 [0.927,0.959] sens@spec70 0.93 spec@sens90 0.83 transfer sens 0.56 spec 1.00
+RESULT r448_tbx11k_s1 AUC 0.964 [0.957,0.970] sens@spec70 0.98 spec@sens90 0.90 transfer sens 0.68 spec 0.98
+RESULT r448_pakistan_s1 AUC 0.904 [0.893,0.915] sens@spec70 0.88 spec@sens90 0.64 transfer sens 0.54 spec 1.00
+DONE worker 0
+RESULT r448_cidrz_s1 AUC 0.808 [0.738,0.870] sens@spec70 0.75 spec@sens90 0.45 transfer sens 0.67 spec 0.86
+DONE worker 1

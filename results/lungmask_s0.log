@@ -1,0 +1,35 @@
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/home/bagustris/github/multibench/.venv/lib/python3.10/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=VGG11_BN_Weights.IMAGENET1K_V1`. You can also use `weights=VGG11_BN_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Training on Qatar TB CXR (train split; valid split for checkpoint selection)...
+Epoch 0 train loss: 0.3559333456996955
+Epoch 0 valid loss: 0.32472024285604084 acc: 0.8222222222222222
+Saving Best
+Epoch 1 train loss: 0.1946828383122425
+Epoch 1 valid loss: 0.2158319406802692 acc: 0.9047619047619048
+Saving Best
+Epoch 2 train loss: 0.15702573688206625
+Epoch 2 valid loss: 0.2799119849763219 acc: 0.8111111111111111
+Epoch 3 train loss: 0.12323902739516022
+Epoch 3 valid loss: 0.3143945390979449 acc: 0.7968253968253968
+Epoch 4 train loss: 0.1053586245762528
+Epoch 4 valid loss: 0.2696111166287982 acc: 0.846031746031746
+Epoch 5 train loss: 0.10423339780888893
+Epoch 5 valid loss: 0.4797724305637299 acc: 0.6904761904761905
+Epoch 6 train loss: 0.07728195324663681
+Epoch 6 valid loss: 0.21919960649240586 acc: 0.8603174603174604
+Epoch 7 train loss: 0.061657644891921354
+Epoch 7 valid loss: 0.22752005457878113 acc: 0.8682539682539683
+Epoch 8 train loss: 0.07609277194350812
+Epoch 8 valid loss: 0.42257185780576295 acc: 0.7238095238095238
+Epoch 9 train loss: 0.05973195551815807
+Epoch 9 valid loss: 0.22938773273712112 acc: 0.8793650793650793
+Training Time: 30.277204990386963
+Training Params: 12445762
+
+Evaluating on ALL of CIDRZ (n=364, none used for training) - data/google_health/tb_dataset_lungmask.pkl ...
+Cross-dataset evaluation results (trained on Qatar, tested on CIDRZ):
+  UA: 0.6600877192982456
+  WA: 0.7115384615384616
+  F1: 0.6050632911392405

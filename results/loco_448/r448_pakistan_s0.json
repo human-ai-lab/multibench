@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "pakistan",
+  "name": "r448",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 6,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 448,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 32,
+  "reg": 1.0,
+  "outdir": "results/loco_448"
+ },
+ "val_mean_auc": 0.997798105883593,
+ "auc": 0.9600629282394468,
+ "auc_ci": [
+  0.9533701230732912,
+  0.9667945543029325
+ ],
+ "sens_at_spec70": 0.9537525354969574,
+ "spec_at_sens90": 0.9133858267716536,
+ "transfer_sens": 0.7914807302231237,
+ "transfer_spec": 0.984251968503937,
+ "thr": 2.936029148101807,
+ "n": 2973,
+ "pos": 2465
+}

@@ -1,0 +1,39 @@
+{
+ "args": {
+  "target": "nlm",
+  "name": "tune_raddino_lr1e-4_u12",
+  "seed": 0,
+  "sampler": "sbal",
+  "loss": "ce",
+  "aug": "strong",
+  "input": "lung",
+  "dstd": false,
+  "backbone": "raddino",
+  "mixstyle": 0.0,
+  "lesion": 0.0,
+  "unfreeze_blocks": 12,
+  "cnn_unfreeze": 1,
+  "eval_ext": false,
+  "img_size": 224,
+  "backbone_lr": 0.0001,
+  "head_lr": 0.001,
+  "epochs": 8,
+  "steps_per_epoch": 150,
+  "batch_size": 64,
+  "reg": 1.0,
+  "outdir": "results/loco_tune"
+ },
+ "val_mean_auc": 0.9983930925139686,
+ "auc": 0.9211129911637526,
+ "auc_ci": [
+  0.9010533861196345,
+  0.9404286162809083
+ ],
+ "sens_at_spec70": 0.9187817258883249,
+ "spec_at_sens90": 0.7506172839506173,
+ "transfer_sens": 0.5025380710659898,
+ "transfer_spec": 0.9975308641975309,
+ "thr": 6.455236721038818,
+ "n": 799,
+ "pos": 394
+}
