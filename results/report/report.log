@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.8)  4 NOV 2026 11:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian) (preloaded format=pdflatex 2026.7.8)  8 NOV 2026 10:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -653,29 +653,32 @@ File: fig_calib.pdf Graphic file (type pdf)
 Package pdftex.def Info: fig_calib.pdf  used on input line 215.
 (pdftex.def)             Requested size: 279.97786pt x 145.58813pt.
  [10{/usr/share/texmf/fonts/enc/dvips/lm/lm-mathex.enc} <./fig_calib.pdf>] [11]
- [12] [13]
-Underfull \hbox (badness 2409) in paragraph at lines 348--349
-\T1/lmtt/m/n/10 summarize_loco\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 fusion_stu
-dy\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 calibration\T1/lmr/m/n/10 (+20) , \T1/
-lmtt/m/n/10 download_vindr\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 dedup_external
-\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 vindr_report\T1/lmr/m/n/10 (+20) ,
+ [12] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 349--350
+\T1/lmr/m/n/10 (+20) Code in \T1/lmtt/m/n/10 datasets/tb_multi/ \T1/lmr/m/n/10 
+(+20) (\T1/lmtt/m/n/10 standardize\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 dedup\
+T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 embed\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/
+10 masks\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 shortcut_audit\T1/lmr/m/n/10 (+2
+0) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
-\T1/lmtt/m/n/10 loco_448/\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 tuning_summary.
-md\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 artefact_adjusted.md\T1/lmr/m/n/10 (+2
-0) , \T1/lmtt/m/n/10 local_recalibration.md\T1/lmr/m/n/10 (+20) ,
+Underfull \hbox (badness 5908) in paragraph at lines 349--350
+\T1/lmtt/m/n/10 loco_train\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 summarize_loco
+\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 fusion_study\T1/lmr/m/n/10 (+20) , \T1/l
+mtt/m/n/10 calibration\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 download_vindr\T1/
+lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 dedup_external\T1/lmr/m/n/10 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 348--349
-\T1/lmtt/m/n/10 fusion_study_corrected.md\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10
- calibration_final.md\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 audit_protocol.md\T
-1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 loco_vindr/*.json\T1/lmr/m/n/10 (+20) ,
+Underfull \hbox (badness 3168) in paragraph at lines 349--350
+\T1/lmtt/m/n/10 vindr_report\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 vindr_paired
+\T1/lmr/m/n/10 (+20) , \T1/lmtt/m/n/10 ceiling_bootstrap\T1/lmr/m/n/10 (+20) , 
+\T1/lmtt/m/n/10 vindr_label_review\T1/lmr/m/n/10 (+20) ); out-puts in \T1/lmtt/
+m/n/10 results/
  []
 
-[14] [15] (./report.aux)
+[15] (./report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-22>
@@ -684,13 +687,13 @@ Package rerunfilecheck Info: File `report.out' has not changed.
 (rerunfilecheck)             Checksum: D4C0288181CDB6DC6983E37CED79BB6D;2548.
  ) 
 Here is how much of TeX's memory you used:
- 14618 strings out of 475589
- 233084 string characters out of 5782861
+ 14620 strings out of 475589
+ 233104 string characters out of 5782861
  1942975 words of memory out of 5000000
  36222 multiletter control sequences out of 15000+600000
- 640779 words of font info for 213 fonts, out of 8000000 for 9000
+ 640862 words of font info for 214 fonts, out of 8000000 for 9000
  309 hyphenation exceptions out of 8191
- 75i,12n,79p,1717b,616s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,12n,79p,1717b,661s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/share/texmf/fonts/type1/public/lm/lmbx10.pfb></usr/share/texmf/fonts/ty
 pe1/public/lm/lmbx12.pfb></usr/share/texmf/fonts/type1/public/lm/lmbx8.pfb></us
 r/share/texmf/fonts/type1/public/lm/lmbx9.pfb></usr/share/texmf/fonts/type1/pub
@@ -707,7 +710,7 @@ f/fonts/type1/public/lm/lmsy5.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy6
 type1/public/lm/lmsy8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy9.pfb></u
 sr/share/texmf/fonts/type1/public/lm/lmtt10.pfb></usr/share/texmf/fonts/type1/p
 ublic/lm/lmtt9.pfb>
-Output written on report.pdf (15 pages, 3269428 bytes).
+Output written on report.pdf (15 pages, 3270507 bytes).
 PDF statistics:
  603 PDF objects out of 1000 (max. 8388607)
  325 compressed objects within 4 object streams
