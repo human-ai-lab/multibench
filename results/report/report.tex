@@ -22,7 +22,7 @@ Main findings (five seeds, per-backbone tuning on the public folds only): (i) co
 \section{Introduction and goals}
 The study asks which methods improve (a) cross-corpus generalization of CXR TB detection and (b) multimodal fusion. It extends earlier work on Qatar $\rightarrow$ CIDRZ transfer, where lung masking raised CIDRZ zero-shot AUROC of a small VGG from $0.613\pm0.049$ to $0.729\pm0.011$ (seed-average difference $+0.125$, 95\% CI $[+0.030,+0.217]$) by removing non-lung cues such as anonymization boxes present in about 30\% of Qatar TB images versus under 1\% of normals. Here that finding is generalized to four public source corpora with a principled protocol.
 
-\paragraph{Protocol.} \emph{Leave-one-corpus-out:} train on the three other source corpora (plus validation from the held-in corpora), test on the held-out one. For the CIDRZ target all four source corpora are pooled. CIDRZ is never used for method or hyper-parameter selection; hyper-parameters were chosen per backbone on the four public folds only (pre-declared rule, Section~\ref{sec:tuning}). Metric: AUROC with paired-bootstrap 95\% confidence intervals on seed-averaged scores; five seeds per cell for the headline comparison (two seeds for the DG-loss exploration and the 448\,px arm).
+\paragraph{Protocol.} \emph{Leave-one-corpus-out:} train on the three other source corpora (plus validation from the held-in corpora), test on the held-out one. For the CIDRZ target all four source corpora are pooled. CIDRZ is never used for method or hyper-parameter selection; hyper-parameters were chosen per backbone on the four public folds only (pre-declared rule, Section~\ref{sec:tuning}). Metric: AUROC with paired-bootstrap 95\% confidence intervals on seed-averaged scores; five seeds per cell for the headline comparison and the 448\,px arm (two seeds for the DG-loss exploration).
 
 \begin{table}[H]\centering\small
 \begin{tabular}{lcccc|c}\toprule
@@ -134,18 +134,18 @@ ViT sbal (no preprocessing) & .881 & .766 & .711 & .769 & .764 & .782\\\bottomru
 \end{tabular}\caption{Earlier two-seed ViT-B/16 exploration of recipes and DG losses (lr $5\times10^{-5}$; not retuned; ViT code paths were unaffected by the checkpoint bug).}\label{tab:dg}\end{table}
 
 \subsection*{Resolution: RAD-DINO at 448\,px}\label{sec:res448}
-RAD-DINO was trained on a native 448\,px cache (all corpora re-standardized from the originals, CIDRZ from its DICOMs; two seeds, same tuned configuration). Resolution was checked after the artefact audit on purpose: a gain on public folds alone says nothing about transfer.
+RAD-DINO was trained on a native 448\,px cache (all corpora re-standardized from the originals, CIDRZ and VinDr-CXR from their DICOMs; five seeds, same tuned configuration; \texttt{res448\_compare.py}, \texttt{vindr\_448.py}). Resolution was checked after the artefact audit on purpose: a gain on public folds alone says nothing about transfer.
 \begin{table}[H]\centering\small
-\begin{tabular}{lccc}\toprule
-RAD-DINO AUROC & 224\,px & 448\,px & Change\\\midrule
-Qatar & .965 & .971 & $+.006$\\
-NLM & .917 & .951 & $+.034$\\
-TBX11K & .907 & .946 & $+.039$\\
-Pakistan & .815 & .932 & $+.117$\\
-CIDRZ (external) & .820 & .824 & $+.004$\\
-VinDr-CXR (external, weighted, five seeds) & .919 & .966 & $+.047$\\\bottomrule
-\end{tabular}\caption{RAD-DINO at 224 vs 448\,px (two seeds; five seeds for VinDr-CXR). VinDr-CXR: weighted AUROC of the seed-averaged scores; the paired bootstrap difference is $+0.047$ [$+0.037,+0.057$].}\end{table}
-Resolution helps on the public folds and on VinDr-CXR but gives no gain on CIDRZ. The large Pakistan jump cannot be attributed to pathology given that corpus's artefact structure, and we do not treat it as evidence of better transfer. The VinDr gain passes the same check: the artefact-stratified AUROC rises from 0.899 to 0.953 (artefact-only 0.785, 8\% of case--control pairs kept at both resolutions), so it is not explained by the artefact predictor. The five seeds at 448\,px score 0.924--0.965 against 0.886--0.919 at 224\,px, so the gain is not a two-seed accident. At 448\,px an oracle threshold on the seed average reaches 0.98 sensitivity at 70\% specificity [0.96, 0.99] and 0.91 specificity at 90\% sensitivity [0.89, 0.94], and every single seed meets the profile (single seeds 0.93--0.98 and 0.81--0.92); at 224\,px the seed average is marginal (0.91 [0.88, 0.93] and 0.73 [0.66, 0.78]; 71\% of bootstrap resamples meet both targets, and 2 of 5 single seeds). The threshold transferred from the source corpora still gives only 0.61 sensitivity at 0.99 specificity, and a threshold set on 50--400 local cases meets the profile in 27--45\% of draws (4--17\% at 224\,px). VinDr's reference is radiologist reading, so this is a gain in agreement with readers (\texttt{vindr\_448.py}, \texttt{vindr\_eval\_448.md}).
+\begin{tabular}{lcccc}\toprule
+RAD-DINO AUROC & 224\,px & 448\,px & Change & 95\% CI\\\midrule
+Qatar & .974 & .979 & $+.005$ & $[-.000,+.011]$\\
+NLM & .937 & .960 & $+.023$ & $[+.010,+.038]$\\
+TBX11K & .923 & .961 & $+.038$ & $[+.033,+.045]$\\
+Pakistan & .811 & .937 & $+.127$ & $[+.116,+.138]$\\
+CIDRZ (external) & .825 & .828 & $+.002$ & $[-.027,+.029]$\\
+VinDr-CXR (external, weighted) & .919 & .966 & $+.047$ & $[+.037,+.057]$\\\bottomrule
+\end{tabular}\caption{RAD-DINO at 224 vs 448\,px: AUROC of the seed-averaged scores, five seeds each (VinDr-CXR weighted), with the paired-bootstrap 95\% CI of the difference.}\end{table}
+Resolution helps on NLM, TBX11K and VinDr-CXR (CIs exclude 0), is borderline on Qatar, and gives no gain on CIDRZ ($+0.002$, CI spanning 0). The large Pakistan jump cannot be attributed to pathology given that corpus's artefact structure, and we do not treat it as evidence of better transfer. The VinDr gain passes the same check: the artefact-stratified AUROC rises from 0.899 to 0.953 (artefact-only 0.785, 8\% of case--control pairs kept at both resolutions), so it is not explained by the artefact predictor. On VinDr the five seeds at 448\,px score 0.924--0.965 against 0.886--0.919 at 224\,px, so the gain is not a few-seed accident. At 448\,px an oracle threshold on the seed average reaches 0.98 sensitivity at 70\% specificity [0.96, 0.99] and 0.91 specificity at 90\% sensitivity [0.89, 0.94], and every single seed meets the profile (single seeds 0.93--0.98 and 0.81--0.92); at 224\,px the seed average is marginal (0.91 [0.88, 0.93] and 0.73 [0.66, 0.78]; 71\% of bootstrap resamples meet both targets, and 2 of 5 single seeds). The threshold transferred from the source corpora still gives only 0.61 sensitivity at 0.99 specificity, and a threshold set on 50--400 local cases meets the profile in 27--45\% of draws (4--17\% at 224\,px). VinDr's reference is radiologist reading, so this is a gain in agreement with readers (\texttt{vindr\_448.py}, \texttt{vindr\_eval\_448.md}).
 
 \section{Artefact-adjusted AUROC}
 Because artefacts predict labels within corpora, we stratify target cases and controls by predicted-artefact score (silhouette, border and area features; \texttt{datasets/tb\_multi/artefact\_adjust.py}) and average AUROC within strata, with the artefact predictor fit either on the source corpora (src) or by cross-validation within the target (cv; strongest control). \paragraph{Worked example (illustrative numbers, not our data).} Cut the artefact score into three bins. A ``pair'' is one TB image with one non-TB image, so a bin with $n_1$ cases and $n_0$ controls has $n_1 n_0$ pairs.
@@ -286,7 +286,7 @@ xrv-DenseNet121 & 0.79 & 0.52 & .60/.90 & 0.18 & .282 & .67\\\bottomrule
 \begin{itemize}
 \item There are two documented external cohorts. CIDRZ has a microbiological reference but only 60 positives (CIs $\pm$0.04--0.07); VinDr-CXR has 646 positives but its TB labels are radiologist read-outs (a three-reader majority on the training split, a consensus on the test split), so it measures agreement with readers, and its evaluation sample is enriched for TB and re-weighted. An additional public cohort (India CXR set) was rejected because its labels are ``Abnormal'' rather than TB (\texttt{results/tb\_multi\_india\_report.md}); PadChest and NIAID TB Portals were not obtained.
 \item VinDr's ``Tuberculosis'' label may include old or inactive disease, which the source corpora label differently; fused text/audio experts do not apply to VinDr; one within-VinDr near-duplicate was kept; RAD-DINO re-training is not bit-reproducible (its CIDRZ AUROC moved by $-0.019$ and $-0.008$ for the two RAD-DINO variants between the main and the VinDr runs, within the seed standard deviation; the other six configurations reproduced to three decimals).
-\item Tuning used seed 0 on four folds, two of them artefact-prone; gains were small. The 448\,px arm has two seeds on the public corpora and CIDRZ (five on VinDr-CXR). Lesion supervision and DG losses were not re-run with the tuned configuration or five seeds.
+\item Tuning used seed 0 on four folds, two of them artefact-prone; gains were small. Lesion supervision and DG losses were not re-run with the tuned configuration or five seeds.
 \item Qatar and Pakistan labels are partly predictable from artefacts; artefact adjustment is a bound, not a causal fix, and is not identifiable on Pakistan.
 \item Deduplication does not cover heavy crops or flips. Calibration and recalibration were assessed on image-expert scores, not on fused probabilities. The UAR column of the fusion tables thresholds raw scores at 0 and is not meaningful for relw; use AUROC.
 \end{itemize}
@@ -295,7 +295,7 @@ xrv-DenseNet121 & 0.79 & 0.52 & .60/.90 & 0.18 & .282 & .67\\\bottomrule
 \begin{itemize}
 \item Add a larger cohort with microbiological labels (PadChest or NIAID TB Portals; the Kaggle PadChest sample has only 24 images and no TB label, so it cannot serve as a test set).
 \item Have a clinician re-read the VinDr review list (low-scoring positives, high-scoring negatives, two-read positives). For any new target, spot-check labels and count positives before trusting it, then re-run the audit, the artefact adjustment and the recalibration on it (all done for VinDr-CXR except the clinician review).
-\item Extend the 448\,px arm to five seeds on the public corpora and CIDRZ (it has two; VinDr-CXR has five), and test whether MixStyle adds to it.
+\item Test whether MixStyle or lesion supervision adds at 448\,px.
 \end{itemize}
 
 \section{Conclusions and recommendations}
@@ -321,7 +321,7 @@ Each item is tied to a measured result in this report (full version: \texttt{res
 \item \textbf{Fix the tuning protocol before looking at the external target}; report alternative selections.
 \item \textbf{Use $\ge$5 seeds and paired bootstrap CIs}; claim only what excludes zero (all CIDRZ differences include zero).
 \item \textbf{Check checkpoint restore and train/eval parity} (a partial restore moved ResNet50 AUROC by 0.026).
-\item \textbf{Check resolution after the artefact audit} (448\,px: $+0.03$--0.04 on NLM/TBX11K, $+0.004$ on CIDRZ, $+0.047$ on VinDr with five seeds, where it survives adjustment).
+\item \textbf{Check resolution after the artefact audit} (448\,px, five seeds: $+0.02$--0.04 on NLM/TBX11K, $+0.002$ on CIDRZ, $+0.047$ on VinDr where it survives adjustment).
 \item \textbf{Report calibration separately from discrimination} (CIDRZ ECE 0.49 $\rightarrow$ 0.07 after local Platt).
 \item \textbf{Report against the clinical target with an oracle threshold} (WHO triage: 90\%/70\%; CIDRZ ceiling 0.82 sens.\ at 70\% spec.; VinDr RAD-DINO 0.91, with radiologist labels).
 \item \textbf{Keep pre-fix and post-fix runs in separate tables and say which numbers were superseded.}
@@ -358,5 +358,5 @@ Each item is tied to a measured result in this report (full version: \texttt{res
 \end{description}
 
 \section*{Reproducibility}\sloppy
-Code in \texttt{datasets/tb\_multi/} (\texttt{standardize}, \texttt{dedup}, \texttt{embed}, \texttt{masks}, \texttt{shortcut\_audit}, \texttt{loco\_train}, \texttt{summarize\_loco}, \texttt{fusion\_study}, \texttt{calibration}, \texttt{download\_vindr}, \texttt{dedup\_external}, \texttt{vindr\_report}, \texttt{vindr\_paired}, \texttt{ceiling\_bootstrap}, \texttt{vindr\_label\_review}, \texttt{fusion\_who}, \texttt{vindr\_448}); outputs in \texttt{results/} (\texttt{loco\_final/*.json}, \texttt{loco\_final\_summary.md}, \texttt{loco\_448/}, \texttt{tuning\_summary.md}, \texttt{artefact\_adjusted.md}, \texttt{local\_recalibration.md}, \texttt{fusion\_study\_corrected.md}, \texttt{calibration\_final.md}, \texttt{audit\_protocol.md}, \texttt{loco\_vindr/*.json}, \texttt{vindr\_eval.md}, \texttt{vindr\_paired.md}, \texttt{vindr\_selection.csv}, \texttt{ceiling\_bootstrap.md}, \texttt{vindr\_label\_review.md/csv}, \texttt{fusion\_who.md}, \texttt{vindr\_448.md}, \texttt{vindr\_eval\_448.md}, \texttt{loco\_vindr448/}, \texttt{calibration\_vindr.md}, \texttt{loco\_summary\_vindr.md}). Dependencies: \texttt{pip install ".[tb\_multi]"} (CUDA torch installed separately).
+Code in \texttt{datasets/tb\_multi/} (\texttt{standardize}, \texttt{dedup}, \texttt{embed}, \texttt{masks}, \texttt{shortcut\_audit}, \texttt{loco\_train}, \texttt{summarize\_loco}, \texttt{fusion\_study}, \texttt{calibration}, \texttt{download\_vindr}, \texttt{dedup\_external}, \texttt{vindr\_report}, \texttt{vindr\_paired}, \texttt{ceiling\_bootstrap}, \texttt{vindr\_label\_review}, \texttt{fusion\_who}, \texttt{vindr\_448}, \texttt{res448\_compare}); outputs in \texttt{results/} (\texttt{loco\_final/*.json}, \texttt{loco\_final\_summary.md}, \texttt{loco\_448/}, \texttt{tuning\_summary.md}, \texttt{artefact\_adjusted.md}, \texttt{local\_recalibration.md}, \texttt{fusion\_study\_corrected.md}, \texttt{calibration\_final.md}, \texttt{audit\_protocol.md}, \texttt{loco\_vindr/*.json}, \texttt{vindr\_eval.md}, \texttt{vindr\_paired.md}, \texttt{vindr\_selection.csv}, \texttt{ceiling\_bootstrap.md}, \texttt{vindr\_label\_review.md/csv}, \texttt{fusion\_who.md}, \texttt{vindr\_448.md}, \texttt{res448\_compare.md}, \texttt{vindr\_eval\_448.md}, \texttt{loco\_vindr448/}, \texttt{calibration\_vindr.md}, \texttt{loco\_summary\_vindr.md}). Dependencies: \texttt{pip install ".[tb\_multi]"} (CUDA torch installed separately).
 \end{document}

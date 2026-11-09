@@ -1,8 +1,8 @@
 #!/bin/bash
-# usage: run_448.sh <worker> <n_workers> -- RAD-DINO at native 448 px (TB_RES=448 cache), tuned config, seeds 0-1
+# usage: run_448.sh <worker> <n_workers> -- RAD-DINO at native 448 px (TB_RES=448 cache), tuned config, seeds 0-4
 OUT=results/loco_448; mkdir -p $OUT
 export TB_RES=448
-JOBS=(); for seed in 0 1; do for t in qatar nlm tbx11k pakistan cidrz; do JOBS+=("$seed|$t"); done; done
+JOBS=(); for seed in 0 1 2 3 4; do for t in qatar nlm tbx11k pakistan cidrz; do JOBS+=("$seed|$t"); done; done
 w=$1; n=$2
 for i in "${!JOBS[@]}"; do
   [ $((i % n)) -eq $w ] || continue

@@ -14,7 +14,7 @@ Each item states the check, how it is done here, and the measured result that mo
    *Why:* RAD-DINO raw/adjusted: Qatar 0.974/0.935, NLM 0.936/0.898, CIDRZ 0.825/0.816 - the signal survives, by a margin you can see.
 5. **Declare a corpus non-identifiable when artefacts predict the label.** Pakistan: artefact-only AUROC 1.000, 1% of case/control pairs usable.
    Do not report an adjusted number; do not use it as evidence of generalisation.
-   *Why:* its 224->448 px gain (0.815->0.932, `loco_448.log`) cannot be attributed to pathology.
+   *Why:* its 224->448 px gain (0.811->0.937, 5 seeds, `res448_compare.md`) cannot be attributed to pathology.
 6. **Validate labels of every added cohort: spot-check them and count the positives before trusting a new target.** The India cohort was labelled "Abnormal", not TB, and was rejected (`tb_multi_india_report.md`).
    VinDr-CXR labels are radiologist reads, not microbiology: 646 positives (>=2 of 3 reads in train, consensus in test; single-read images excluded), weighted to the release's 3.6% prevalence because the sample is enriched.
    Label audit (`vindr_label_review.py`): positives with all three reads score higher than two-read positives (AUROC 0.946 vs 0.898); the lowest-scoring positives and highest-scoring negatives are listed for a clinician re-read, which has not happened yet.
@@ -25,7 +25,7 @@ Each item states the check, how it is done here, and the measured result that mo
    *Why:* on CIDRZ all backbones are 0.77-0.81 with overlapping CIs; the RAD-DINO advantage (+0.02 to +0.07) holds on public folds, and on VinDr (646 positives) it is +0.032 [+0.018, +0.049] over ViT.
 9. **Verify checkpoint restore and train/eval parity.** Full `state_dict` clone; check that restored weights reproduce the selected-epoch validation score.
    *Why:* a partial restore (only keys matching "vit.encoder"/"head") silently moved ResNet50 0.786->0.812 and xrv 0.784->0.779.
-10. **Check resolution only after the artefact audit.** RAD-DINO 448 px: +0.03-0.04 on NLM/TBX11K, +0.004 on CIDRZ, +0.047 on VinDr (weighted, 5 seeds; `vindr_448.md`).
+10. **Check resolution only after the artefact audit.** RAD-DINO 448 px, 5 seeds: +0.02-0.04 on NLM/TBX11K (CIs exclude 0), +0.002 on CIDRZ (CI -0.027 to +0.029), +0.047 on VinDr (weighted; `res448_compare.md`, `vindr_448.md`).
     Gains on public folds are not evidence of better transfer. The VinDr gain does survive artefact adjustment (stratified AUROC 0.899 -> 0.953, artefact-only 0.785), unlike Pakistan's.
 11. **Report calibration separately from discrimination.** ECE, Brier, slope. RAD-DINO on CIDRZ: raw ECE 0.50, 0.07 after Platt on 50-200 local labels.
 12. **Report against the clinical target, with an oracle threshold.** WHO triage minimum: sensitivity >=90%, specificity >=70%.
