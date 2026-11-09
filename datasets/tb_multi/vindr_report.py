@@ -122,6 +122,7 @@ def main():
     ap.add_argument("--methods", nargs="+", required=True)
     ap.add_argument("--seeds", nargs="+", type=int, default=[0, 1, 2, 3, 4])
     ap.add_argument("--reps", type=int, default=150)
+    ap.add_argument("--dir", default=DIR, help="score directory (results/loco_vindr448 for the 448 px arm)")
     ap.add_argument("--out", default="results/vindr_eval.md")
     args = ap.parse_args()
     _, meta = load_all(None, corpora=ALL)
@@ -147,7 +148,7 @@ def main():
     rng = np.random.default_rng(0)
     summary = {}
     for mth in args.methods:
-        S, J = load(mth, args.seeds)
+        S, J = load(mth, args.seeds, args.dir)
         if not S:
             continue
         sa = np.mean(S, 0)
